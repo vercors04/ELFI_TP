@@ -15,5 +15,6 @@ int main() {
   else if (2==t) printf("Type : Triangles\n");
   file_create(a,b,c,d,n1,n2,t);
 //test
+//test2
 	
 }
