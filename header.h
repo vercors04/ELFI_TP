@@ -2,4 +2,4 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void file_create (int a, int b, int c, int d, int n1, int n2, int t);
+void file_create (double a, double b, double c, double d, int n1, int n2, int t);
