@@ -3,31 +3,31 @@
 void file_create (double a, double b, double c, double d, int n1, int n2, int t){
 	FILE *f = fopen("fichier.txt", "w"); 
 
-  //Nombre de noeuds
+  	//Nombre de noeuds
 	fprintf(f, "%d\n", n1*n2);
 	
 	//Calcul des coordonées
 	double h1 = (b-a)/(n1-1);
 	double h2 = (d-c)/(n2-1);
 
-	for (int j=0 ; j<n2 ; j++){
-		double y=c+j*h2;
-		for (int i=0 ; i<n1 ; i++){
-			fprintf(f, "%lf %lf\n",a+i*h1,y);
+	for (int i=0 ; i<n2 ; i++){
+		double y = c + i*h2;
+		for (int j=0 ; j<n1 ; j++){
+			fprintf(f, "%lf %lf\n",a+j*h1,y);
 		}
 	}
 	
 	//m t p q
-	if (t==1) fprintf(f, "%d %d %d %d\n\n",(n1-1)*(n2-1),t,4,0); //Quadrangles
-	if (t==2) fprintf(f, "%d %d %d %d\n\n",((n1-1)*(n2-1))*2,t,3,0); //Triangles
+	if (t==1) fprintf(f, "%d %d %d %d\n\n", (n1-1)*(n2-1), t, 4, 0); //Quadrangles
+	if (t==2) fprintf(f, "%d %d %d %d\n\n", ((n1-1)*(n2-1))*2, t, 3, 0); //Triangles
 	
 	//Calcul des numéros globaux triangle
 	if (t==2) {
-		for(int j=0; j<n2-1 ;j++){
-			for (int i=1; i<n1; i++) {
-				int indice = i+ j * n1;
-				fprintf (f, "%d %d %d\n",indice+1,indice+n1,indice);
-				fprintf (f, "%d %d %d\n",indice+n1,indice+1,indice+1+n1);
+		for(int i=0; i<n2-1; i++){
+			for(int j=1; j<n1; j++) {
+				int indice = j + i*n1;
+				fprintf(f, "%d %d %d\n", indice+1, indice+n1, indice);
+				fprintf(f, "%d %d %d\n", indice+n1, indice+1, indice+1+n1);
 			}
 		}
 	}
@@ -35,10 +35,10 @@ void file_create (double a, double b, double c, double d, int n1, int n2, int t)
 	//Calcul des numéros globaux quadrangle
 
 	if (t==1) {
-		for(int j=0; j<n2-1 ;j++){
-			for (int i=1; i<n1; i++) {
-					int indice = i+ j * n1;
-					fprintf (f, "%d %d %d %d\n",indice+1,indice+1+n1,indice+n1,indice);
+		for(int i=0; i<n2-1; i++){
+			for(int j=1; j<n1; j++) {
+					int indice = j + i*n1;
+					fprintf(f, "%d %d %d %d\n", indice+1, indice+1+n1, indice+n1, indice);
 				}
 			}
 		}
