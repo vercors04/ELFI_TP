@@ -1,29 +1,27 @@
 #include "header.h"
 
 int main() {
-  int  n1, n2, t, m, q, mode_saisie;
+  int  n1, n2, t, m, q, mode_saisie, nrefdom, nrefcot[4];
   double a, b, c, d;
 
   // Choix du mode d'entree des donnees
   printf("1. Lecture des données dans le fichier : input.txt \n2. Entrée manuelle des données \n");
   scanf("%d",&mode_saisie);
-  mode_saisie = mode_saisie - 1;
 
-  if (!mode_saisie) {
+  if (mode_saisie==1) {
 
     // Ouverture du fichier
     FILE *donnees = fopen("input.txt", "r");
-    // Test du bon deroulement de l'ouverture
-    if (donnees==NULL) {
-      printf("ERREUR : Le fichier n'a pas pu etre ouvert.\n");
-      return 1;
-    }
     // Lecture du fichier et on met dans les var
-    fscanf(donnees, "%lf %lf %lf %lf %d %d %d", &a, &b, &c, &d, &n1, &n2, &t);
+    fscanf(donnees, "%lf %lf %lf %lf %d %d % %d", &a, &b, &c, &d, &n1, &n2, &t, &nrefdom);
+    for (int i = 0; i < 4; i++) {
+        fscanf(donnees, "%d", &nrefcot[i]);
+    }
     // Fermeture du fichier
     fclose(donnees);
+    
   }
-  else {
+  else if (mode_saisie==2) {
 
     printf("Inserez les donnees :\n\nDomaine [a,b]x[c,d] (Entrez les valeures de a b c d) :\n");
     scanf("%lf %lf %lf %lf", &a, &b, &c, &d);
@@ -31,6 +29,12 @@ int main() {
     scanf("%d %d", &n1, &n2);
     printf("\nType des elements a construire (1. Quadrangles - 2. Triangles) : \n");
     scanf("%d", &t);
+    printf("\nNuméro de référence du domaine \n");
+    scanf("%d", &nrefdom);
+    for (int i = 1; i < 5; i++) {
+      printf("\nNuméro de référence du coté %d : \n",i);
+        scanf("%d", &nrefcot[i-1]);
+    }
   }
  
 
@@ -43,12 +47,21 @@ int main() {
   else if (t==2) printf("Type : Triangles\n");
   
 
-
-  maillage(a,b,c,d,n1,n2,t,nrefcot); //Lire le fichier et mettre dans nrefcot les différentes valeurs (tableau de 5 éléments donc)
+//création du maillage
+  maillage(a,b,c,d,n1,n2,t,nrefdom,nrefcot); 
 
   return 0;
 }
 
+/*----------retrait du main---------------- */
+
+ // Test du bon deroulement de l'ouverture
+    // if (donnees==NULL) { 
+    //   printf("ERREUR : Le fichier n'a pas pu etre ouvert.\n");
+    //   return 1;
+    // }
+
+//--Pour moi pas très pertinant, peu de chance qu'on puisse pas ouvrir un fichier--
 
 
 
@@ -64,8 +77,8 @@ int main() {
 	//   printf("ERREUR : pas de type d'elements correctement initialise");
 	//   return 1;
   // }
-
-
   // int *nRefAr_alloc = (int *) calloc(m*q,sizeof(int));
   // int **nRefAr = (int **) malloc(m*sizeof(int*));
   // for(int i=0; i<m; i++) &nRefAr[i] = nRefAr_alloc[i*q];
+
+  //--j'ai fait l'equivalent mais dans la fonction "maillage" (ex creation_fichier), comme ça le main est plus propre et ça reviens en même--

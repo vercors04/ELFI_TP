@@ -1,6 +1,6 @@
 #include "header.h"
 
-void maillage (double a, double b, double c, double d, int n1, int n2, int t, const int *nrefcot){
+void maillage (double a, double b, double c, double d, int n1, int n2, int t,int nrefdom, const int *nrefcot){
 	FILE *f = fopen("fichier.txt", "w"); 
 
   	//Nombre de noeuds
@@ -18,8 +18,17 @@ void maillage (double a, double b, double c, double d, int n1, int n2, int t, co
 	}
 	
 	//m t p q
-	if (t==1) fprintf(f, "%d %d %d %d\n\n", (n1-1)*(n2-1), t, 4, 0); //Quadrangles
-	else if (t==2) fprintf(f, "%d %d %d %d\n\n", ((n1-1)*(n2-1))*2, t, 3, 0); //Triangles
+	int m,q; //obligation des les déclarer pour les utiliser dans le calcul des arrêtes
+	if (t==1) {
+		m=(n1-1)*(n2-1);
+		q=4;
+		printf(f, "%d %d %d %d\n\n", m, t, 4, q); //Quadrangles
+	}
+	else if (t==2){
+		m=2*((n1-1)*(n2-1));
+		q=3;
+	fprintf(f, "%d %d %d %d\n\n", m, t, 3, q); //Triangles
+	} 
 	
 	//Calcul des numéros globaux triangle
 	if (t==2) {
@@ -45,16 +54,28 @@ void maillage (double a, double b, double c, double d, int n1, int n2, int t, co
 		fclose(f);
 
 	//calcul des arrêtes 
+	int *nRefAr_alloc = (int *) malloc(m * q * sizeof(int));
+	int **nRefAr = (int **) malloc(m * sizeof(int *));
 
-	int *nRefAr_alloc = (int *) calloc(m*q,sizeof(int));
-    int **nRefAr = (int **) malloc(m*sizeof(int*));
-    for(int i=0; i<m; i++) &nRefAr[i] = nRefAr_alloc[i*q];
+	for (int i = 0; i < m; i++) {
+		nRefAr[i] = &nRefAr_alloc[i * q];
+	}
 
+	etiqAR(t,n1,n2,nrefdom,nrefcot,m,q,nRefAr);
+	printTab(etiqAR,m,q);
 	// et  apres on récupère le résultat de la fct etiqAR dans un tableau, et on le met dans le fichier. 
     }
 
 		
 void etiqAR (int t, int n1, int n2, int nrefdom, const int *nrefcot, int m, int q, int **nRefAr){
+	//remplissage de tout les elements 
+
+	for (int i = 0; i < m; i++) {
+        for (int j = 0; j < q; j++) {
+            nRefAr[i][j] = nrefdom;
+		}
+	}
+
 	//calcul des arrêtes quadrangle 
 	if (t==1) {
 	//parcours des carrés en haut et en bas du maillage
@@ -63,7 +84,7 @@ void etiqAR (int t, int n1, int n2, int nrefdom, const int *nrefcot, int m, int 
 		nRefAr[m-1-i][1]=nrefcot[2];
 	}
 	//parcours des carrés sur les cotés du maillage
-	for (int i=0; i<m-n1-1; i=i+n1-1){
+	for (int i=0; i<m; i=i+n1-1){
 		nRefAr[i][3]=nrefcot[3];
 		nRefAr[m-1-i][2]=nrefcot[1];
 	}
@@ -77,9 +98,9 @@ void etiqAR (int t, int n1, int n2, int nrefdom, const int *nrefcot, int m, int 
 		nRefAr[m-1-i][2]=nrefcot[2];
 	}
 	//parcours des triangles sur les cotés du maillage A FINIR
-	for (int i=0; i<m-(2*n1-1); i=i+2*(n1-1)){
+	for (int i=0; i<m; i=i+2*(n1-1)){
 		nRefAr[i][1]=nrefcot[3];
-		nRefAr[m-(2*n1-1)-i][1]=nrefcot[1];
+		nRefAr[m-1-i][1]=nrefcot[1];
 	}
 	}
 }
@@ -88,3 +109,11 @@ int lecfima(char *ficmai, int *ptypel, int *pnbtng, float ***pcoord, int *pnbtel
 
 }	
 
+void printTab(int **tab, int m, int q) {
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < q; j++) {
+            printf("%d\t", tab[i][j]);
+        }
+        printf("\n");
+    }
+}
