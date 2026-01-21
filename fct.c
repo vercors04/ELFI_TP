@@ -46,3 +46,16 @@ void file_create (double a, double b, double c, double d, int n1, int n2, int t)
     }
 
 		
+void etiqAR (int t, int n1, int n2, int nrefdom, const int *nrefcot, int m, int q, int **nRefAr){
+	for (int i=1; i<2*(n1-1) ; i=i+2){
+		nRefAr[i][3]=nrefcot[0];
+		nRefAr[m-i][3]=nrefcot[2];
+	}
+	for (int i=0; i<n1-1 ; i=i+2){
+		nRefAr[i][3]=nrefcot[0];
+		nRefAr[m-i][3]=nrefcot[2];
+	}
+
+
+
+}
