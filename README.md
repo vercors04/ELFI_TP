@@ -3,13 +3,13 @@ Projet - Mini bibliothèque Eléments Finis
 
 # Avancement
 
-1. Phase 1 : Maillage (Construction de la triangulation) : *En cours*
-2. Phase 2 :
-  a. Fonctions utilitaires
-  b. Calculs élémentaires
-3. Phase 3 : Assemblage
-4. Phase 4 : Prise en compte de la condition de Dirichlet
-5. Phase 5 : Résolution
+- Phase 1 : Maillage (Construction de la triangulation) : *En cours*
+- Phase 2 :
+  - Fonctions utilitaires
+  - Calculs élémentaires
+- Phase 3 : Assemblage
+- Phase 4 : Prise en compte de la condition de Dirichlet
+- Phase 5 : Résolution
 
 # A savoir
 
