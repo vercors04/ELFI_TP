@@ -2,4 +2,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void file_create (double a, double b, double c, double d, int n1, int n2, int t);
+// Doc
+void file_create (double, double, double, double, int, int, int);
+
+// Doc
+void etiqAR (int, int, int, int, const int *, int, int, int **);
+
+//Doc
+int lecfima(char *, int *, int *, float ***, int *, int ***, int *,int *, int ***);

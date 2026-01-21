@@ -56,6 +56,8 @@ void etiqAR (int t, int n1, int n2, int nrefdom, const int *nrefcot, int m, int 
 		nRefAr[m-i][3]=nrefcot[2];
 	}
 
+int lecfima(char *ficmai, int *ptypel, int *pnbtng, float ***pcoord, int *pnbtel, int ***pngel, int *pnbneel,int *pnbaret, int ***pnRefAr){
 
+}	
 
 }
