@@ -32,18 +32,8 @@ int main() {
     printf("\nType des elements a construire (1. Quadrangles - 2. Triangles) : \n");
     scanf("%d", &t);
   }
-  if (t==1) { //Quadrangles
-	  m = (n1-1)*(n2-1); 
-	  q = 4;
-  }
-  else if (t==2){ //Triangles
-	  m = ((n1-1)*(n2-1))*2;
-	  q = 3;
-  }
-  else {
-	  printf("ERREUR : pas de type d'elements correctement initialise");
-	  return 1;
-  }
+ 
+
 
   // Affichage des donnees
   printf("Domaine : [%lf,%lf]x[%lf,%lf]\n",a,b,c,d);
@@ -52,13 +42,30 @@ int main() {
   if (t==1) printf("Type : Quadrangles\n");
   else if (t==2) printf("Type : Triangles\n");
   
-  int *nRefAr_alloc = (int *) calloc(m*q,sizeof(int));
-  int **nRefAr = (int **) malloc(m*sizeof(int*));
-  for(int i=0; i<m; i++) &nRefAr[i] = nRefAr_alloc[i*q];
 
 
-  file_create(a,b,c,d,n1,n2,m,t,q);
-//fffff
+  maillage(a,b,c,d,n1,n2,t,nrefcot); //Lire le fichier et mettre dans nrefcot les différentes valeurs (tableau de 5 éléments donc)
 
   return 0;
 }
+
+
+
+
+ // if (t==1) { //Quadrangles
+	//   m = (n1-1)*(n2-1); 
+	//   q = 4;
+  // }
+  // else if (t==2){ //Triangles
+	//   m = ((n1-1)*(n2-1))*2;
+	//   q = 3;
+  // }
+  // else {
+	//   printf("ERREUR : pas de type d'elements correctement initialise");
+	//   return 1;
+  // }
+
+
+  // int *nRefAr_alloc = (int *) calloc(m*q,sizeof(int));
+  // int **nRefAr = (int **) malloc(m*sizeof(int*));
+  // for(int i=0; i<m; i++) &nRefAr[i] = nRefAr_alloc[i*q];

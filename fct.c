@@ -1,6 +1,6 @@
 #include "header.h"
 
-void file_create (double a, double b, double c, double d, int n1, int n2, int m, int t){
+void maillage (double a, double b, double c, double d, int n1, int n2, int t, const int *nrefcot){
 	FILE *f = fopen("fichier.txt", "w"); 
 
   	//Nombre de noeuds
@@ -43,6 +43,14 @@ void file_create (double a, double b, double c, double d, int n1, int n2, int m,
 			}
 		}
 		fclose(f);
+
+	//calcul des arrêtes 
+
+	int *nRefAr_alloc = (int *) calloc(m*q,sizeof(int));
+    int **nRefAr = (int **) malloc(m*sizeof(int*));
+    for(int i=0; i<m; i++) &nRefAr[i] = nRefAr_alloc[i*q];
+
+	// et  apres on récupère le résultat de la fct etiqAR dans un tableau, et on le met dans le fichier. 
     }
 
 		
@@ -50,31 +58,30 @@ void etiqAR (int t, int n1, int n2, int nrefdom, const int *nrefcot, int m, int 
 	//calcul des arrêtes quadrangle 
 	if (t==1) {
 	//parcours des carrés en haut et en bas du maillage
-	for (int i=0; i<m/(n2-1); i++){
-		nRefAr[i][4]=nrefcot[0];
-		nRefAr[(m-1)-i][2]=nrefcot[2];
+	for (int i=0; i<n1-1; i++){
+		nRefAr[i][3]=nrefcot[0];
+		nRefAr[m-1-i][1]=nrefcot[2];
 	}
 	//parcours des carrés sur les cotés du maillage
-	for (int i=0; i<m-(n1-1); i=i+n1-1){
+	for (int i=0; i<m-n1-1; i=i+n1-1){
 		nRefAr[i][3]=nrefcot[3];
-		nRefAr[(m-1)-i][2]=nrefcot[1];
+		nRefAr[m-1-i][2]=nrefcot[1];
 	}
 	}
 
 	//calcul des arrêtes triangles
 	if (t==2) {
 	//parcours des triangles en haut et en bas du maillage 2*(m/(n2-1)) est le nombre d'element dans une ligne
-	for (int i=0; i<2*(m/(n2-1)); i=i+2){
-		nRefAr[i][3]=nrefcot[0];
-		nRefAr[(m-1)-i][3]=nrefcot[2];
+	for (int i=0; i<2*(n1-1); i=i+2){
+		nRefAr[i][2]=nrefcot[0];
+		nRefAr[m-1-i][2]=nrefcot[2];
 	}
 	//parcours des triangles sur les cotés du maillage A FINIR
-	for (int i=0; i<m-(n1-1); i=i+n1-1){
-		nRefAr[i][3]=nrefcot[3];
-		nRefAr[(m-1)-i][2]=nrefcot[1];
+	for (int i=0; i<m-(2*n1-1); i=i+2*(n1-1)){
+		nRefAr[i][1]=nrefcot[3];
+		nRefAr[m-(2*n1-1)-i][1]=nrefcot[1];
 	}
 	}
-	//testtetstetsS
 }
 
 int lecfima(char *ficmai, int *ptypel, int *pnbtng, float ***pcoord, int *pnbtel, int ***pngel, int *pnbneel,int *pnbaret, int ***pnRefAr){

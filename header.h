@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 // Doc
-void file_create (double, double, double, double, int, int, int, const *int);
+void maillage (double, double, double, double, int, int, int, const *int); // a changer 
 
 // Doc
 void etiqAR (int, int, int, int, const int *, int, int, int **);
