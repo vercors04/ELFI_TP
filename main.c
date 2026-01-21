@@ -1,12 +1,11 @@
 #include "header.h"
 
 int main() {
-  int  n1, n2, t;
+  int  n1, n2, t, m, q, mode_saisie;
   double a, b, c, d;
 
   // Choix du mode d'entree des donnees
   printf("1. Lecture des données dans le fichier : input.txt \n2. Entrée manuelle des données \n");
-  int mode_saisie = 2;
   scanf("%d",&mode_saisie);
   mode_saisie = mode_saisie - 1;
 
@@ -33,7 +32,18 @@ int main() {
     printf("\nType des elements a construire (1. Quadrangles - 2. Triangles) : \n");
     scanf("%d", &t);
   }
-
+  if (t==1) { //Quadrangles
+	  m = (n1-1)*(n2-1); 
+	  q = 4;
+  }
+  else if (t==2){ //Triangles
+	  m = ((n1-1)*(n2-1))*2;
+	  q = 3;
+  }
+  else {
+	  printf("ERREUR : pas de type d'elements correctement initialise");
+	  return 1;
+  }
 
   // Affichage des donnees
   printf("Domaine : [%lf,%lf]x[%lf,%lf]\n",a,b,c,d);
@@ -41,12 +51,13 @@ int main() {
   printf("Nombres de points n2 = %d\n",n2);
   if (t==1) printf("Type : Quadrangles\n");
   else if (t==2) printf("Type : Triangles\n");
-  else {
-    printf("ERREUR : pas de type d'elements correctement initialise");
-    return 1;
-  }
+  
+  int *nRefAr_alloc = (int *) calloc(m*q,sizeof(int));
+  int **nRefAr = (int **) malloc(m*sizeof(int*));
+  for(int i=0; i<m; i++) &nRefAr[i] = nRefAr_alloc[i*q];
 
-  file_create(a,b,c,d,n1,n2,t);
+
+  file_create(a,b,c,d,n1,n2,m,t,q);
 
 
   return 0;

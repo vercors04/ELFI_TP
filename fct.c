@@ -1,6 +1,6 @@
 #include "header.h"
 
-void file_create (double a, double b, double c, double d, int n1, int n2, int t){
+void file_create (double a, double b, double c, double d, int n1, int n2, int m, int t){
 	FILE *f = fopen("fichier.txt", "w"); 
 
   	//Nombre de noeuds
@@ -19,7 +19,7 @@ void file_create (double a, double b, double c, double d, int n1, int n2, int t)
 	
 	//m t p q
 	if (t==1) fprintf(f, "%d %d %d %d\n\n", (n1-1)*(n2-1), t, 4, 0); //Quadrangles
-	if (t==2) fprintf(f, "%d %d %d %d\n\n", ((n1-1)*(n2-1))*2, t, 3, 0); //Triangles
+	else if (t==2) fprintf(f, "%d %d %d %d\n\n", ((n1-1)*(n2-1))*2, t, 3, 0); //Triangles
 	
 	//Calcul des numéros globaux triangle
 	if (t==2) {

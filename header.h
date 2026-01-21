@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 // Doc
-void file_create (double, double, double, double, int, int, int);
+void file_create (double, double, double, double, int, int, int, int, int);
 
 // Doc
 void etiqAR (int, int, int, int, const int *, int, int, int **);
