@@ -13,3 +13,4 @@ int lecfima(char *, int *, int *, float ***, int *, int ***, int *,int *, int **
 
 
 void printTab(int **tab, int m, int q);//a enlever juste pr test
+void print_nrefcot(const int *nrefcot);
