@@ -5,19 +5,16 @@
 // Doc
 void maillage (double, double, double, double, int, int, int, int, const int *); 
 
-// etiqAr(int typel, int n1, int n2, int nrefdom, 
-// 		const int *nrefcot, int nbtel, int nbaret, int **nRefAr)
-// ----------------------------------------------------------------------//
-//Effectation d'un numero de reference a chaque arete
-// Entrees :
-// typel : type des elements a construire (int)
-// n1 & n2 : nombre de points sur les cotes 1 et 2 (int)
-// nrefdom : numero de reference associe au domaine (int)
-// nrefcot : numero de reference associe aux cotes (const int *)
-// nbtel : nombre d'elements du maillage (int)
-// nbaret : nombre d'aretes par element (int)
-// nRefAr : tableau contenant le numero de reference de chaque arete (int **)
-void etiqAr (int, int, int, int, const int *, int, int, int **);
+/* Affectation d'un numero de reference a chaque arete :
+ * param typel : type des elements a construire 
+ * param n1 & n2 : nombre de points sur les cotes 1 et 2 
+ * param nrefdom : numero de reference associe au domaine 
+ * param nrefcot : numero de reference associe aux cotes 
+ * param nbtel : nombre d'elements du maillage 
+ * param nbaret : nombre d'aretes par element 
+ * param nRefAr : tableau contenant le numero de reference de chaque arete - ce qui est modifie dans la fonction 
+*/
+void etiqAr (int typel, int n1, int n2, int nrefdom, const int *nrefcot, int nbtel, int nbaret, int **nRefAr);
 
 //Doc
 int lecfima(char *, int *, int *, float ***, int *, int ***, int *,int *, int ***);
