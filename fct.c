@@ -22,12 +22,12 @@ void maillage (double a, double b, double c, double d, int n1, int n2, int t,int
 	if (t==1) {
 		m=(n1-1)*(n2-1);
 		q=4;
-		printf(f, "%d %d %d %d\n\n", m, t, 4, q); //Quadrangles
+		fprintf(f, "%d %d %d %d\n\n", m, t, 4, q); //Quadrangles
 	}
 	else if (t==2){
 		m=2*((n1-1)*(n2-1));
 		q=3;
-	fprintf(f, "%d %d %d %d\n\n", m, t, 3, q); //Triangles
+		fprintf(f, "%d %d %d %d\n\n", m, t, 3, q); //Triangles
 	} 
 	
 	//Calcul des numéros globaux triangle
@@ -61,9 +61,18 @@ void maillage (double a, double b, double c, double d, int n1, int n2, int t,int
 		nRefAr[i] = &nRefAr_alloc[i * q];
 	}
 
-	etiqAR(t,n1,n2,nrefdom,nrefcot,m,q,nRefAr);
-	printTab(etiqAR,m,q);
-	// et  apres on récupère le résultat de la fct etiqAR dans un tableau, et on le met dans le fichier. 
+	etiqAr(t,n1,n2,nrefdom,nrefcot,m,q,nRefAr);
+
+
+	//test des arrêtes
+	printf("\nmatrice des arrêtes : \n"); //PAS BON
+	printTab(nRefAr,m,q);
+
+	printf("\n\nnrefdom : %d\n\n", nrefdom);
+
+	printf("\nnrefcot :\n");
+	print_nrefcot(nrefcot);
+	// et  apres on récupère le résultat de la fct etiqAR dans un tableau, et on le met dans le fichier.
     }
 
 		
@@ -71,7 +80,7 @@ void etiqAr (int t, int n1, int n2, int nrefdom, const int *nrefcot, int m, int 
 	//remplissage de tout les elements 
 
 	for (int i = 0; i < m; i++) {
-        for (int j = 0; j < q; j++) {
+    for (int j = 0; j < q; j++) {
             nRefAr[i][j] = nrefdom;
 		}
 	}
@@ -109,6 +118,8 @@ int lecfima(char *ficmai, int *ptypel, int *pnbtng, float ***pcoord, int *pnbtel
 
 }	
 
+
+//juste pour vérifier les matrices/vect - temporaire
 void printTab(int **tab, int m, int q) {
     for (int i = 0; i < m; i++) {
         for (int j = 0; j < q; j++) {
@@ -116,4 +127,11 @@ void printTab(int **tab, int m, int q) {
         }
         printf("\n");
     }
+}
+
+
+void print_nrefcot(const int *nrefcot)
+{
+    for (int i = 0; i < 4; i++)
+        printf("%d\n", nrefcot[i]);
 }

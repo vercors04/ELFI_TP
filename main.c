@@ -13,7 +13,7 @@ int main() {
     // Ouverture du fichier
     FILE *donnees = fopen("input.txt", "r");
     // Lecture du fichier et on met dans les var
-    fscanf(donnees, "%lf %lf %lf %lf %d %d % %d", &a, &b, &c, &d, &n1, &n2, &t, &nrefdom);
+    fscanf(donnees, "%lf %lf %lf %lf %d %d %d %d", &a, &b, &c, &d, &n1, &n2, &t, &nrefdom);
     for (int i = 0; i < 4; i++) {
         fscanf(donnees, "%d", &nrefcot[i]);
     }
