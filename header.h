@@ -16,8 +16,18 @@ void maillage (double, double, double, double, int, int, int, int, const int *);
 */
 void etiqAr (int typel, int n1, int n2, int nrefdom, const int *nrefcot, int nbtel, int nbaret, int **nRefAr);
 
-//Doc
-int lecfima(char *, int *, int *, float ***, int *, int ***, int *,int *, int ***);
+/* Lecture du fichier ficmai & allocation de memoire, remplissage des tableaux : coord, ngnel et nRefAr
+ * param ficmai : fichier lu par la fonction
+ * param ptypel : pointeur vers le type des elements du maillage
+ * param pnbtng : pointeur vers le nombre de noeuds geometriques
+ * param pcoord : pointeur vers les coordonnees des noeuds geometriques
+ * param pnbtel : pointeur vers le nombre d'elements du maillage
+ * param pngnel : pointeur vers les numeros globaux des noeuds des elements
+ * param pnbneel : pointeur vers le nombre de noeuds geometriques par element
+ * param pnbaret : pointeur vers le nombre d'aretes par element
+ * param pnRefAr : pointeur vers les numeros de reference associes aux aretes
+ */
+int lecfima(char *ficmai, int *ptypel, int *pnbtng, float ***pcoord, int *pnbtel, int ***pngnel, int *pnbneel, int *pnbaret, int ***pnRefAr);
 
 
 void printTab(int **tab, int m, int q);//a enlever juste pr test

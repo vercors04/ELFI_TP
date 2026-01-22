@@ -12,6 +12,11 @@ int main() {
 
     // Ouverture du fichier
     FILE *donnees = fopen("input.txt", "r");
+    // Test du bon deroulement de l'ouverture
+    if (donnees==NULL) { 
+      printf("ERREUR : Le fichier n'a pas pu etre ouvert.\n");
+      return 1;
+    }
     // Lecture du fichier et on met dans les var
     fscanf(donnees, "%lf %lf %lf %lf %d %d %d %d", &a, &b, &c, &d, &n1, &n2, &t, &nrefdom);
     for (int i = 0; i < 4; i++) {
@@ -33,7 +38,7 @@ int main() {
     scanf("%d", &nrefdom);
     for (int i = 1; i < 5; i++) {
       printf("\nNuméro de référence du coté %d : \n",i);
-        scanf("%d", &nrefcot[i-1]);
+      scanf("%d", &nrefcot[i-1]);
     }
   }
  
@@ -54,16 +59,6 @@ int main() {
 }
 
 /*----------retrait du main---------------- */
-
- // Test du bon deroulement de l'ouverture
-    // if (donnees==NULL) { 
-    //   printf("ERREUR : Le fichier n'a pas pu etre ouvert.\n");
-    //   return 1;
-    // }
-
-//--Pour moi pas très pertinant, peu de chance qu'on puisse pas ouvrir un fichier--
-
-
 
  // if (t==1) { //Quadrangles
 	//   m = (n1-1)*(n2-1); 

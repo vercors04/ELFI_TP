@@ -3,7 +3,7 @@
 void maillage (double a, double b, double c, double d, int n1, int n2, int t,int nrefdom, const int *nrefcot){
 	FILE *f = fopen("fichier.txt", "w"); 
 
-  	//Nombre de noeuds
+  //Nombre de noeuds
 	fprintf(f, "%d\n", n1*n2);
 	
 	//Calcul des coordonées
