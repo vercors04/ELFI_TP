@@ -67,7 +67,7 @@ void maillage (double a, double b, double c, double d, int n1, int n2, int t,int
     }
 
 		
-void etiqAR (int t, int n1, int n2, int nrefdom, const int *nrefcot, int m, int q, int **nRefAr){
+void etiqAr (int t, int n1, int n2, int nrefdom, const int *nrefcot, int m, int q, int **nRefAr){
 	//remplissage de tout les elements 
 
 	for (int i = 0; i < m; i++) {
