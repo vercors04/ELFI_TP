@@ -115,7 +115,23 @@ void etiqAr (int t, int n1, int n2, int nrefdom, const int *nrefcot, int m, int 
 }
 
 int lecfima(char *ficmai, int *ptypel, int *pnbtng, float ***pcoord, int *pnbtel, int ***pngel, int *pnbneel,int *pnbaret, int ***pnRefAr){
+	// Recuperation de n
+	fscan(ficmai, "%d", &pnbtng);
 
+	FILE *f = fopen("verif_lecfima.txt", "w"); 
+	fprintf(f, "%d\n",pnbtng);
+	fclose(f);
+
+/*
+	// Allocation tableau coord
+	pcoord = (float *)  malloc(2*pnbtng*sizeof(float); 
+	// Recuperation des coordonnees des noeuds
+	for (int i=0; i<n; i++){
+		fscan(ficmai, "%lf %lf", pcoord[i][0], pcoord[i][0]);
+	}
+	// Recuperation de m t p q
+	fscan(ficmai,"%d %d %d %d", &pnbtel, &ptypel, &pnbneel, &pnbaret);
+*/
 }	
 
 
