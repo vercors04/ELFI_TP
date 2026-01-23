@@ -118,17 +118,18 @@ int lecfima(char *ficmai, int *ptypel, int *pnbtng, float ***pcoord, int *pnbtel
 	FILE *pfichier_maillage = fopen(ficmai,"r");
 	// Recuperation de n
 	fscanf(pfichier_maillage, "%d\n", &pnbtng);
-/*
 	// Allocation tableau coord
-	float coord_alloc = (float *) malloc(2*pnbtng*sizeof(float));
-	pcoord = (float **)  malloc(pnbtng*sizeof(float*));
-	for (int i = 0; i < pnbtng; i++) pcoord = &coordalloc[2*i];
+  int nb=2;
+	float *coord_alloc = (float *) malloc(*pnbtng*2*sizeof(float));
+	*pcoord = (float **)  malloc(*pnbtng*sizeof(float*));
+	for (int i = 0; i < *pnbtng; i++) **pcoord = &coord_alloc[2*i];
 	
+
 	// Recuperation des coordonnees des noeuds
-	for (int i=0; i<n; i++){
-		fscan(ficmai, "%lf %lf", pcoord[i][0], pcoord[i][0]);
+	for (int i=0; i<*pnbtng; i++){
+		fscanf(pfichier_maillage, "%lf %lf", pcoord[i][0], pcoord[i][0]);
 	}
-*/
+
 	// Recuperation de m t p q
 	//fscanf(pfichier_maillage, "%d %d %d %d\n", &pnbtel, &ptypel, &pnbneel, &pnbaret);
 

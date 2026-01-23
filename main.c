@@ -51,7 +51,7 @@ int main() {
   if (t==1) printf("Type : Quadrangles\n");
   else if (t==2) printf("Type : Triangles\n");
  
-  // A remettre au propre, deplacer de la fct maillage vers main
+  // A remettre au propre, a retirer de la fct maillage
   if (t==1) {
 	  m=(n1-1)*(n2-1);
   	  q=4;
