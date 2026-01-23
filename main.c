@@ -72,17 +72,12 @@ int main() {
   maillage(a,b,c,d,n1,n2,t,nrefdom,nrefcot); 
   
   // Lecture du maillage
-  FILE *pfichier_maillage = fopen("fichier.txt","r");
-  if (pfichier_maillage==NULL){ 
-      printf("ERREUR : Le fichier n'a pas pu etre ouvert.\n");
-      return 1;
-  }
   char *nom_fichier_maillage="fichier.txt";
   int typel, nbtng, nbtel, nbneel, nbaret;
-  float coord[n1*n2][2], ngnel[m][q];
-  lecfima(nom_fichier_maillage, &typel, &nbtng, coord[2], &nbtel, ngnel[m][q], &nbneel, &nbaret, nRefAr[m][q]);
+  float **coord;
+  int **ngnel;
+  lecfima(nom_fichier_maillage, &typel, &nbtng, &coord, &nbtel, &ngnel, &nbneel, &nbaret, &nRefAr);
 
-  fclose(fichier_maillage);
 
 
 

@@ -115,9 +115,13 @@ void etiqAr (int t, int n1, int n2, int nrefdom, const int *nrefcot, int m, int 
 }
 
 int lecfima(char *ficmai, int *ptypel, int *pnbtng, float ***pcoord, int *pnbtel, int ***pngel, int *pnbneel,int *pnbaret, int ***pnRefAr){
+	FILE *pfichier_maillage = fopen(ficmai,"r");
 	// Recuperation de n
-	fscan(ficmai, "%d", &pnbtng);
+	fscanf(pfichier_maillage, "%d", &pnbtng);
+	
 
+	fclose(pfichier_maillage);
+	// Validation de la fonction
 	FILE *f = fopen("verif_lecfima.txt", "w"); 
 	fprintf(f, "%d\n",pnbtng);
 	fclose(f);
