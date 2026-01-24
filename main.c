@@ -78,8 +78,13 @@ int main() {
   int **ngnel;
   lecfima(nom_fichier_maillage, &typel, &nbtng, &coord, &nbtel, &ngnel, &nbneel, &nbaret, &nRefAr);
 
+  printf("coord : (%lf,%lf)\n",coord[0][0],coord[0][1]);
 
-
+ 
+  for (int i=0; i<nbtng;i++) {
+    free(coord[i]);
+  }
+  free(coord);
 
   return 0;
 }

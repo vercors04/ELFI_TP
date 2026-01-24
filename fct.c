@@ -116,20 +116,24 @@ void etiqAr (int t, int n1, int n2, int nrefdom, const int *nrefcot, int m, int 
 
 int lecfima(char *ficmai, int *ptypel, int *pnbtng, float ***pcoord, int *pnbtel, int ***pngel, int *pnbneel,int *pnbaret, int ***pnRefAr){
 	FILE *pfichier_maillage = fopen(ficmai,"r");
+  // Test du bon deroulement de l'ouverture
+    if (pfichier_maillage==NULL) { 
+      printf("ERREUR : Le fichier n'a pas pu etre ouvert.\n");
+      return 1;
+    }
 	// Recuperation de n
-	fscanf(pfichier_maillage, "%d\n", &pnbtng);
+	fscanf(pfichier_maillage, "%d\n", pnbtng);
 	// Allocation tableau coord
-  int nb=2;
-	float *coord_alloc = (float *) malloc(*pnbtng*2*sizeof(float));
-	*pcoord = (float **)  malloc(*pnbtng*sizeof(float*));
-	for (int i = 0; i < *pnbtng; i++) **pcoord = &coord_alloc[2*i];
-	
-
+	*pcoord = (float **)  malloc(*pnbtng * sizeof(float *));
+	for (int i = 0; i < *pnbtng; i++) (*pcoord)[i] = malloc(2 * sizeof(float));
+  printf("nbtng = %d\n",*pnbtng);
+  //printf("coord : (%lf,%lf)\n",*pcoord[0][*pnbtng-1],*pcoord[1][*pnbtng-1]);
+/*
 	// Recuperation des coordonnees des noeuds
 	for (int i=0; i<*pnbtng; i++){
-		fscanf(pfichier_maillage, "%lf %lf", pcoord[i][0], pcoord[i][0]);
+		fscanf(pfichier_maillage, "%lf %lf", **pcoord[i][0], **pcoord[i][0]);
 	}
-
+*/
 	// Recuperation de m t p q
 	//fscanf(pfichier_maillage, "%d %d %d %d\n", &pnbtel, &ptypel, &pnbneel, &pnbaret);
 
@@ -137,7 +141,12 @@ int lecfima(char *ficmai, int *ptypel, int *pnbtng, float ***pcoord, int *pnbtel
 	fclose(pfichier_maillage);
 	// Validation de la fonction
 	FILE *f = fopen("verif_lecfima.txt", "w"); 
-	fprintf(f, "%d\n",pnbtng);
+	// Test du bon deroulement de l'ouverture
+  if (f==NULL) { 
+    printf("ERREUR : Le fichier n'a pas pu etre ouvert.\n");
+    return 1;
+    }
+  fprintf(f, "%d\n",*pnbtng);
 	fclose(f);
 
 /*
