@@ -67,24 +67,23 @@ int main() {
   for (int i = 0; i < m; i++) {	
 	  nRefAr[i] = &nRefAr_alloc[i * q];
   }
-  
+ 
   // Création du maillage
   maillage(a,b,c,d,n1,n2,t,nrefdom,nrefcot); 
-  
+ 
   // Lecture du maillage
   char *nom_fichier_maillage="fichier.txt";
   int typel, nbtng, nbtel, nbneel, nbaret;
   float **coord;
   int **ngnel;
   lecfima(nom_fichier_maillage, &typel, &nbtng, &coord, &nbtel, &ngnel, &nbneel, &nbaret, &nRefAr);
-
-  printf("coord : (%lf,%lf)\n",coord[0][0],coord[0][1]);
-
  
-  for (int i=0; i<nbtng;i++) {
-    free(coord[i]);
-  }
+  // Liberation de la memoire
+  free(coord[0]);
   free(coord);
+  free(ngnel[0]);
+  free(ngnel);
+
 
   return 0;
 }

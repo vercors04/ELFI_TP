@@ -22,12 +22,12 @@ void maillage (double a, double b, double c, double d, int n1, int n2, int t,int
 	if (t==1) {
 		m=(n1-1)*(n2-1);
 		q=4;
-		fprintf(f, "%d %d %d %d\n\n", m, t, 4, q); //Quadrangles
+		fprintf(f, "%d %d %d %d\n", m, t, 4, q); //Quadrangles
 	}
 	else if (t==2){
 		m=2*((n1-1)*(n2-1));
 		q=3;
-		fprintf(f, "%d %d %d %d\n\n", m, t, 3, q); //Triangles
+		fprintf(f, "%d %d %d %d\n", m, t, 3, q); //Triangles
 	} 
 	
 	//Calcul des numéros globaux triangle
@@ -114,46 +114,80 @@ void etiqAr (int t, int n1, int n2, int nrefdom, const int *nrefcot, int m, int 
 	}
 }
 
-int lecfima(char *ficmai, int *ptypel, int *pnbtng, float ***pcoord, int *pnbtel, int ***pngel, int *pnbneel,int *pnbaret, int ***pnRefAr){
-	FILE *pfichier_maillage = fopen(ficmai,"r");
+int lecfima(char *ficmai, int *ptypel, int *pnbtng, float ***pcoord, int *pnbtel, int ***pngnel, int *pnbneel,int *pnbaret, int ***pnRefAr){
+  // Ouverture du fichier de maillage à lire
+  FILE *pfichier_maillage = fopen(ficmai,"r");
   // Test du bon deroulement de l'ouverture
     if (pfichier_maillage==NULL) { 
       printf("ERREUR : Le fichier n'a pas pu etre ouvert.\n");
       return 1;
     }
+
 	// Recuperation de n
 	fscanf(pfichier_maillage, "%d\n", pnbtng);
-	// Allocation tableau coord
-	*pcoord = (float **)  malloc(*pnbtng * sizeof(float *));
-	for (int i = 0; i < *pnbtng; i++) (*pcoord)[i] = malloc(2 * sizeof(float));
-  printf("nbtng = %d\n",*pnbtng);
-  //printf("coord : (%lf,%lf)\n",*pcoord[0][*pnbtng-1],*pcoord[1][*pnbtng-1]);
-/*
-	// Recuperation des coordonnees des noeuds
-	for (int i=0; i<*pnbtng; i++){
-		fscanf(pfichier_maillage, "%lf %lf", **pcoord[i][0], **pcoord[i][0]);
-	}
-*/
-	// Recuperation de m t p q
-	//fscanf(pfichier_maillage, "%d %d %d %d\n", &pnbtel, &ptypel, &pnbneel, &pnbaret);
 
-	
+	// Allocation tableau coord
+  float *adcoord_Alloc = (float *) malloc((*pnbtng)*2*sizeof(float)); 
+  float **coord = (float **) malloc((*pnbtng)*sizeof(float*));
+  for(int i=0;i<*pnbtng;i++) coord[i] = &(adcoord_Alloc[2*i]);
+  *pcoord = coord;
+  // Recuperation des coordonnees des noeuds
+	for (int i=0; i<*pnbtng; i++){
+    fscanf(pfichier_maillage, "%f %f\n", &coord[i][0], &coord[i][1]);
+	}
+
+	// Recuperation de m t p q
+	fscanf(pfichier_maillage, "%d %d %d %d\n", pnbtel, ptypel, pnbneel, pnbaret);
+
+	// Allocation tableau ngel
+  int *adngnel_Alloc = (int *) malloc((*pnbtel)*(*pnbneel)*sizeof(int)); 
+  int **ngnel = (int **) malloc((*pnbtel)*sizeof(int*));
+  for(int i=0;i<*pnbtng;i++) ngnel[i] = &(adngnel_Alloc[(*pnbneel)*i]);
+  *pngnel = ngnel;
+  // Recuperation des numeros globaux et numeros de reference
+  for (int i=0;i<*pnbtel;i++) {
+    for (int j=0;j<*pnbneel;j++) {
+      fscanf(pfichier_maillage, "%d",&ngnel[i][j]);
+    }
+    /* En attente de l'implémentation des num de reference
+    for (int j=0;j<*pnbneel;j++) {
+      fscanf(pfichier_maillage, "%d",);
+    }
+    */
+    fscanf(pfichier_maillage, "\n");
+  }
+
 	fclose(pfichier_maillage);
+
 	// Validation de la fonction
-	FILE *f = fopen("verif_lecfima.txt", "w"); 
+	FILE *verif = fopen("verif_lecfima.txt", "w"); 
 	// Test du bon deroulement de l'ouverture
-  if (f==NULL) { 
+  if (verif==NULL) { 
     printf("ERREUR : Le fichier n'a pas pu etre ouvert.\n");
     return 1;
     }
-  fprintf(f, "%d\n",*pnbtng);
-	fclose(f);
 
-/*
+  fprintf(verif, "%d\n",*pnbtng);
 
-	// Recuperation de m t p q
-	fscan(ficmai,"%d %d %d %d", &pnbtel, &ptypel, &pnbneel, &pnbaret);
-*/
+  for (int i=0; i<*pnbtng; i++){
+    fprintf(verif, "%f %f\n", coord[i][0], coord[i][1]);
+	}
+
+	fprintf(verif, "%d %d %d %d\n", *pnbtel, *ptypel, *pnbneel, *pnbaret);
+
+  for (int i=0;i<*pnbtel;i++) {
+    for (int j=0;j<*pnbneel;j++) {
+      fprintf(verif, "%d ",ngnel[i][j]);
+    }
+    /* En attente de l'implémentation des num de reference
+    for (int j=0;j<*pnbneel;j++) {
+      fscanf(pfichier_maillage, "%d",);
+    }
+    */
+    fprintf(verif, "\n");
+  }
+	fclose(verif);
+
 }	
 
 
@@ -166,7 +200,14 @@ void printTab(int **tab, int m, int q) {
         printf("\n");
     }
 }
-
+void printTabf(float **tab, int m, int q) {
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < q; j++) {
+            printf("%lf\t", tab[i][j]);
+        }
+        printf("\n");
+    }
+}
 
 void print_nrefcot(const int *nrefcot)
 {

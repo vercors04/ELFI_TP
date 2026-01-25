@@ -31,4 +31,5 @@ int lecfima(char *ficmai, int *ptypel, int *pnbtng, float ***pcoord, int *pnbtel
 
 
 void printTab(int **tab, int m, int q);//a enlever juste pr test
+void printTabf(float **tab, int m, int q);//a enlever juste pr test
 void print_nrefcot(const int *nrefcot);
