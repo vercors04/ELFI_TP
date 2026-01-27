@@ -1,6 +1,16 @@
 #include "header.h"
 
-void maillage (double a, double b, double c, double d, int n1, int n2, int t,int nrefdom, const int *nrefcot){
+int type_element(int t, int n1, int n2, int *m, int *q, int *p){
+  switch (t) {
+    case 1: *m=(n1-1)*(n2-1); *q=4; *p=4; break; // Quadrangles
+    case 2: *m=2*((n1-1)*(n2-1)); *q=3; *p=3; break; // Triangles
+    default: printf("ERREUR : Cas possibles : \n t=1 : Quadrangles\n t=2 : Triangles");return 1;
+  }
+
+  return 0;
+}
+
+void maillage (double a, double b, double c, double d, int n1, int n2, int m, int t, int q, int p,int nrefdom, const int *nrefcot){
 	FILE *f = fopen("fichier.txt", "w"); 
 
   //Nombre de noeuds
@@ -18,17 +28,7 @@ void maillage (double a, double b, double c, double d, int n1, int n2, int t,int
 	}
 	
 	//m t p q
-	int m,q; //obligation des les déclarer pour les utiliser dans le calcul des arrêtes
-	if (t==1) {
-		m=(n1-1)*(n2-1);
-		q=4;
-		fprintf(f, "%d %d %d %d\n", m, t, 4, q); //Quadrangles
-	}
-	else if (t==2){
-		m=2*((n1-1)*(n2-1));
-		q=3;
-		fprintf(f, "%d %d %d %d\n", m, t, 3, q); //Triangles
-	} 
+	fprintf(f, "%d %d %d %d\n", m, t, p, q); //Quadrangles
 	
 	//Calcul des numéros globaux triangle
 	if (t==2) {
@@ -42,7 +42,6 @@ void maillage (double a, double b, double c, double d, int n1, int n2, int t,int
 	}
 
 	//Calcul des numéros globaux quadrangle
-
 	if (t==1) {
 		for(int i=0; i<n2-1; i++){
 			for(int j=1; j<n1; j++) {
@@ -53,6 +52,7 @@ void maillage (double a, double b, double c, double d, int n1, int n2, int t,int
 		}
 		fclose(f);
 
+  // Doit etre fait dans le main
 	//calcul des arrêtes 
 	int *nRefAr_alloc = (int *) malloc(m * q * sizeof(int));
 	int **nRefAr = (int **) malloc(m * sizeof(int *));
@@ -73,9 +73,8 @@ void maillage (double a, double b, double c, double d, int n1, int n2, int t,int
 	printf("\nnrefcot :\n");
 	print_nrefcot(nrefcot);
 	// et  apres on récupère le résultat de la fct etiqAR dans un tableau, et on le met dans le fichier.
-    }
+ }
 
-		
 void etiqAr (int t, int n1, int n2, int nrefdom, const int *nrefcot, int m, int q, int **nRefAr){
 	//remplissage de tout les elements 
 

@@ -1,7 +1,7 @@
 #include "header.h"
 
 int main() {
-  int  n1, n2, t, m, q, mode_saisie, nrefdom, nrefcot[4];
+  int  n1, n2, m, t, p, q, mode_saisie, nrefdom, nrefcot[4];
   double a, b, c, d;
 
   // Choix du mode d'entree des donnees
@@ -50,15 +50,11 @@ int main() {
   printf("Nombres de points n2 = %d\n",n2);
   if (t==1) printf("Type : Quadrangles\n");
   else if (t==2) printf("Type : Triangles\n");
- 
-  // A remettre au propre, a retirer de la fct maillage
-  if (t==1) {
-	  m=(n1-1)*(n2-1);
-  	  q=4;
-  }
-  else if (t==2){
-	  m=2*((n1-1)*(n2-1));
-	  q=3;
+   
+  
+  // Calcul des valeures m, q et p en fonction de t
+  if(type_element(t, n1, n2, &m, &q, &p)){
+    return 1;
   }
 
   // Allocation en memoire du tableau des numeros de reference des aretes 
@@ -69,7 +65,7 @@ int main() {
   }
  
   // Création du maillage
-  maillage(a,b,c,d,n1,n2,t,nrefdom,nrefcot); 
+  maillage(a, b, c, d, n1, n2, m, t, q, p, nrefdom, nrefcot); 
  
   // Lecture du maillage
   char *nom_fichier_maillage="fichier.txt";
