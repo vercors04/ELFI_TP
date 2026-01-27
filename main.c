@@ -50,10 +50,10 @@ int main() {
   if (t==1) printf("Type : Quadrangles\n");
   else if (t==2) printf("Type : Triangles\n");
  
-  // A remettre au propre, a retirer de la fct maillage
+  // calcul de m et q
   if (t==1) {
 	  m=(n1-1)*(n2-1);
-  	  q=4;
+  	q=4;
   }
   else if (t==2){
 	  m=2*((n1-1)*(n2-1));

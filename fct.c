@@ -5,7 +5,7 @@ void maillage (double a, double b, double c, double d, int n1, int n2, int t,int
 
     //------Nombre de noeuds------
 	fprintf(f, "%d\n", n1*n2);
-	printf("\n"); //a enlever mais pour rendre clean
+	fprintf(f,"\n"); 
 	
 	//------Calcul des coordonées------
 	double h1 = (b-a)/(n1-1);
@@ -17,11 +17,12 @@ void maillage (double a, double b, double c, double d, int n1, int n2, int t,int
 			fprintf(f, "%lf %lf\n",a+j*h1,y);
 		}
 	}
-	printf("\n");
+	fprintf(f,"\n");
 	
 	//------ calcul de  : m t p q ------
 	if (t==1) fprintf(f, "%d %d %d %d\n", m, t, 4, q); 
     else if (t==2) fprintf(f, "%d %d %d %d\n", m, t, 3, q);
+	fprintf(f,"\n");
 
 	//------Calcul des numéros globaux------
 	//triangle
@@ -46,17 +47,27 @@ void maillage (double a, double b, double c, double d, int n1, int n2, int t,int
 				}
 			}
 		}
-		fclose(f);
 
-	printf("\n");
-    }
+	fprintf(f,"\n");
 
 	//------Ecriture de nrefAr dans le fichier------
+	
+	for (int i=0; i<m; i++){
+			for (int j=0; j<q ; j++){
+				fprintf(f, " %d ",nRefAr[i][j]);
+			}
+			fprintf (f,"\n");
+		}
+
+
+	//fermeture du fichier
+	fclose(f);
+}
 
 		
 void etiqAr (int t, int n1, int n2, int nrefdom, const int *nrefcot, int m, int q, int **nRefAr){
 
-	//remplissage de tout les elements 
+	//remplissage de tout les elements à 0
 
 	for (int i = 0; i < m; i++) {
     for (int j = 0; j < q; j++) {
