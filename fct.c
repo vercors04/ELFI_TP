@@ -1,6 +1,16 @@
 #include "header.h"
 
-void maillage (double a, double b, double c, double d, int n1, int n2, int t,int nrefdom, const int *nrefcot, int m, int q, int **nRefAr){
+int type_element(int t, int n1, int n2, int *m, int *q, int *p){
+  switch (t) {
+    case 1: *m=(n1-1)*(n2-1); *q=4; *p=4; break; // Quadrangles
+    case 2: *m=2*((n1-1)*(n2-1)); *q=3; *p=3; break; // Triangles
+    default: printf("ERREUR : Cas possibles : \n t=1 : Quadrangles\n t=2 : Triangles");return 1;
+  }
+
+  return 0;
+}
+
+void maillage (double a, double b, double c, double d, int n1, int n2 , int m , int t, int p, int q, int nrefdom, const int *nrefcot, int **nRefAr){
 	FILE *f = fopen("fichier.txt", "w"); 
 
     //------Nombre de noeuds------
@@ -20,13 +30,12 @@ void maillage (double a, double b, double c, double d, int n1, int n2, int t,int
 	fprintf(f,"\n");
 	
 	//------ calcul de  : m t p q ------
-	if (t==1) fprintf(f, "%d %d %d %d\n", m, t, 4, q); 
-    else if (t==2) fprintf(f, "%d %d %d %d\n", m, t, 3, q);
+	fprintf(f, "%d %d %d %d\n", m, t, p, q); //Quadrangles
+	
 	fprintf(f,"\n");
 
 	//------Calcul des numéros globaux------
 	//triangle
-
 	if (t==2) {
 		for(int i=0; i<n2-1; i++){
 			for(int j=1; j<n1; j++) {
@@ -38,7 +47,6 @@ void maillage (double a, double b, double c, double d, int n1, int n2, int t,int
 	}
 
 	//quadrangle
-
 	if (t==1) {
 		for(int i=0; i<n2-1; i++){
 			for(int j=1; j<n1; j++) {
@@ -47,7 +55,6 @@ void maillage (double a, double b, double c, double d, int n1, int n2, int t,int
 				}
 			}
 		}
-
 	fprintf(f,"\n");
 
 	//------Ecriture de nrefAr dans le fichier------
@@ -59,12 +66,10 @@ void maillage (double a, double b, double c, double d, int n1, int n2, int t,int
 			fprintf (f,"\n");
 		}
 
-
 	//fermeture du fichier
 	fclose(f);
 }
 
-		
 void etiqAr (int t, int n1, int n2, int nrefdom, const int *nrefcot, int m, int q, int **nRefAr){
 
 	//remplissage de tout les elements à 0
@@ -114,7 +119,7 @@ int lecfima(char *ficmai, int *ptypel, int *pnbtng, float ***pcoord, int *pnbtel
     }
 
 	// Recuperation de n
-	fscanf(pfichier_maillage, "%d\n", pnbtng);
+	fscanf(pfichier_maillage, "%d\n\n", pnbtng);
 
 	// Allocation tableau coord
   float *adcoord_Alloc = (float *) malloc((*pnbtng)*2*sizeof(float)); 
@@ -127,7 +132,7 @@ int lecfima(char *ficmai, int *ptypel, int *pnbtng, float ***pcoord, int *pnbtel
 	}
 
 	// Recuperation de m t p q
-	fscanf(pfichier_maillage, "%d %d %d %d\n", pnbtel, ptypel, pnbneel, pnbaret);
+	fscanf(pfichier_maillage, "\n%d %d %d %d\n", pnbtel, ptypel, pnbneel, pnbaret);
 
 	// Allocation tableau ngel
   int *adngnel_Alloc = (int *) malloc((*pnbtel)*(*pnbneel)*sizeof(int)); 
