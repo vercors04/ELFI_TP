@@ -5,7 +5,7 @@ int main() {
   double a, b, c, d;
 
   // Choix du mode d'entree des donnees
-  printf("1. Lecture des données dans le fichier : input.txt \n2. Entrée manuelle des données \n");
+  printf("1. Lecture des donnees dans le fichier : input.txt \n2. Entrée manuelle des donnees \n");
   scanf("%d",&mode_saisie);
 
   if (mode_saisie==1) {
@@ -34,15 +34,14 @@ int main() {
     scanf("%d %d", &n1, &n2);
     printf("\nType des elements a construire (1. Quadrangles - 2. Triangles) : \n");
     scanf("%d", &t);
-    printf("\nNuméro de référence du domaine \n");
+    printf("\nNuméro de reference du domaine \n");
     scanf("%d", &nrefdom);
     for (int i = 1; i < 5; i++) {
-      printf("\nNuméro de référence du coté %d : \n",i);
+      printf("\nNuméro de reference du cote %d : \n",i);
       scanf("%d", &nrefcot[i-1]);
     }
   }
  
-
 
   // Affichage des donnees
   printf("Domaine : [%lf,%lf]x[%lf,%lf]\n",a,b,c,d);
@@ -51,21 +50,25 @@ int main() {
   if (t==1) printf("Type : Quadrangles\n");
   else if (t==2) printf("Type : Triangles\n");
    
-  
+ printf("Test"); 
   // Calcul des valeures m, q et p en fonction de t
   if(type_element(t, n1, n2, &m, &q, &p)){
     return 1;
   }
 
-  // Allocation en memoire du tableau des numeros de reference des aretes 
-  int *nRefAr_alloc = (int *) malloc(m * q * sizeof(int));
-  int **nRefAr = (int **) malloc(m * sizeof(int *));
-  for (int i = 0; i < m; i++) {	
-	  nRefAr[i] = &nRefAr_alloc[i * q];
-  }
- 
+ //acclocation de nRefAr et calcul des arretes
+	int *nRefAr_alloc = (int *) malloc(m * q * sizeof(int));
+	int **nRefAr = (int **) malloc(m * sizeof(int *));
+
+	for (int i = 0; i < m; i++) {
+		nRefAr[i] = &nRefAr_alloc[i * q];
+	}
+
+	etiqAr(t,n1,n2,nrefdom,nrefcot,m,q,nRefAr);
+
+
   // Création du maillage
-  maillage(a, b, c, d, n1, n2, m, t, q, p, nrefdom, nrefcot); 
+  maillage(a, b, c, d, n1, n2, m, t, p, q, nrefdom, nrefcot, nRefAr); 
  
   // Lecture du maillage
   char *nom_fichier_maillage="fichier.txt";

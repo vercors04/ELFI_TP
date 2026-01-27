@@ -10,13 +10,14 @@ int type_element(int t, int n1, int n2, int *m, int *q, int *p){
   return 0;
 }
 
-void maillage (double a, double b, double c, double d, int n1, int n2, int m, int t, int q, int p,int nrefdom, const int *nrefcot){
+void maillage (double a, double b, double c, double d, int n1, int n2 , int m , int t, int p, int q, int nrefdom, const int *nrefcot, int **nRefAr){
 	FILE *f = fopen("fichier.txt", "w"); 
 
-  //Nombre de noeuds
+    //------Nombre de noeuds------
 	fprintf(f, "%d\n", n1*n2);
+	fprintf(f,"\n"); 
 	
-	//Calcul des coordonées
+	//------Calcul des coordonées------
 	double h1 = (b-a)/(n1-1);
 	double h2 = (d-c)/(n2-1);
 
@@ -26,11 +27,15 @@ void maillage (double a, double b, double c, double d, int n1, int n2, int m, in
 			fprintf(f, "%lf %lf\n",a+j*h1,y);
 		}
 	}
+	fprintf(f,"\n");
 	
-	//m t p q
+	//------ calcul de  : m t p q ------
 	fprintf(f, "%d %d %d %d\n", m, t, p, q); //Quadrangles
 	
-	//Calcul des numéros globaux triangle
+	fprintf(f,"\n");
+
+	//------Calcul des numéros globaux------
+	//triangle
 	if (t==2) {
 		for(int i=0; i<n2-1; i++){
 			for(int j=1; j<n1; j++) {
@@ -41,7 +46,7 @@ void maillage (double a, double b, double c, double d, int n1, int n2, int m, in
 		}
 	}
 
-	//Calcul des numéros globaux quadrangle
+	//quadrangle
 	if (t==1) {
 		for(int i=0; i<n2-1; i++){
 			for(int j=1; j<n1; j++) {
@@ -50,33 +55,24 @@ void maillage (double a, double b, double c, double d, int n1, int n2, int m, in
 				}
 			}
 		}
-		fclose(f);
+	fprintf(f,"\n");
 
-  // Doit etre fait dans le main
-	//calcul des arrêtes 
-	int *nRefAr_alloc = (int *) malloc(m * q * sizeof(int));
-	int **nRefAr = (int **) malloc(m * sizeof(int *));
+	//------Ecriture de nrefAr dans le fichier------
+	
+	for (int i=0; i<m; i++){
+			for (int j=0; j<q ; j++){
+				fprintf(f, " %d ",nRefAr[i][j]);
+			}
+			fprintf (f,"\n");
+		}
 
-	for (int i = 0; i < m; i++) {
-		nRefAr[i] = &nRefAr_alloc[i * q];
-	}
-
-	etiqAr(t,n1,n2,nrefdom,nrefcot,m,q,nRefAr);
-
-
-	//test des arrêtes
-	printf("\nmatrice des arrêtes : \n"); //PAS BON
-	printTab(nRefAr,m,q);
-
-	printf("\n\nnrefdom : %d\n\n", nrefdom);
-
-	printf("\nnrefcot :\n");
-	print_nrefcot(nrefcot);
-	// et  apres on récupère le résultat de la fct etiqAR dans un tableau, et on le met dans le fichier.
- }
+	//fermeture du fichier
+	fclose(f);
+}
 
 void etiqAr (int t, int n1, int n2, int nrefdom, const int *nrefcot, int m, int q, int **nRefAr){
-	//remplissage de tout les elements 
+
+	//remplissage de tout les elements à 0
 
 	for (int i = 0; i < m; i++) {
     for (int j = 0; j < q; j++) {
@@ -93,19 +89,19 @@ void etiqAr (int t, int n1, int n2, int nrefdom, const int *nrefcot, int m, int 
 	}
 	//parcours des carrés sur les cotés du maillage
 	for (int i=0; i<m; i=i+n1-1){
-		nRefAr[i][3]=nrefcot[3];
-		nRefAr[m-1-i][2]=nrefcot[1];
+		nRefAr[i][2]=nrefcot[3];
+		nRefAr[m-1-i][0]=nrefcot[1];
 	}
 	}
 
 	//calcul des arrêtes triangles
 	if (t==2) {
-	//parcours des triangles en haut et en bas du maillage 2*(m/(n2-1)) est le nombre d'element dans une ligne
+	//parcours des triangles en haut et en bas du maillage
 	for (int i=0; i<2*(n1-1); i=i+2){
 		nRefAr[i][2]=nrefcot[0];
 		nRefAr[m-1-i][2]=nrefcot[2];
 	}
-	//parcours des triangles sur les cotés du maillage A FINIR
+	//parcours des triangles sur les cotés du maillage 
 	for (int i=0; i<m; i=i+2*(n1-1)){
 		nRefAr[i][1]=nrefcot[3];
 		nRefAr[m-1-i][1]=nrefcot[1];
@@ -190,7 +186,9 @@ int lecfima(char *ficmai, int *ptypel, int *pnbtng, float ***pcoord, int *pnbtel
 }	
 
 
-//juste pour vérifier les matrices/vect - temporaire
+
+
+//------juste pour vérifier les matrices/vect - temporaire------
 void printTab(int **tab, int m, int q) {
     for (int i = 0; i < m; i++) {
         for (int j = 0; j < q; j++) {
@@ -213,3 +211,11 @@ void print_nrefcot(const int *nrefcot)
     for (int i = 0; i < 4; i++)
         printf("%d\n", nrefcot[i]);
 }
+//test des arrêtes
+// printf("\nmatrice des arrêtes : \n"); 
+// printTab(nRefAr,m,q);
+
+// printf("\n\nnrefdom : %d\n\n", nrefdom);
+
+// printf("\nnrefcot :\n");
+// print_nrefcot(nrefcot);
