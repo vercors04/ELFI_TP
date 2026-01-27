@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 // Doc
-void maillage (double, double, double, double, int, int, int, int, const int *); 
+void maillage (double, double, double, double, int, int, int, int, const int *, int m, int q, int **nRefAr); 
 
 /* Affectation d'un numero de reference a chaque arete :
  * param typel : type des elements a construire 
