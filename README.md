@@ -1,19 +1,33 @@
-Projet - Mini bibliothèque Eléments Finis
-===
+# Projet Librairie Éléments Finis (ELFI)
 
-# Avancement
+[cite_start]Ce projet, réalisé dans le cadre du Master 1 CSM, vise à développer une mini-librairie de calcul par la méthode des Éléments Finis (MEF) en langage C. Il est structuré en 5 étapes progressives (Travaux Pratiques).
 
-- Phase 1 : Maillage (Construction de la triangulation) : *En cours*
-- Phase 2 :
-  - Fonctions utilitaires
-  - Calculs élémentaires
-- Phase 3 : Assemblage
-- Phase 4 : Prise en compte de la condition de Dirichlet
-- Phase 5 : Résolution
+## Architecture du Projet
 
-# A savoir
+Le développement suit le cycle de vie d'une résolution FEM classique :
 
-- les bornes a,b,c,d définissent le domaine
-- le nombre de points n1 et n2 sur les coté 1 et 2
-- le type t des éléments à construire ( 1=quadrangle, 2= triangle)
-- les 5 numéros de références : celui associé au domaine et celui associé à chacun des 4 côtés
+### Phase 1 : Pré-traitement Géométrique
+* [cite_start]**TP1 : Maillage** 
+    * Discrétisation du domaine $\Omega$ en triangles ($P_1$) ou quadrangles ($Q_1$).
+    * Attribution des références pour les conditions aux limites.
+
+### Phase 2 : 
+* [cite_start]**TP2a : Fonctions mathématiques utilitaires** 
+    * 
+
+* [cite_start]**TP2b : Calculs élémentaires** 
+    * 
+
+### Phase 3 : 
+* [cite_start]**TP3 : Assemblage** 
+    * Construction du système linéaire.
+### Phase 4 : 
+* [cite_start]**TP4 : Système Linéaire & Projet** 
+    * Prise en compte des conditions aux limites de Dirichlet.
+
+### Phase 5
+* [cite_start]**TP5 : mise en pratique** 
+    * 
+
+## Autre
+
