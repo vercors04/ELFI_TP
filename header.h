@@ -2,12 +2,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Doc
-int type_element(int t,int n1, int n2, int *m, int *q, int *p);
 
 // Doc
-void maillage (double a, double b, double c, double d, int n1, int n2 , int m , int t, int p, int q, int nrefdom, const int *nrefcot, int **nRefAr); 
-
+void maillage (FILE* donnees, FILE *ficOutput ); //doc à changer
 /* Affectation d'un numero de reference a chaque arete :
  * param typel : type des elements a construire 
  * param n1 & n2 : nombre de points sur les cotes 1 et 2 
@@ -32,10 +29,9 @@ void etiqAr (int typel, int n1, int n2, int nrefdom, const int *nrefcot, int nbt
  */
 int lecfima(char *ficmai, int *ptypel, int *pnbtng, float ***pcoord, int *pnbtel, int ***pngnel, int *pnbneel, int *pnbaret, int ***pnRefAr);
 
+void modeSaisie2 ();
+
 float **alloctab_f(int dim1, int dim2);
 int **alloctab_i(int dim1, int dim2); 
 void freetab(void *ptr); 
 
-void printTab(int **tab, int m, int q);//a enlever juste pr test
-void printTabf(float **tab, int m, int q);//a enlever juste pr test
-void print_nrefcot(const int *nrefcot);
