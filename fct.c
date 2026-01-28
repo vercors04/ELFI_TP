@@ -121,29 +121,24 @@ int lecfima(char *ficmai, int *ptypel, int *pnbtng, float ***pcoord, int *pnbtel
 	// Recuperation de n
 	fscanf(pfichier_maillage, "%d\n\n", pnbtng);
 
-	// Allocation tableau coord
-  float *adcoord_Alloc = (float *) malloc((*pnbtng)*2*sizeof(float)); 
-  float **coord = (float **) malloc((*pnbtng)*sizeof(float*));
-  for(int i=0;i<*pnbtng;i++) coord[i] = &(adcoord_Alloc[2*i]);
-  *pcoord = coord;
-  // Recuperation des coordonnees des noeuds
-	for (int i=0; i<*pnbtng; i++){
-    fscanf(pfichier_maillage, "%f %f\n", &coord[i][0], &coord[i][1]);
-	}
-
-	// Recuperation de m t p q
-	fscanf(pfichier_maillage, "\n%d %d %d %d\n", pnbtel, ptypel, pnbneel, pnbaret);
-
-	// Allocation tableau ngel
-  int *adngnel_Alloc = (int *) malloc((*pnbtel)*(*pnbneel)*sizeof(int)); 
-  int **ngnel = (int **) malloc((*pnbtel)*sizeof(int*));
-  for(int i=0;i<*pnbtel;i++) ngnel[i] = &(adngnel_Alloc[(*pnbneel)*i]);
-  *pngnel = ngnel;
+	
+  // Allocation tableau coord
+  *pcoord = alloctab_f(*pnbtng,2);
+  // Recuperation des coordonnees dans le fichier
+  for (int i=0; i<*pnbtng; i++){
+	  fscanf(pfichier_maillage, "%f %f\n", &(*pcoord)[i][0], &(*pcoord)[i][1]);
+  }
+  
+  // Recuperation de m t p q
+  fscanf(pfichier_maillage, "\n%d %d %d %d\n", pnbtel, ptypel, pnbneel, pnbaret);
+  
+  
+  // Allocation tableau ngel
+  *pngnel = alloctab_i(*pnbtel,*pnbneel);
   // Recuperation des numeros globaux et numeros de reference
   for (int i=0;i<*pnbtel;i++) {
     for (int j=0;j<*pnbneel;j++) {
-      fscanf(pfichier_maillage, "%d ",&ngnel[i][j]);
-      printf("%d ",ngnel[i][j]);
+      fscanf(pfichier_maillage, "%d ",&(*pngnel)[i][j]);
     }
     /* En attente de l'implémentation des num de reference
     for (int j=0;j<*pnbneel;j++) {
@@ -167,14 +162,13 @@ int lecfima(char *ficmai, int *ptypel, int *pnbtng, float ***pcoord, int *pnbtel
   fprintf(verif, "%d\n",*pnbtng);
 
   for (int i=0; i<*pnbtng; i++){
-    fprintf(verif, "%f %f\n", coord[i][0], coord[i][1]);
+    fprintf(verif, "%f %f\n", (*pcoord)[i][0], (*pcoord)[i][1]);
 	}
-
 	fprintf(verif, "%d %d %d %d\n", *pnbtel, *ptypel, *pnbneel, *pnbaret);
 
   for (int i=0;i<*pnbtel;i++) {
     for (int j=0;j<*pnbneel;j++) {
-      fprintf(verif, "%d ",ngnel[i][j]);
+      fprintf(verif, "%d ",(*pngnel)[i][j]);
     }
     /* En attente de l'implémentation des num de reference
     for (int j=0;j<*pnbneel;j++) {

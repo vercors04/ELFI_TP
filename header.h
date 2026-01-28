@@ -32,6 +32,8 @@ void etiqAr (int typel, int n1, int n2, int nrefdom, const int *nrefcot, int nbt
  */
 int lecfima(char *ficmai, int *ptypel, int *pnbtng, float ***pcoord, int *pnbtel, int ***pngnel, int *pnbneel, int *pnbaret, int ***pnRefAr);
 
+float **alloctab_f(int dim1, int dim2);
+int **alloctab_i(int dim1, int dim2); 
 
 void printTab(int **tab, int m, int q);//a enlever juste pr test
 void printTabf(float **tab, int m, int q);//a enlever juste pr test
