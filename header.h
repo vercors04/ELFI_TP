@@ -34,6 +34,7 @@ int lecfima(char *ficmai, int *ptypel, int *pnbtng, float ***pcoord, int *pnbtel
 
 float **alloctab_f(int dim1, int dim2);
 int **alloctab_i(int dim1, int dim2); 
+void freetab(void *ptr); 
 
 void printTab(int **tab, int m, int q);//a enlever juste pr test
 void printTabf(float **tab, int m, int q);//a enlever juste pr test

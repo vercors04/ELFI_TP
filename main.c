@@ -77,11 +77,14 @@ int main() {
   lecfima(nom_fichier_maillage, &typel, &nbtng, &coord, &nbtel, &ngnel, &nbneel, &nbaret, &nRefAr);
  
   // Liberation de la memoire
+  /*
   free(coord[0]);
   free(coord);
   free(ngnel[0]);
   free(ngnel);
-
+*/
+  freetab(coord);
+  freetab(ngnel);
 
   return 0;
 }
