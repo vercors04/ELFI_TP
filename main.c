@@ -50,21 +50,20 @@ int main() {
   if (t==1) printf("Type : Quadrangles\n");
   else if (t==2) printf("Type : Triangles\n");
    
- printf("Test"); 
   // Calcul des valeures m, q et p en fonction de t
   if(type_element(t, n1, n2, &m, &q, &p)){
     return 1;
   }
 
  //acclocation de nRefAr et calcul des arretes
-	int *nRefAr_alloc = (int *) malloc(m * q * sizeof(int));
-	int **nRefAr = (int **) malloc(m * sizeof(int *));
+ int *nRefAr_alloc = (int *) malloc(m * q * sizeof(int));
+ int **nRefAr = (int **) malloc(m * sizeof(int *));
 
-	for (int i = 0; i < m; i++) {
-		nRefAr[i] = &nRefAr_alloc[i * q];
-	}
 
-	etiqAr(t,n1,n2,nrefdom,nrefcot,m,q,nRefAr);
+ for (int i = 0; i < m; i++) {
+	 nRefAr[i] = &nRefAr_alloc[i * q];
+ }
+ etiqAr(t,n1,n2,nrefdom,nrefcot,m,q,nRefAr);
 
 
   // Création du maillage

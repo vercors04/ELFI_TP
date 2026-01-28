@@ -137,12 +137,13 @@ int lecfima(char *ficmai, int *ptypel, int *pnbtng, float ***pcoord, int *pnbtel
 	// Allocation tableau ngel
   int *adngnel_Alloc = (int *) malloc((*pnbtel)*(*pnbneel)*sizeof(int)); 
   int **ngnel = (int **) malloc((*pnbtel)*sizeof(int*));
-  for(int i=0;i<*pnbtng;i++) ngnel[i] = &(adngnel_Alloc[(*pnbneel)*i]);
+  for(int i=0;i<*pnbtel;i++) ngnel[i] = &(adngnel_Alloc[(*pnbneel)*i]);
   *pngnel = ngnel;
   // Recuperation des numeros globaux et numeros de reference
   for (int i=0;i<*pnbtel;i++) {
     for (int j=0;j<*pnbneel;j++) {
-      fscanf(pfichier_maillage, "%d",&ngnel[i][j]);
+      fscanf(pfichier_maillage, "%d ",&ngnel[i][j]);
+      printf("%d ",ngnel[i][j]);
     }
     /* En attente de l'implémentation des num de reference
     for (int j=0;j<*pnbneel;j++) {
@@ -150,6 +151,7 @@ int lecfima(char *ficmai, int *ptypel, int *pnbtng, float ***pcoord, int *pnbtel
     }
     */
     fscanf(pfichier_maillage, "\n");
+    printf("\n");
   }
 
 	fclose(pfichier_maillage);
