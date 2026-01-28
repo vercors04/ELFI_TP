@@ -37,10 +37,10 @@ void maillage (double a, double b, double c, double d, int n1, int n2 , int m , 
 	if (t==2) {
 		for(int i=0; i<n2-1; i++){
 			for(int j=1; j<n1; j++) {
-				indice = j + i*n1;
-				fprintf(f, "%d %d %d   ", indice+1, indice+n1, indice);
+				indice = j + i*(n1-1);
+				fprintf(f, "%d %d %d ", indice+1, indice+n1, indice);
 				fprintf(f, "%d %d %d\n",nRefAr[indice-1][0],nRefAr[indice-1][1],nRefAr[indice-1][2]);
-				fprintf(f, "%d %d %d   ", indice+n1, indice+1, indice+1+n1);
+				fprintf(f, "%d %d %d ", indice+n1, indice+1, indice+1+n1);
 				fprintf(f, "%d %d %d\n",nRefAr[indice][0],nRefAr[indice][1],nRefAr[indice][2]);
 
 			}
@@ -52,7 +52,7 @@ void maillage (double a, double b, double c, double d, int n1, int n2 , int m , 
 		for(int i=0; i<n2-1; i++){
 			for(int j=1; j<n1; j++) {
 					indice = j + i*(n1-1);
-					fprintf(f, "%d %d %d %d   ", indice+1, indice+1+n1, indice+n1, indice);
+					fprintf(f, "%d %d %d %d ", indice+1, indice+1+n1, indice+n1, indice);
 					fprintf(f, "%d %d %d %d\n",nRefAr[indice-1][0],nRefAr[indice-1][1],nRefAr[indice-1][2],nRefAr[indice-1][3]);
 				}
 			}
