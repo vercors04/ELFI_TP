@@ -11,7 +11,7 @@ int main() {
   if (mode_saisie==1) {
 
     // Ouverture du fichier
-    FILE *donnees = fopen("input.txt", "r");
+    FILE *donnees = fopen("ficInput1.txt", "r");
     // Test du bon deroulement de l'ouverture
     if (donnees==NULL) { 
       printf("ERREUR : Le fichier n'a pas pu etre ouvert.\n");
@@ -28,6 +28,7 @@ int main() {
   }
   else if (mode_saisie==2) {
 
+    FILE *f = fopen("ficInput2.txt", "w"); 
     printf("Inserez les donnees :\n\nDomaine [a,b]x[c,d] (Entrez les valeures de a b c d) :\n");
     scanf("%lf %lf %lf %lf", &a, &b, &c, &d);
     printf("\nNombres de points n1 et n2 :\n");
@@ -58,11 +59,10 @@ int main() {
  //acclocation de nRefAr et calcul des arretes
  int *nRefAr_alloc = (int *) malloc(m * q * sizeof(int));
  int **nRefAr = (int **) malloc(m * sizeof(int *));
-
-
  for (int i = 0; i < m; i++) {
 	 nRefAr[i] = &nRefAr_alloc[i * q];
  }
+
  etiqAr(t,n1,n2,nrefdom,nrefcot,m,q,nRefAr);
 
 

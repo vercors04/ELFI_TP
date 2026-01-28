@@ -15,7 +15,6 @@ void maillage (double a, double b, double c, double d, int n1, int n2 , int m , 
 
     //------Nombre de noeuds------
 	fprintf(f, "%d\n", n1*n2);
-	fprintf(f,"\n"); 
 	
 	//------Calcul des coordonées------
 	double h1 = (b-a)/(n1-1);
@@ -27,21 +26,23 @@ void maillage (double a, double b, double c, double d, int n1, int n2 , int m , 
 			fprintf(f, "%lf %lf\n",a+j*h1,y);
 		}
 	}
-	fprintf(f,"\n");
 	
 	//------ calcul de  : m t p q ------
 	fprintf(f, "%d %d %d %d\n", m, t, p, q); //Quadrangles
 	
-	fprintf(f,"\n");
 
 	//------Calcul des numéros globaux------
 	//triangle
+	int indice;
 	if (t==2) {
 		for(int i=0; i<n2-1; i++){
 			for(int j=1; j<n1; j++) {
-				int indice = j + i*n1;
-				fprintf(f, "%d %d %d\n", indice+1, indice+n1, indice);
-				fprintf(f, "%d %d %d\n", indice+n1, indice+1, indice+1+n1);
+				indice = j + i*n1;
+				fprintf(f, "%d %d %d   ", indice+1, indice+n1, indice);
+				fprintf(f, "%d %d %d\n",nRefAr[indice-1][0],nRefAr[indice-1][1],nRefAr[indice-1][2]);
+				fprintf(f, "%d %d %d   ", indice+n1, indice+1, indice+1+n1);
+				fprintf(f, "%d %d %d\n",nRefAr[indice][0],nRefAr[indice][1],nRefAr[indice][2]);
+
 			}
 		}
 	}
@@ -50,21 +51,15 @@ void maillage (double a, double b, double c, double d, int n1, int n2 , int m , 
 	if (t==1) {
 		for(int i=0; i<n2-1; i++){
 			for(int j=1; j<n1; j++) {
-					int indice = j + i*n1;
-					fprintf(f, "%d %d %d %d\n", indice+1, indice+1+n1, indice+n1, indice);
+					indice = j + i*(n1-1);
+					fprintf(f, "%d %d %d %d   ", indice+1, indice+1+n1, indice+n1, indice);
+					fprintf(f, "%d %d %d %d\n",nRefAr[indice-1][0],nRefAr[indice-1][1],nRefAr[indice-1][2],nRefAr[indice-1][3]);
 				}
 			}
 		}
-	fprintf(f,"\n");
 
 	//------Ecriture de nrefAr dans le fichier------
 	
-	for (int i=0; i<m; i++){
-			for (int j=0; j<q ; j++){
-				fprintf(f, " %d ",nRefAr[i][j]);
-			}
-			fprintf (f,"\n");
-		}
 
 	//fermeture du fichier
 	fclose(f);
