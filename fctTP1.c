@@ -1,7 +1,20 @@
 #include "header.h"
 
 
-void maillage (FILE *Donnees, FILE *Output ) {
+int maillage (char *ficInput, char *ficOutput ) {
+
+//ouverture des fichiers input et output et test
+  FILE *Donnees = fopen(ficInput, "r");
+   if (Donnees==NULL) { 
+      printf("ERREUR : Le fichier ficInput.txt n'a pas pu etre ouvert.\n");
+      return 1;  
+  }
+
+  FILE *Output = fopen (ficOutput, "w");
+   if (Output==NULL) { 
+      printf("ERREUR : Le fichier ficOutput.txt n'a pas pu etre ouvert.\n");
+      return 1;  
+  }
 
 	int  n1, n2, t, nrefdom, nrefcot[4], m, q, p;
     double a, b, c, d;
@@ -23,7 +36,7 @@ void maillage (FILE *Donnees, FILE *Output ) {
 	switch (t) {
     case 1: m=(n1-1)*(n2-1); q=4; p=4; break; // Quadrangles
     case 2: m=2*((n1-1)*(n2-1)); q=3; p=3; break; // Triangles
-    default: printf("ERREUR : Cas possibles : \n t=1 : Quadrangles\n t=2 : Triangles");return;
+    default: printf("ERREUR : Cas possibles : \n t=1 : Quadrangles\n t=2 : Triangles");return 1;
   }
 
     //------Nombre de noeuds------
@@ -91,6 +104,7 @@ void maillage (FILE *Donnees, FILE *Output ) {
 	//fermeture des fichiers
 	fclose(Output);
 	fclose(Donnees);
+  return 0;
 }
 
 
@@ -157,23 +171,22 @@ int lecfima(char *ficmai, int *ptypel, int *pnbtng, float ***pcoord, int *pnbtel
   }
   
   // Recuperation de m t p q
-  fscanf(pfichier_maillage, "\n%d %d %d %d\n", pnbtel, ptypel, pnbneel, pnbaret);
+  fscanf(pfichier_maillage, "%d %d %d %d\n", pnbtel, ptypel, pnbneel, pnbaret);
   
   
   // Allocation tableau ngel
   *pngnel = alloctab_i(*pnbtel,*pnbneel);
+  *pnRefAr = alloctab_i(*pnbtel,*pnbneel);
   // Recuperation des numeros globaux et numeros de reference
   for (int i=0;i<*pnbtel;i++) {
     for (int j=0;j<*pnbneel;j++) {
       fscanf(pfichier_maillage, "%d ",&(*pngnel)[i][j]);
     }
-    /* En attente de l'implémentation des num de reference
     for (int j=0;j<*pnbneel;j++) {
-      fscanf(pfichier_maillage, "%d",);
+      fscanf(pfichier_maillage, "%d ",&(*pnRefAr)[i][j]);
     }
-    */
+    
     fscanf(pfichier_maillage, "\n");
-    printf("\n");
   }
 
 	fclose(pfichier_maillage);
@@ -197,11 +210,9 @@ int lecfima(char *ficmai, int *ptypel, int *pnbtng, float ***pcoord, int *pnbtel
     for (int j=0;j<*pnbneel;j++) {
       fprintf(verif, "%d ",(*pngnel)[i][j]);
     }
-    /* En attente de l'implémentation des num de reference
     for (int j=0;j<*pnbneel;j++) {
-      fscanf(pfichier_maillage, "%d",);
+      fprintf(pfichier_maillage, "%d ",(*pnRefAr)[i][j]);
     }
-    */
     fprintf(verif, "\n");
   }
 	fclose(verif);

@@ -4,7 +4,9 @@
 
 
 // Doc
-void maillage (FILE* donnees, FILE *ficOutput ); //doc à changer
+int maillage (char* ficInput, char *ficOutput ); //doc à changer
+
+
 /* Affectation d'un numero de reference a chaque arete :
  * param typel : type des elements a construire 
  * param n1 & n2 : nombre de points sur les cotes 1 et 2 

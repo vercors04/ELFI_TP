@@ -9,7 +9,9 @@ int main() {
 
   if (mode_saisie==2) modeSaisie2();
 
-    
+  char* nom_fichier_donnees="ficInput.txt";
+  char* nom_fichier_maillage1="ficOutput.txt";
+  /*
   //ouverture des fichiers input et output et test
   FILE *Donnees = fopen("ficInput.txt", "r");
    if (Donnees==NULL) { 
@@ -22,28 +24,22 @@ int main() {
       printf("ERREUR : Le fichier ficOutput.txt n'a pas pu etre ouvert.\n");
       return 1;  
   }
-
+*/
 
   // Création du maillage
-  maillage(Donnees,Output); 
- 
+  maillage(nom_fichier_donnees,nom_fichier_maillage1);
 
   // Lecture du maillage
-  //char *nom_fichier_maillage="ficOutput.txt";
-  //int typel, nbtng, nbtel, nbneel, nbaret;
-  //float **coord;
-  //int **ngnel;
-  //lecfima(nom_fichier_maillage, &typel, &nbtng, &coord, &nbtel, &ngnel, &nbneel, &nbaret, &nRefAr);
+  char* nom_fichier_maillage2="ficOutput.txt";
+  int typel, nbtng, nbtel, nbneel, nbaret;
+  float** coord;
+  int **ngnel,**nRefAr;
+  lecfima(nom_fichier_maillage2, &typel, &nbtng, &coord, &nbtel, &ngnel, &nbneel, &nbaret, &nRefAr);
  
   // Liberation de la memoire
-  /*
-  free(coord[0]);
-  free(coord);
-  free(ngnel[0]);
-  free(ngnel);
-*/
-  //freetab(coord);
-  //freetab(ngnel);
+  freetab(coord);
+  freetab(ngnel);
+  freetab(nRefAr);
 
   return 0;
 }
