@@ -192,7 +192,7 @@ int lecfima(char *ficmai, int *ptypel, int *pnbtng, float ***pcoord, int *pnbtel
 	fclose(pfichier_maillage);
 
 	// Validation de la fonction
-	FILE *verif = fopen("verif_lecfima.txt", "w"); 
+	FILE *verif = fopen("Donnees/verif_lecfima.txt", "w"); 
 	// Test du bon deroulement de l'ouverture
   if (verif==NULL) { 
     printf("ERREUR : Le fichier n'a pas pu etre ouvert.\n");
