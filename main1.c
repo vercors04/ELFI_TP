@@ -4,19 +4,19 @@ int main() {
   int mode_saisie;
 
   // Choix du mode d'entree des donnees
-  printf("1. Lecture des donnees dans le fichier : input.txt \n2. Entree manuelle des donnees \n");
+  printf("1. Lecture des donnees dans un fichier : input.txt \n2. Entree manuelle des donnees \n");
   scanf("%d",&mode_saisie);
 
   if (mode_saisie==2) modeSaisie2();
 
-  char* nom_fichier_donnees="ficInput.txt";
-  char* nom_fichier_maillage1="ficOutput.txt";
+  char* nom_fichier_donnees="Donnees/ficInput.txt";
+  char* nom_fichier_maillage1="Donnees/ficOutput.txt";
 
   // Création du maillage
   maillage(nom_fichier_donnees,nom_fichier_maillage1);
 
   // Lecture du maillage
-  char* nom_fichier_maillage2="car1x1t_1";
+  char* nom_fichier_maillage2="Donnees/car1x1t_1";
   int typel, nbtng, nbtel, nbneel, nbaret;
   float** coord;
   int **ngnel,**nRefAr;
