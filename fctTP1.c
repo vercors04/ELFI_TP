@@ -91,11 +91,11 @@ int maillage (char *ficInput, char *ficOutput ) {
 			for(int j=1; j<n1; j++) {
 				int indice = j + i*(n1-1);
 				fprintf(Output, "%d %d %d ", indice+1, indice+n1, indice);  //sommets et arretes pour le triangle k
-				fprintf(Output, "%d %d %d\n", nRefAr[k][0],nRefAr[k][1],nRefAr[k][2],nRefAr[k]); 
+				fprintf(Output, "%d %d %d\n", nRefAr[k][0],nRefAr[k][1],nRefAr[k][2]); 
 				k=k+1;
 
 				fprintf(Output, "%d %d %d ", indice+n1, indice+1, indice+1+n1);
-				fprintf(Output, "%d %d %d\n", nRefAr[k][0],nRefAr[k][1],nRefAr[k][2],nRefAr[k]); 
+				fprintf(Output, "%d %d %d\n", nRefAr[k][0],nRefAr[k][1],nRefAr[k][2]); 
 				k=k+1;
 			}
 		}

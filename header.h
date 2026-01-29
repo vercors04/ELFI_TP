@@ -1,9 +1,12 @@
-//header pour mettre toutes les declarations, etc... plus simple
+// Declarations
 #include <stdio.h>
 #include <stdlib.h>
 
 
-// Doc
+/* Creation du fichier de maillage 
+ * param ficInput : nom du fichier de donnees d'entree
+ * param ficOutput : nom du fichier de sortie
+*/
 int maillage (char* ficInput, char *ficOutput ); //doc à changer
 
 
@@ -31,9 +34,19 @@ void etiqAr (int typel, int n1, int n2, int nrefdom, const int *nrefcot, int nbt
  */
 int lecfima(char *ficmai, int *ptypel, int *pnbtng, float ***pcoord, int *pnbtel, int ***pngnel, int *pnbneel, int *pnbaret, int ***pnRefAr);
 
+/* Entree des variables par l'utilisateur et creation d'un fichier de donnees pour la fonction maillage
+*/
 void modeSaisie2 ();
 
+/* Allocation dynamique d'une matrice de float 
+*/
 float **alloctab_f(int dim1, int dim2);
+
+/* Allocation dynamique d'une matrice d'entier
+*/
 int **alloctab_i(int dim1, int dim2); 
+
+/* Liberation de la memoire
+*/
 void freetab(void *ptr); 
 
