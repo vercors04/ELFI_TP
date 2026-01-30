@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 
-/* Creation du fichier de maillage 
+/* Fonction qui creer fichier de maillage 
  * param[in] ficInput : nom du fichier de donnees d'entree
  * param[out] ficOutput : nom du fichier de sortie
  * return 0 si la fonction s'est bien deroulee, 1 sinon
@@ -11,7 +11,7 @@
 int maillage (char* ficInput, char *ficOutput ); //doc à changer
 
 
-/* Affectation d'un numero de reference a chaque arete :
+/* Fonction qui affecte un numero de reference a chaque arete :
  * param[in] typel : type des elements a construire
  * param[in] n1 & n2 : nombre de points sur les cotes 1 et 2
  * param[in] nrefdom : numero de reference associe au domaine
@@ -22,7 +22,7 @@ int maillage (char* ficInput, char *ficOutput ); //doc à changer
 */
 void etiqAr (int typel, int n1, int n2, int nrefdom, const int *nrefcot, int nbtel, int nbaret, int **nRefAr);
 
-/* Lecture du fichier ficmai & allocation de memoire, remplissage des tableaux : coord, ngnel et nRefAr
+/* Fonction qui : lit un fichier de maillage - alloue dynamiquement la memoire et remplit des tableaux : coord, ngnel et nRefAr
  * param[in] ficmai : fichier lu par la fonction
  * param[out] ptypel : pointeur vers le type des elements du maillage
  * param[out] pnbtng : pointeur vers le nombre de noeuds geometriques
@@ -40,11 +40,11 @@ int lecfima(char *ficmai, int *ptypel, int *pnbtng, float ***pcoord, int *pnbtel
 */
 void modeSaisie2 ();
 
-/* Allocation dynamique d'une matrice de float 
+/* Fonction qui alloue dynamiquement une matrice de float de taille dim1 x dim2
 */
 float **alloctab_f(int dim1, int dim2);
 
-/* Allocation dynamique d'une matrice d'entier
+/* Fonction qui alloue dynamiquement une matrice d'Int de taille dim1 x dim2
 */
 int **alloctab_i(int dim1, int dim2); 
 

@@ -185,7 +185,6 @@ int lecfima(char *ficmai, int *ptypel, int *pnbtng, float ***pcoord, int *pnbtel
     for (int j=0;j<*pnbneel;j++) {
       fscanf(pfichier_maillage, "%d ",&(*pnRefAr)[i][j]);
     }
-    
     fscanf(pfichier_maillage, "\n");
   }
 
