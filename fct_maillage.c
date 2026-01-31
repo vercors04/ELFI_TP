@@ -17,7 +17,7 @@ int maillage (char *ficInput, char *ficOutput ) {
   }
 
 	int  n1, n2, t, nrefdom, nrefcot[4], m, q, p;
-  double a, b, c, d;
+  float a, b, c, d;
 
   //------Lecture du fichier------ 
   fscanf(Donnees, "%lf %lf %lf %lf %d %d %d %d", &a, &b, &c, &d, &n1, &n2, &t, &nrefdom);
@@ -26,7 +26,7 @@ int maillage (char *ficInput, char *ficOutput ) {
   }
 
 	// Affichage des donnees (optionel)
-  printf("Domaine : [%lf,%lf]x[%lf,%lf]\n",a,b,c,d);
+  printf("Domaine : [%f,%f]x[%f,%f]\n",a,b,c,d);
   printf("Nombres de points n1 = %d\n",n1);
   printf("Nombres de points n2 = %d\n",n2);
   if (t==1) printf("Type : Quadrangles\n");
@@ -43,13 +43,13 @@ int maillage (char *ficInput, char *ficOutput ) {
 	fprintf(Output, "%d\n", n1*n2);
 	
 	//------Calcul des coordonées------
-	double h1 = (b-a)/(n1-1);
-	double h2 = (d-c)/(n2-1);
+	float h1 = (b-a)/(n1-1.0f);
+	float h2 = (d-c)/(n2-1.0f);
 
 	for (int i=0 ; i<n2 ; i++){
-		double y = c + i*h2;
+		float y = c + i*h2;
 		for (int j=0 ; j<n1 ; j++){
-			fprintf(Output, "%lf %lf\n",a+j*h1,y);
+			fprintf(Output, "%f %f\n",a+j*h1,y);
 		}
 	}
 	
@@ -70,27 +70,30 @@ int maillage (char *ficInput, char *ficOutput ) {
  	etiqAr(t,n1,n2,nrefdom,nrefcot,m,q,nRefAr);
 
 
-	int k=0; //parcours de chaque element, de 0 à m. 
-	//quadrangle
+	int k=0; // Parcours de chaque element, de 0 à m. 
+	// Quadrangle
 	if (t==1) {
 		for(int i=0; i<n2-1; i++){
 			for(int j=1; j<n1; j++) {
-					int indice = j + i*n1;
-					fprintf(Output, "%d %d %d %d ", indice+1, indice+1+n1, indice+n1, indice); //numeros des noeuds de l'element k
-					
-					fprintf(Output, "%d %d %d %d\n", nRefAr[k][0],nRefAr[k][1],nRefAr[k][2],nRefAr[k][3]); //numero de reference des arretes de l'element k
-					k=k+1;	
+				int indice = j + i*n1;
+
+        // Numeros des noeuds de l'element k
+				fprintf(Output, "%d %d %d %d ", indice+1, indice+1+n1, indice+n1, indice);
+        // Numero de reference des arretes de l'element k
+				fprintf(Output, "%d %d %d %d\n", nRefAr[k][0],nRefAr[k][1],nRefAr[k][2],nRefAr[k][3]); 
+				
+        k=k+1;
 				}
 			}
 		}
 
-
-	//triangle
-	if (t==2) {
+	// Triangle
+  else if (t==2) {
 		for(int i=0; i<n2-1; i++){
 			for(int j=1; j<n1; j++) {
 				int indice = j + i*(n1-1);
-				fprintf(Output, "%d %d %d ", indice+1, indice+n1, indice);  //sommets et arretes pour le triangle k
+        // Sommets et arretes pour le triangle k
+				fprintf(Output, "%d %d %d ", indice+1, indice+n1, indice);  
 				fprintf(Output, "%d %d %d\n", nRefAr[k][0],nRefAr[k][1],nRefAr[k][2]); 
 				k=k+1;
 
@@ -101,7 +104,7 @@ int maillage (char *ficInput, char *ficOutput ) {
 		}
 	}	
 
-	//fermeture des fichiers
+	// Fermeture des fichiers
 	fclose(Output);
 	fclose(Donnees);
   return 0;
@@ -111,39 +114,39 @@ int maillage (char *ficInput, char *ficOutput ) {
 
 void etiqAr (int t, int n1, int n2, int nrefdom, const int *nrefcot, int m, int q, int **nRefAr){
 
-	//remplissage de tout les elements à 0
+	// Remplissage de tout les elements à 0
 
 	for (int i = 0; i < m; i++) {
     for (int j = 0; j < q; j++) {
-            nRefAr[i][j] = nrefdom;
+      nRefAr[i][j] = nrefdom;
 		}
 	}
 
-	//calcul des arrêtes quadrangle 
+	// Calcul des arrêtes quadrangle 
 	if (t==1) {
-    //parcours des carrés en haut et en bas du maillage
+    // Parcours des carrés en haut et en bas du maillage
     for (int i=0; i<n1-1; i++){
-		nRefAr[i][3]=nrefcot[0];
-		nRefAr[m-1-i][1]=nrefcot[2];
+		nRefAr[i][3] = nrefcot[0];
+		nRefAr[m-1-i][1] = nrefcot[2];
     }
-	  //parcours des carrés sur les cotés du maillage
+	  // Parcours des carrés sur les cotés du maillage
 	  for (int i=0; i<m; i=i+n1-1){
-		  nRefAr[i][2]=nrefcot[3];
-		  nRefAr[m-1-i][0]=nrefcot[1];
+		  nRefAr[i][2] = nrefcot[3];
+		  nRefAr[m-1-i][0] = nrefcot[1];
 	  }
 	}
 
-	//calcul des arrêtes triangles
-	if (t==2) {
-	  //parcours des triangles en haut et en bas du maillage
+	// Calcul des arrêtes triangles
+  else if (t==2) {
+	  // Parcours des triangles en haut et en bas du maillage
 	  for (int i=0; i<2*(n1-1); i=i+2){
-		  nRefAr[i][2]=nrefcot[0];
-		  nRefAr[m-1-i][2]=nrefcot[2];
+		  nRefAr[i][2] = nrefcot[0];
+		  nRefAr[m-1-i][2] = nrefcot[2];
 	  }
-	  //parcours des triangles sur les cotés du maillage 
+	  // Parcours des triangles sur les cotés du maillage 
 	  for (int i=0; i<m; i=i+2*(n1-1)){
-		  nRefAr[i][1]=nrefcot[3];
-		  nRefAr[m-1-i][1]=nrefcot[1];
+		  nRefAr[i][1] = nrefcot[3];
+		  nRefAr[m-1-i][1] = nrefcot[1];
 	  }
 	}
 }
@@ -223,7 +226,7 @@ int lecfima(char *ficmai, int *ptypel, int *pnbtng, float ***pcoord, int *pnbtel
 
 void modeSaisie2 () {
 	int  n1, n2, t, nrefdom, nrefcot[4];
-    double a, b, c, d;
+  float a, b, c, d;
 
 	FILE *Donnees = fopen("ficInput.txt", "w");
     // Test du bon deroulement de l'ouverture
@@ -233,25 +236,26 @@ void modeSaisie2 () {
     }
 
 	printf("Inserez les donnees :\nDomaine [a,b]x[c,d] (Entrez les valeures de a b c d) :\n");
-    scanf("%lf %lf %lf %lf", &a, &b, &c, &d);
-	fprintf(Donnees,"%lf %lf %lf %lf\n", a, b, c, d);
+  scanf("%lf %lf %lf %lf", &a, &b, &c, &d);
+	fprintf(Donnees,"%f %f %f %f\n", a, b, c, d);
 
-    printf("\nNombres de points n1 et n2 :\n");
-    scanf("%d %d", &n1, &n2);
+  printf("\nNombres de points n1 et n2 :\n");
+  scanf("%d %d", &n1, &n2);
 	fprintf(Donnees,"%d %d", n1, n2);
 
-    printf("\nType des elements a construire (1. Quadrangles - 2. Triangles) : \n");
-    scanf("%d", &t);
+  printf("\nType des elements a construire (1. Quadrangles - 2. Triangles) : \n");
+  scanf("%d", &t);
 	fprintf(Donnees,"%d",t);
 
-    printf("\nNuméro de reference du domaine\n");
-    scanf("%d", &nrefdom);
+  printf("\nNuméro de reference du domaine\n");
+  scanf("%d", &nrefdom);
 	fprintf(Donnees,"%d\n", nrefdom);
 
-    	for (int i = 1; i < 5; i++) {
-   			printf("\nNuméro de reference du cote %d : \n",i);
-			scanf("%d", &nrefcot[i-1]);
-			fprintf(Donnees,"%d\n", nrefcot[i-1]);	
-		}
+  for (int i = 1; i < 5; i++) {
+    printf("\nNuméro de reference du cote %d : \n",i);
+		scanf("%d", &nrefcot[i-1]);
+		fprintf(Donnees,"%d\n", nrefcot[i-1]);	
+  }
+
 	fclose(Donnees);
 }

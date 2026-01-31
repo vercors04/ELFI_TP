@@ -1,7 +1,7 @@
 /*
 * POUR COMPILER LE PROGRAMME ET CREER L'EXECUTABLE :
 * -----------------------------------------
-* gcc main1.c fct_maillage.c tab.c
+* gcc main1.c fctTP1.c alloctab.c freetab.c
 * -----------------------------------------
 */
 
@@ -33,9 +33,6 @@ int main() {
   freetab(coord);
   freetab(ngnel);
   freetab(nRefAr);
-
-  coord=NULL;
-  printf("\n %p",coord);
   return 0;
 }
 

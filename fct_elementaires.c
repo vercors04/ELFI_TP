@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <math.h>
+
 int ppquad(int t, float* poids, float** points){
 
 switch (t) {
