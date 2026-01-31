@@ -34,6 +34,8 @@ int main() {
   freetab(ngnel);
   freetab(nRefAr);
 
+  coord=NULL;
+  printf("\n %p",coord);
   return 0;
 }
 

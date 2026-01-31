@@ -51,7 +51,11 @@ float **alloctab_f(int dim1, int dim2) {
   }
   return(ptr);
 }
-
+/*
+ * -----------------------------------------------------------------------------
+ * Cette fonction fait la meme chose qu'alloctab_f pour des Int
+ * -----------------------------------------------------------------------------
+*/
 int **alloctab_i(int dim1, int dim2) {
   int **ptr;
 
@@ -71,4 +75,16 @@ int **alloctab_i(int dim1, int dim2) {
     }
   }
   return(ptr);
+}
+
+/* 
+--------------------------------------------------------------------------------
+  Cette fonction libere la memoire allouee par alloctab.
+--------------------------------------------------------------------------------
+*/
+void freetab(void *ptr) {
+  void **ptrT=ptr;
+  free(ptrT[0]);
+  free(ptr);
+  ptr=NULL;
 }
