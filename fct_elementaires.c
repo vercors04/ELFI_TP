@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <math.h>
 int ppquad(int t, float* poids, float** points){
 
 switch (t) {
@@ -61,3 +62,18 @@ int q_associe(int t){
   }
   return q;
 }
+
+
+float invertM2x2(float** mat, float** mat_inv){
+  const float delta = mat[0][0] * mat[1][1] - mat[0][1] * mat[1][0];
+  if (fabs(delta)>=1e-6f) { // On s'assure que delta != de 0 en prenant en compte l'erreur d'approximation
+    mat_inv[0][0] =  1.0f/delta * mat[1][1];
+    mat_inv[0][1] = -1.0f/delta * mat[0][1];
+    mat_inv[1][0] = -1.0f/delta * mat[1][0];
+    mat_inv[1][1] =  1.0f/delta * mat[0][0];
+  }
+  else printf("Matrice non inversible\n");
+
+  return delta;
+}
+
