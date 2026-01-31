@@ -1,7 +1,7 @@
 /*
 * POUR COMPILER LE PROGRAMME ET CREER L'EXECUTABLE :
 * -----------------------------------------
-* gcc main1.c fctTP1.c alloctab.c freetab.c
+* gcc main1.c fct_maillage.c tab.c
 * -----------------------------------------
 */
 
