@@ -20,7 +20,7 @@ int maillage (char *ficInput, char *ficOutput ) {
   float a, b, c, d;
 
   //------Lecture du fichier------ 
-  fscanf(Donnees, "%lf %lf %lf %lf %d %d %d %d", &a, &b, &c, &d, &n1, &n2, &t, &nrefdom);
+  fscanf(Donnees, "%f %f %f %f %d %d %d %d", &a, &b, &c, &d, &n1, &n2, &t, &nrefdom);
   for (int i = 0; i < 4; i++) {
     fscanf(Donnees, "%d", &nrefcot[i]);
   }
