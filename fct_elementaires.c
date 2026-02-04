@@ -78,3 +78,91 @@ float invertM2x2(float** mat, float** mat_inv){
   return delta;
 }
 
+void calFbase (int t, float* pt, float* vect){
+  //pt : tableau de taille d. Avec ptv[0] = x et pt [1] = y en dimensions 2
+  //val : vecteur de taille p
+  switch (t){
+    case 1 : //Quadrangle
+    vect[0] = pt[0] - pt[0] * pt[1];
+    vect[1] = pt[0] * pt[1];
+    vect[2] = pt[1] - pt[0] * pt[1];
+    vect[3] = (1.0f - pt[0]) * (1.0f - pt[1]);
+    break;
+
+    case 2 : //Triangle
+    vect[0] = pt[0];
+    vect[1] = pt[1];
+    vect[2] = 1.0f - pt[0] - pt[1];
+    break;
+
+    case 3 : //Segment
+    vect[0] = pt[0];
+    vect[1] = 1.0f - pt[0];
+    break;
+
+  default: printf("\nERREUR : fonction calFbase valeur de t =! 1,2,3\n"); return -1;
+
+  }
+}
+
+void calDerFbase (int t, float* pt, float** tab){
+  //pt : tableau de taille d. Avec ptv[0] = x et pt [1] = y en dimensions 2
+  //tab : matrice de taille p * d
+  switch (t) {
+    case 1 : 
+    tab[0][0] = 1.0f - pt[1]; //derivee en fonction de x de la fonction de base du sommet 1 du quadrangle
+    tab[0][1] = - pt[0]; //pareil mais en fonction de y
+    tab[1][0] = pt[1];
+    tab[1][1] = pt[0];
+    tab[2][0] = - pt[1];
+    tab[2][1] = 1 - pt[0];
+    tab[3][0] = -1 + pt[1];
+    tab[3][1] = -1 + pt[0];
+    break;
+
+    case 2 :
+    tab[0][0] = 1.0f;
+    tab[0][1] = 0;
+    tab[1][0] = 0;
+    tab[1][1] = 1.0f;
+    tab[2][0] = -1.0f;
+    tab[2][1] = -1.0f;
+    break;
+
+    case 3 :
+    tab[0][0] = 1.0f;
+    tab[0][1] = -1.0f;
+    break;
+
+    default: printf("\nERREUR : fonction calDerFbase valeur de t =! 1,2,3\n"); return -1;
+  
+  }
+}
+
+void transFK (int t, float** coordElem, float* valFctBase, float* tab){ // dans l'ennonce t est pas marqué comme pris en compte dans la fct donc jsp si on peut faire autrement
+  //coordElem : coordonnees du vrai triangle
+  //valFctBase : valeurs des fonctions de bases
+  //tab : tableau de sortie de taille 2
+  switch (t) {
+    case 1 : 
+    for (int i=0; i<4; i++ ){
+      tab[0] += valFctBase[i] * coordElem[i][0]; //pour x
+      tab[1] += valFctBase[i] * coordElem[i][1]; //pour y
+    }
+    break;
+
+    case 2 : 
+    for (int i=0; i<3; i++ ){
+      tab[0] += valFctBase[i] * coordElem[i][0]; //pour x
+      tab[1] += valFctBase[i] * coordElem[i][1]; //pour y
+    }
+    break;
+
+    case 3 : 
+    for (int i=0; i<2; i++ ){
+      tab[0] += valFctBase[i] * coordElem[i][0]; //pour x
+      tab[1] += valFctBase[i] * coordElem[i][1]; //pour y
+    }
+    break;
+  }
+}
