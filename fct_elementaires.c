@@ -3,7 +3,7 @@
 
 int ppquad(int t, float* poids, float** points){
 
-switch (t) {
+  switch (t) {
     case 1: // Quadrangle
  
       int q=9; // Pas utile ?
@@ -47,12 +47,11 @@ switch (t) {
       points[2][0] = 1.0f/2.0f; // x_3
       break;
     
-    default: printf("\nERREUR : fonction ppquad valeur de t =! 1,2,3\n"); return -1;
+    default: printf("\nERREUR : fonction ppquad valeur de t != 1,2,3\n"); return -1;
   }
-return 0;
+  return 0;
 }
 
-// Questionner l'utilite de la fonction
 int q_associe(int t){
   int q;
   switch (t) {
@@ -65,84 +64,76 @@ int q_associe(int t){
 }
 
 
-float invertM2x2(float** mat, float** mat_inv){
-  const float delta = mat[0][0] * mat[1][1] - mat[0][1] * mat[1][0];
-  if (fabs(delta)>=1e-6f) { // On s'assure que delta != de 0 en prenant en compte l'erreur d'approximation
-    mat_inv[0][0] =  1.0f/delta * mat[1][1];
-    mat_inv[0][1] = -1.0f/delta * mat[0][1];
-    mat_inv[1][0] = -1.0f/delta * mat[1][0];
-    mat_inv[1][1] =  1.0f/delta * mat[0][0];
-  }
-  else printf("Matrice non inversible\n");
-
-  return delta;
-}
-
-void calFbase (int t, float* pt, float* vect){
+int calFbase (int t, float* pt, float* vect){
   //pt : tableau de taille d. Avec ptv[0] = x et pt [1] = y en dimensions 2
   //val : vecteur de taille p
   switch (t){
-    case 1 : //Quadrangle
-    vect[0] = pt[0] - pt[0] * pt[1];
-    vect[1] = pt[0] * pt[1];
-    vect[2] = pt[1] - pt[0] * pt[1];
-    vect[3] = (1.0f - pt[0]) * (1.0f - pt[1]);
-    break;
+    case 1 : // Quadrangle
+      vect[0] = pt[0] - pt[0] * pt[1];
+      vect[1] = pt[0] * pt[1];
+      vect[2] = pt[1] - pt[0] * pt[1];
+      vect[3] = (1.0f - pt[0]) * (1.0f - pt[1]);
+      break;
 
-    case 2 : //Triangle
-    vect[0] = pt[0];
-    vect[1] = pt[1];
-    vect[2] = 1.0f - pt[0] - pt[1];
-    break;
+    case 2 : // Triangle
+      vect[0] = pt[0];
+      vect[1] = pt[1];
+      vect[2] = 1.0f - pt[0] - pt[1];
+      break;
 
-    case 3 : //Segment
-    vect[0] = pt[0];
-    vect[1] = 1.0f - pt[0];
-    break;
+    case 3 : // Segment
+      vect[0] = pt[0];
+      vect[1] = 1.0f - pt[0];
+      break;
 
-  default: printf("\nERREUR : fonction calFbase valeur de t =! 1,2,3\n"); return -1;
-
+  default: printf("\nERREUR : fonction calFbase valeur de t != 1,2,3\n"); return -1;
   }
+  return 0;
 }
 
-void calDerFbase (int t, float* pt, float** tab){
+int calDerFbase (int t, float* pt, float** tab){
   //pt : tableau de taille d. Avec ptv[0] = x et pt [1] = y en dimensions 2
   //tab : matrice de taille p * d
   switch (t) {
     case 1 : 
-    tab[0][0] = 1.0f - pt[1]; //derivee en fonction de x de la fonction de base du sommet 1 du quadrangle
-    tab[0][1] = - pt[0]; //pareil mais en fonction de y
-    tab[1][0] = pt[1];
-    tab[1][1] = pt[0];
-    tab[2][0] = - pt[1];
-    tab[2][1] = 1 - pt[0];
-    tab[3][0] = -1 + pt[1];
-    tab[3][1] = -1 + pt[0];
-    break;
+      tab[0][0] = 1.0f - pt[1]; //derivee en fonction de x de la fonction de base du sommet 1 du quadrangle
+      tab[0][1] = - pt[0]; //pareil mais en fonction de y
+      tab[1][0] = pt[1];
+      tab[1][1] = pt[0];
+      tab[2][0] = - pt[1];
+      tab[2][1] = 1 - pt[0];
+      tab[3][0] = -1 + pt[1];
+      tab[3][1] = -1 + pt[0];
+      break;
 
     case 2 :
-    tab[0][0] = 1.0f;
-    tab[0][1] = 0;
-    tab[1][0] = 0;
-    tab[1][1] = 1.0f;
-    tab[2][0] = -1.0f;
-    tab[2][1] = -1.0f;
-    break;
+      tab[0][0] = 1.0f;
+      tab[0][1] = 0;
+      tab[1][0] = 0;
+      tab[1][1] = 1.0f;
+      tab[2][0] = -1.0f;
+      tab[2][1] = -1.0f;
+      break;
 
     case 3 :
-    tab[0][0] = 1.0f;
-    tab[0][1] = -1.0f;
-    break;
+      tab[0][0] = 1.0f;
+      tab[0][1] = -1.0f;
+      break;
 
-    default: printf("\nERREUR : fonction calDerFbase valeur de t =! 1,2,3\n"); return -1;
-  
+    default: printf("\nERREUR : fonction calDerFbase valeur de t != 1,2,3\n"); return -1;
   }
+  return 0;
 }
 
-void transFK (int t, float** coordElem, float* valFctBase, float* tab){ // dans l'ennonce t est pas marqué comme pris en compte dans la fct donc jsp si on peut faire autrement
+void transFK (int Nk, float** coordElem, float* valFctBase, float* image){
   //coordElem : coordonnees du vrai triangle
   //valFctBase : valeurs des fonctions de bases
-  //tab : tableau de sortie de taille 2
+  //Nk : tableau de sortie de taille 2
+  for (int i=0;i<Nk;i++) {
+    image[0] += valFctBase[i] * coordElem[i][0]; // Pour x
+    image[1] += valFctBase[i] * coordElem[i][1]; // Pour y
+  }
+  /* Probablement a retirer
   switch (t) {
     case 1 : 
     for (int i=0; i<4; i++ ){
@@ -165,4 +156,33 @@ void transFK (int t, float** coordElem, float* valFctBase, float* tab){ // dans 
     }
     break;
   }
+  */
 }
+
+void matJacob(){
+
+}
+
+float invertM2x2(float** mat, float** mat_inv){
+  const float delta = mat[0][0] * mat[1][1] - mat[0][1] * mat[1][0];
+  if (fabs(delta)>=1e-8f) { // On s'assure que delta != de 0 en prenant en compte l'erreur d'approximation
+    mat_inv[0][0] =  1.0f/delta * mat[1][1];
+    mat_inv[0][1] = -1.0f/delta * mat[0][1];
+    mat_inv[1][0] = -1.0f/delta * mat[1][0];
+    mat_inv[1][1] =  1.0f/delta * mat[0][0];
+  }
+  else printf("\nMatrice non inversible\n");
+
+  return delta;
+}
+
+int* numAret (){
+
+}
+
+void selectPts(int nb, num[], float* coorEns[], float* coorSel[]){
+  for (int i=0;i<nb;i++) {
+    *coorSel[i] = *coorEns[num[i]];
+  }
+}
+
