@@ -145,15 +145,15 @@ void matJacob(int Nk, float** coordElem, int d, float** tab, float** matJac){
       matJac[1][0] += coordElem[i][1] * tab[i][0]; 
       matJac[1][1] += coordElem[i][1] * tab[i][1]; 
   }
+  break;
+
   case 1 : 
     for (int i=0;i<Nk;i++) {
       matJac[0][0] += coordElem[i][0] * tab[i][0]; 
-      matJac[0][1] += coordElem[i][0] * tab[i][1]; 
+      matJac[0][1] += coordElem[i][1] * tab[i][0]; 
   }
-
-
-
-
+  break;
+}
 }
 
 float invertM2x2(float** mat, float** mat_inv){
