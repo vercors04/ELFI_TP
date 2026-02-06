@@ -174,7 +174,18 @@ float invertM2x2(float** mat, float** mat_inv){
   return delta;
 }
 
-int* numAret (){
+int numAret (int t, int nba, int* couple){
+  couple[0] = nba;
+  switch (t) {
+	  case 1 :
+		  couple[1] = nba % 4 + 1;
+		  break;
+	  case 2 :
+		  couple[0] = nba % 3 + 1;
+		  break;
+	  default: printf("ERREUR : fonction numAret -> t != {1,2}");return -1;
+  }
+  return 0;
 
 }
 
