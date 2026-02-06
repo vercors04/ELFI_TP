@@ -131,30 +131,6 @@ void transFK (int Nk, float** coordElem, float* valFctBase, float* image){
     image[0] += valFctBase[i] * coordElem[i][0]; // Pour x
     image[1] += valFctBase[i] * coordElem[i][1]; // Pour y
   }
-  /* Probablement a retirer
-  switch (t) {
-    case 1 : 
-    for (int i=0; i<4; i++ ){
-      tab[0] += valFctBase[i] * coordElem[i][0]; //pour x
-      tab[1] += valFctBase[i] * coordElem[i][1]; //pour y
-    }
-    break;
-
-    case 2 : 
-    for (int i=0; i<3; i++ ){
-      tab[0] += valFctBase[i] * coordElem[i][0]; //pour x
-      tab[1] += valFctBase[i] * coordElem[i][1]; //pour y
-    }
-    break;
-
-    case 3 : 
-    for (int i=0; i<2; i++ ){
-      tab[0] += valFctBase[i] * coordElem[i][0]; //pour x
-      tab[1] += valFctBase[i] * coordElem[i][1]; //pour y
-    }
-    break;
-  }
-  */
 }
 
 void matJacob(){
@@ -178,7 +154,7 @@ int* numAret (){
 
 }
 
-void selectPts(int nb, num[], float* coorEns[], float* coorSel[]){
+void selectPts(int nb, int num[], float* coorEns[], float* coorSel[]){
   for (int i=0;i<nb;i++) {
     *coorSel[i] = *coorEns[num[i]];
   }
