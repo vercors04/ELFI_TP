@@ -99,4 +99,4 @@ int* numAret ();
  * param[out] coorSel[] : pointeur donnant acces aux coordonnees des points selectionnes
  * ---------------------------------------------------------------------------------------
  */
-void selectPts(int nb, num[], float* coorEns[], float* coorSel[]);
+void selectPts(int nb, int num[], float* coorEns[], float* coorSel[]);

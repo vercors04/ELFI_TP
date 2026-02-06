@@ -133,7 +133,11 @@ void transFK (int Nk, float** coordElem, float* valFctBase, float* image){
   }
 }
 
-void matJacob(){
+void matJacob(int Nk, float** coordElem, int d, float** tab){
+  //CoordElem : coordonnée des noeuds géométrique
+  //d : dimension
+  //tab : .
+
 
 }
 
