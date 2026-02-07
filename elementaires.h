@@ -1,3 +1,7 @@
+// Declarations
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
 
 /* Fonction qui renvoie les poids et points de quadrature en fonction du type de l'element
  * ---------------------------------------------------------------------------------------
@@ -69,7 +73,7 @@ void transFK (int Nk, float** coordElem, float* valFctBase, float* image);
  *
  * ---------------------------------------------------------------------------------------
  */
-void matJacob();
+void matJacob(int Nk, float** coordElem, int d, float** tab, float** matJac);
 
 /* Fonction qui calcule le determinant et l'inverse d'une matrice de float 2x2
  * ---------------------------------------------------------------------------------------
@@ -86,7 +90,7 @@ float invertM2x2(float** mat, float** mat_inv);
  *
  * ---------------------------------------------------------------------------------------
  */
-int* numAret ();
+int numAret (int t, int nba, int* couple);
 
 /* Fonction qui selectionne un nombre de points parmi un ensemble et les regroupe dans
  * un autre ensemble
@@ -100,3 +104,24 @@ int* numAret ();
  * ---------------------------------------------------------------------------------------
  */
 void selectPts(int nb, int num[], float* coorEns[], float* coorSel[]);
+
+
+/* 
+--------------------------------------------------------------------------------
+  Autres fonctions non demandés mais utile.
+--------------------------------------------------------------------------------
+*/
+
+float **alloctab_f(int dim1, int dim2);
+
+int **alloctab_i(int dim1, int dim2); 
+
+void freetab(void *ptr); 
+
+float *allocvec_f(int dim);
+
+float *allocvec_i(int dim);
+
+void printMat(int m, int n, float **mat);
+
+void printVect(int n, float *v);

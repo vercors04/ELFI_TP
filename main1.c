@@ -1,11 +1,11 @@
 /*
 * POUR COMPILER LE PROGRAMME ET CREER L'EXECUTABLE :
 * -----------------------------------------
-* gcc main1.c fctTP1.c alloctab.c freetab.c
+* gcc main1.c fct_maillage.c tab.c 
 * -----------------------------------------
 */
 
-#include "header.h"
+#include "maillage.h"
 
 int main() {
   int mode_saisie;

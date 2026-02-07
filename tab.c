@@ -1,5 +1,6 @@
+#include <stdio.h>
 #include <stdlib.h>
-
+#include <math.h>
 /*
 --------------------------------------------------------------------------------
   Cette fonction alloue de la memoire pour stocker une matrice de dimensions
@@ -87,4 +88,38 @@ void freetab(void *ptr) {
   free(ptrT[0]);
   free(ptr);
   ptr=NULL;
+}
+
+/* 
+--------------------------------------------------------------------------------
+  Autres fonctions non demandés mais utile.
+--------------------------------------------------------------------------------
+*/
+
+float *allocvec_f(int dim) {
+    float *v = malloc(dim * sizeof(float));
+    return v;
+}
+
+float *allocvec_i(int dim) {
+    float *v = malloc(dim * sizeof(int));
+    return v;
+}
+
+
+void printMat(int m, int n, float **mat) {
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < n; j++) {
+            printf("%f ", mat[i][j]);
+        }
+        printf("\n");
+    }
+    printf("\n");
+}
+
+void printVect(int n, float *v) {
+    for (int i = 0; i < n; i++) {
+        printf("%f ", v[i]);
+    }
+    printf("\n");
 }

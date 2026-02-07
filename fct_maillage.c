@@ -1,4 +1,4 @@
-#include "header.h"
+#include "maillage.h"
 
 
 int maillage (char *ficInput, char *ficOutput ) {
