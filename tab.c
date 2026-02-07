@@ -101,8 +101,8 @@ float *allocvec_f(int dim) {
     return v;
 }
 
-float *allocvec_i(int dim) {
-    float *v = malloc(dim * sizeof(int));
+int *allocvec_i(int dim) {
+    int *v = malloc(dim * sizeof(int));
     return v;
 }
 

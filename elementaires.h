@@ -120,7 +120,7 @@ void freetab(void *ptr);
 
 float *allocvec_f(int dim);
 
-float *allocvec_i(int dim);
+int *allocvec_i(int dim);
 
 void printMat(int m, int n, float **mat);
 
