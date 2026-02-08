@@ -156,49 +156,52 @@ int main() {
     int nb_pts = 4;
     float** coorEns = alloctab_f(nb_pts, 2);
 
-    coorEns[0][0] = 1.1f; coorEns[0][1] = 1.1f;
-    coorEns[1][0] = 2.2f; coorEns[1][1] = 2.2f;
-    coorEns[2][0] = 3.3f; coorEns[2][1] = 3.3f;
-    coorEns[3][0] = 4.4f; coorEns[3][1] = 4.4f;
-
+    coorEns[0][0] = 1.1f; coorEns[0][1] = 1.0f;
+    coorEns[1][0] = 2.2f; coorEns[1][1] = 2.0f;
+    coorEns[2][0] = 3.3f; coorEns[2][1] = 3.0f;
+    coorEns[3][0] = 4.4f; coorEns[3][1] = 4.0f;
+    
+    printf("Matrice contenant les points à selectionner :\n");
+    printMat (nb_pts,2,coorEns);
     //nombre de points à selectionner
     int nb = 2;
     int* num = allocvec_i(nb);
     num[0] = 3; 
     num[1] = 1;
 
-    float** coorSel = alloctab_f(1,nb);
-    selectPts(nb, num,  coorEns, coorSel);
+    float** coorSel = alloctab_f(nb,2);
+    selectPts(nb, num, coorEns, coorSel);
 
     printf("Pour les points numero %d et numero %d :\n", num[0], num[1]);
-    printMat (nb, 1, coorSel);
+    //printf("(%f,%f)\n",(**coorSel),**(coorSel+1));
+    printMat (nb, 2, coorSel);
 
 
     /*
     liberation de la memoire
     */
-    free(poids);
+    freevec(poids);
     freetab(points);
 
-    free(point);
-    free(vect);
+    freevec(point);
+    freevec(vect);
     freetab(tab);
 
-    free(pt_ref);
-    free(valFctBase);
+    freevec(pt_ref);
+    freevec(valFctBase);
     freetab(coordElem);
-    free(image);
+    freevec(image);
 
     freetab(matJac);
 
     freetab(matrice);
     freetab(matrice_inv);
 
-    free(couple);
+    freevec(couple);
 
     freetab(coorEns);
-    free(num);
-    freetab(coorSel);
+    freevec(num);
+    freevec(coorSel);
 
     return 0;
 }

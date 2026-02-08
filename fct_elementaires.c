@@ -188,7 +188,7 @@ int numAret (int t, int nba, int* couple){
 
 void selectPts(int nb, int num[], float* coorEns[], float* coorSel[]){
   for (int i=0;i<nb;i++) {
-    *coorSel[i] = *coorEns[num[i]-1];
+    coorSel[i] = coorEns[num[i]-1];
   }
 }
 

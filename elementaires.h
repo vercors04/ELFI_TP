@@ -122,6 +122,8 @@ float *allocvec_f(int dim);
 
 int *allocvec_i(int dim);
 
+void freevec(void *ptr);
+
 void printMat(int m, int n, float **mat);
 
 void printVect(int n, float *v);

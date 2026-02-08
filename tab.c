@@ -106,6 +106,11 @@ int *allocvec_i(int dim) {
     return v;
 }
 
+void freevec(void *ptr){
+  free(ptr);
+  ptr=NULL;
+}
+
 
 void printMat(int m, int n, float **mat) {
     for (int i = 0; i < m; i++) {
