@@ -62,8 +62,6 @@ int q_associe(int t){
 
 
 int calFbase (int t, float* point, float* vect){
-  //point : tableau de taille d. Avec ptv[0] = x et pt [1] = y en dimensions 2
-  //val : vecteur de taille p
   switch (t){
     case 1 : // Quadrangle
       vect[0] = point[0] - point[0] * point[1];
@@ -89,12 +87,11 @@ int calFbase (int t, float* point, float* vect){
 }
 
 int calDerFbase (int t, float* point, float** tab){
-  //point : tableau de taille d. Avec ptv[0] = x et pt [1] = y en dimensions 2
-  //tab : matrice de taille p * d
+
   switch (t) {
     case 1 : 
-      tab[0][0] = 1.0f - point[1]; //derivee en fonction de x de la fonction de base du sommet 1 du quadrangle
-      tab[0][1] = - point[0]; //pareil mais en fonction de y
+      tab[0][0] = 1.0f - point[1]; //derivee en fonction de x
+      tab[0][1] = - point[0]; //derivee en fonction de y
       tab[1][0] = point[1];
       tab[1][1] = point[0];
       tab[2][0] = - point[1];
@@ -123,10 +120,7 @@ int calDerFbase (int t, float* point, float** tab){
 }
 
 void transFK (int Nk, float** coordElem, float* valFctBase, float* image){
-  //coordElem : coordonnees du vrai triangle
-  //valFctBase : valeurs des fonctions de bases
-  //image : tableau de sortie de taille 2
-  image[0] = 0.0f; // /!\ allocation à 0 sinon problème, potentielement des nombres random dans image a cause du malloc
+  image[0] = 0.0f; // allocation à 0 sinon resultat errone
   image[1] = 0.0f;
 
   for (int i=0;i<Nk;i++) {
@@ -136,9 +130,6 @@ void transFK (int Nk, float** coordElem, float* valFctBase, float* image){
 }
 
 void matJacob(int Nk, float** coordElem, int d, float** tab, float** matJac){
-  //CoordElem : coordonnée des noeuds géométrique
-  //d : dimension
-  //tab : valeur des derivves des fonctions de base
   switch (d) {
     case 2 : 
     for (int i=0;i<Nk;i++) {

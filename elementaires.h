@@ -68,9 +68,16 @@ int calDerFbase (int t, float* point, float** tab);
  */
 void transFK (int Nk, float** coordElem, float* valFctBase, float* image);
 
-/*
+/* Fonction qui calcule la matrice jacobienne de la transformation F_{K}
  * ---------------------------------------------------------------------------------------
+ * @param[in] Nk : nombre de noeuds de l'element
+ * @param[in] coordElem : pointeur donnant accces aux coordonnees des 
+ *                        noeuds geometriques de l'element
+ * @param[in] d : dimension de l'espace de depart
+ * @param[in] tab : pointeur donnant acces à la valeur en ce point 
+ *                   des derivees des p fonctions de base associees a t
  *
+ * @param[out] matJac : pointeur donnant acces a la matrice jacobienne
  * ---------------------------------------------------------------------------------------
  */
 void matJacob(int Nk, float** coordElem, int d, float** tab, float** matJac);
@@ -85,9 +92,13 @@ void matJacob(int Nk, float** coordElem, int d, float** tab, float** matJac);
  */
 float invertM2x2(float** mat, float** mat_inv);
 
-/*
+/* Fonction qui renvoie la liste des numeros locaux des noeuds situés sur une arrete
+ * de numero donne (>=1) sur l'element de reference de type t
  * ---------------------------------------------------------------------------------------
- *
+ * @param[in] t : type de l'element (1 - quadrangle ; 2 - triangle)
+ * @param[in] nba : numero associe a l'arrete dont on souhaite connaitre les noeuds
+ * 
+ * @param[out] couple : pointeur vers le couple de noeuds situe sur l'arrete choisie
  * ---------------------------------------------------------------------------------------
  */
 int numAret (int t, int nba, int* couple);
