@@ -1,7 +1,7 @@
 /*
 * POUR COMPILER LE PROGRAMME ET CREER L'EXECUTABLE :
 * -----------------------------------------
-* gcc main1.c fct_maillage.c tab.c 
+* gcc Maillage/main1.c Maillage/fct_maillage.c tab.c -o main1.exe
 * -----------------------------------------
 */
 

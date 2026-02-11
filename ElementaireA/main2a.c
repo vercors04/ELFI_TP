@@ -1,11 +1,12 @@
 /*
 * POUR COMPILER LE PROGRAMME ET CREER L'EXECUTABLE :
 * -----------------------------------------
-* gcc main2.c fct_elementaires.c tab.c 
+* gcc ElementaireA/fct_elementairesa.c ElementaireA/main2a.c tab.c -o main2a.exe
 * -----------------------------------------
 */
 
 #include "elementairesa.h"
+
 
 int main() {
 
