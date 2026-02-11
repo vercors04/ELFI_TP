@@ -1,26 +1,4 @@
-/*
---------------------------------------------------------------------------------
-  Mise a jour de la matrice elementaire : ajout de la contribution
-  d'un point de quadrature d'un element ou de son bord, pour le calcul
-  d'integrales elementaires faisant intervenir le produit de deux
-  fonctions de base.
 
-  Terminologie : FK designe la transformation qui calcule l'image dans
-                 l'element courant d'un point de l'element de reference
-
-  Arguments d'entree :
-   nbneel : nombre de noeuds de l'element
-   fctbas : valeurs des fonctions de base au point de quadrature courant
-            Dimensions utiles : fctbas(nbneel)
-   eltdif : element differentiel multiplie par le poids de quadrature
-   cofvar : valeur du coefficient variable (fonction a integrer calculee
-            en l'image par FK du point de quadrature courant)
-   matelm : matrice elementaire de masse a actualiser
-            Dimensions utiles : matelm(nbneel,nbneel)
-  Arguments de sortie :
-   matelm : matrice elementaire de masse actualisee
---------------------------------------------------------------------------------
-*/
 void WW(int nbneel, float *fctbas, float eltdif, float cofvar, float **matelm) {
   int i, j;
   float coeff;
@@ -34,23 +12,7 @@ void WW(int nbneel, float *fctbas, float eltdif, float cofvar, float **matelm) {
 }
 
 
-void impCalEl(int K, int typEl, int nbneel, float **MatElem, float *SMbrElem,
-              int *NuDElem, float *uDElem) {
-/************************************************************************
-  Imprime les resultats de la matrice et du second membre elementaires
-  ainsi que les conditions Dirichlet en chaque noeud
-  et les valeurs des conditions Dirichlet non homogene
- 
-*** Arguments *** 
-   K        : Numero de l'element
-   typEl    : Numero de type de l'element
-   nbneel   : Nombre de noeuds de l'element
-   MatElem  : Matrice elementaire de dimensions (nbneel,nbneel)
-   SMbrElem : Second membre elementaire de dimension nbneel
-   NuDElem  : Tableau de reperage des noeuds porteurs de conditions de Dirichlet
-   uDElem   : Tableau des valeurs de blocage
-              pour les noeuds Dirichlet non homogene
-************************************************************************/
+void impCalEl(int K, int typEl, int nbneel, float **MatElem, float *SMbrElem, int *NuDElem, float *uDElem) {
   int i, j;
   printf("\n");
   printf(" ELEMENT=%3d    DE TYPE=%5d    NB NOEUDS=%2d\n", K,typEl,nbneel);
