@@ -4,6 +4,55 @@
 #include <math.h>
 
 
+/* Fonctions qui renvoie les resultats des fonctions intervenant dans les intégrales
+ * ---------------------------------------------------------------------------------------
+ * @param[in] x : point de coordonne x = (x1, x2)
+ * 
+ * @return le resultat de la fonction
+ * ---------------------------------------------------------------------------------------
+*/
+float A11(float x);
+
+float A22(float x);
+
+float A12(float x);
+
+float A00(float x);
+
+float BN(float x);
+
+float FOMEGA(float x);
+
+float FN(float x);
+
+float UD(float* x);
+
+
+
+
+/* 
+--------------------------------------------------------------------------------
+  Fonction fournies avec l'ennonce.
+--------------------------------------------------------------------------------
+*/
+
+/*
+  Imprime les resultats de la matrice et du second membre elementaires
+  ainsi que les conditions Dirichlet en chaque noeud
+  et les valeurs des conditions Dirichlet non homogene
+ 
+*** Arguments *** 
+   K        : Numero de l'element
+   typEl    : Numero de type de l'element
+   nbneel   : Nombre de noeuds de l'element
+   MatElem  : Matrice elementaire de dimensions (nbneel,nbneel)
+   SMbrElem : Second membre elementaire de dimension nbneel
+   NuDElem  : Tableau de reperage des noeuds porteurs de conditions de Dirichlet
+   uDElem   : Tableau des valeurs de blocage
+              pour les noeuds Dirichlet non homogene
+*/
+void impCalEl(int K, int typEl, int nbneel, float **MatElem, float *SMbrElem,int *NuDElem, float *uDElem);
+
 /*
 --------------------------------------------------------------------------------
   Mise a jour de la matrice elementaire : ajout de la contribution
@@ -28,20 +77,3 @@
 --------------------------------------------------------------------------------
 */
 void WW(int nbneel, float *fctbas, float eltdif, float cofvar, float **matelm);
-
-/************************************************************************
-  Imprime les resultats de la matrice et du second membre elementaires
-  ainsi que les conditions Dirichlet en chaque noeud
-  et les valeurs des conditions Dirichlet non homogene
- 
-*** Arguments *** 
-   K        : Numero de l'element
-   typEl    : Numero de type de l'element
-   nbneel   : Nombre de noeuds de l'element
-   MatElem  : Matrice elementaire de dimensions (nbneel,nbneel)
-   SMbrElem : Second membre elementaire de dimension nbneel
-   NuDElem  : Tableau de reperage des noeuds porteurs de conditions de Dirichlet
-   uDElem   : Tableau des valeurs de blocage
-              pour les noeuds Dirichlet non homogene
-************************************************************************/
-void impCalEl(int K, int typEl, int nbneel, float **MatElem, float *SMbrElem, int *NuDElem, float *uDElem) ;
