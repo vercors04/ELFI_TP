@@ -1,4 +1,4 @@
-#include "elementaires.h"
+#include "elementairesa.h"
 
 int ppquad(int t, float* poids, float** points){
 

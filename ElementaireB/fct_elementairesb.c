@@ -1,3 +1,4 @@
+#include "elementairesb.h"
 
 void WW(int nbneel, float *fctbas, float eltdif, float cofvar, float **matelm) {
   int i, j;
@@ -23,3 +24,5 @@ void impCalEl(int K, int typEl, int nbneel, float **MatElem, float *SMbrElem, in
     printf("\n");
   }
 }
+
+
