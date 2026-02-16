@@ -1,5 +1,3 @@
-#include "elementairesb.h"
-
 float A11(float* x){
   return 1.0f;
 }

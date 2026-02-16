@@ -1,7 +1,8 @@
 /*
 * POUR COMPILER LE PROGRAMME ET CREER L'EXECUTABLE :
 * -----------------------------------------
-* gcc ElementaireA/fct_elementairesa.c ElementaireA/main2a.c tab.c -o main2a.exe
+* Lancer main2a.sh dans le dossier "Executables/"
+* Attention : l'executable doit se trouver dans le dossier "Executables/"
 * -----------------------------------------
 */
 
