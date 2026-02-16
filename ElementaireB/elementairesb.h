@@ -4,26 +4,26 @@
 #include <math.h>
 
 
-/* Fonctions qui renvoie les resultats des fonctions intervenant dans les intégrales
+/* Fonctions qui renvoient les resultats des fonctions intervenant dans les intégrales
  * ---------------------------------------------------------------------------------------
  * @param[in] x : point de coordonne x = (x1, x2)
  * 
  * @return le resultat de la fonction
  * ---------------------------------------------------------------------------------------
 */
-float A11(float x);
+float A11(float* x);
 
-float A22(float x);
+float A22(float* x);
 
-float A12(float x);
+float A12(float* x);
 
-float A00(float x);
+float A00(float* x);
 
-float BN(float x);
+float BN(float* x);
 
-float FOMEGA(float x);
+float FOMEGA(float* x);
 
-float FN(float x);
+float FN(float* x);
 
 float UD(float* x);
 

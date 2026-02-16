@@ -39,16 +39,3 @@ int lecfima(char *ficmai, int *ptypel, int *pnbtng, float ***pcoord, int *pnbtel
 /* Entree des variables par l'utilisateur et creation d'un fichier de donnees pour la fonction maillage
 */
 void modeSaisie2 ();
-
-/* Fonction qui alloue dynamiquement une matrice de float de taille dim1 x dim2
-*/
-float **alloctab_f(int dim1, int dim2);
-
-/* Fonction qui alloue dynamiquement une matrice d'Int de taille dim1 x dim2
-*/
-int **alloctab_i(int dim1, int dim2); 
-
-/* Liberation de la memoire
-*/
-void freetab(void *ptr); 
-

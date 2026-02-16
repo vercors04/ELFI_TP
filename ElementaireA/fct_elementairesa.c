@@ -1,4 +1,7 @@
-#include "elementairesa.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
 
 int ppquad(int t, float* poids, float** points){
 

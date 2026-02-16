@@ -1,11 +1,13 @@
 /*
 * POUR COMPILER LE PROGRAMME ET CREER L'EXECUTABLE :
 * -----------------------------------------
-* gcc Maillage/main1.c Maillage/fct_maillage.c tab.c -o main1.exe
+* Lancer main1.sh dans le dossier "Executables/"
+* Attention : l'executable doit se trouver dans le dossier "Executables/"
 * -----------------------------------------
 */
 
 #include "maillage.h"
+#include "../Utilitaire/utilitaires.h"
 
 int main() {
   int mode_saisie;
@@ -16,14 +18,14 @@ int main() {
 
   if (mode_saisie==2) modeSaisie2();
 
-  char* nom_fichier_donnees="Donnees/ficInput.txt";
-  char* nom_fichier_maillage1="Donnees/ficOutput.txt";
+  char* nom_fichier_donnees="../Donnees_1/ficInput.txt";
+  char* nom_fichier_maillage1="../Donnees_1/ficOutput.txt";
 
   // Création du maillage
   if (maillage(nom_fichier_donnees,nom_fichier_maillage1)) return 1;
 
   // Lecture du maillage
-  char* nom_fichier_maillage2="Donnees/car1x1t_1";
+  char* nom_fichier_maillage2="../Donnees_1/car1x1t_1";
   int typel, nbtng, nbtel, nbneel, nbaret;
   float** coord;
   int **ngnel,**nRefAr;

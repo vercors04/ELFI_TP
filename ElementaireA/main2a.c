@@ -6,6 +6,7 @@
 */
 
 #include "elementairesa.h"
+#include "../Utilitaire/utilitaires.h"
 
 
 int main() {

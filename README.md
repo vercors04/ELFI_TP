@@ -7,27 +7,39 @@ Ce projet, réalisé dans le cadre du Master 1 CSM, vise à développer une mini
 Le développement suit le cycle de vie d'une résolution FEM classique :
 
 ### Phase 1 : Pré-traitement Géométrique
-* **TP1 : Maillage** 
-    * Discrétisation du domaine $\Omega$ en triangles ($P_1$) ou quadrangles ($Q_1$).
-    * Attribution des références pour les conditions aux limites.
 
-### Phase 2 : 
-* **TP2a : Fonctions mathématiques utilitaires** 
-    * 
+* **TP1 : Maillage**
+  * Discrétisation du domaine $\Omega$ en triangles ($P_1$) ou quadrangles ($Q_1$).
+  * Attribution des références pour les conditions aux limites.
 
-* **TP2b : Calculs élémentaires** 
-    * 
+### Phase 2
 
-### Phase 3 : 
-* **TP3 : Assemblage** 
-    * Construction du système linéaire.
-### Phase 4 : 
-* **TP4 : Système Linéaire & Projet** 
-    * Prise en compte des conditions aux limites de Dirichlet.
+* **TP2a : Fonctions mathématiques utilitaires**
+    *
+
+* **TP2b : Calculs élémentaires**
+    *
+
+### Phase 3
+
+* **TP3 : Assemblage**
+  * Construction du système linéaire.
+
+### Phase 4
+
+* **TP4 : Système Linéaire & Projet**
+  * Prise en compte des conditions aux limites de Dirichlet.
 
 ### Phase 5
-* **TP5 : mise en pratique** 
-    * 
+
+* **TP5 : mise en pratique**
+    *
+
+## Liste des fichiers dont nous ne sommes pas les auteurs initiaux
+
+* alloctab.c
+* freetab.c
+* impcalel.c
+* ww.c
 
 ## Autre
-

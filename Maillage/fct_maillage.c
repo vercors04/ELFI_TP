@@ -1,4 +1,5 @@
 #include "maillage.h"
+#include "../Utilitaire/utilitaires.h"
 
 
 int maillage (char *ficInput, char *ficOutput ) {
@@ -158,7 +159,7 @@ int lecfima(char *ficmai, int *ptypel, int *pnbtng, float ***pcoord, int *pnbtel
   FILE *pfichier_maillage = fopen(ficmai,"r");
   // Test du bon deroulement de l'ouverture
     if (pfichier_maillage==NULL) { 
-      printf("ERREUR : Le fichier n'a pas pu etre ouvert.\n");
+      printf("ERREUR : Le fichier ficmai n'a pas pu etre ouvert.\n");
       return 1;
     }
 
@@ -194,10 +195,10 @@ int lecfima(char *ficmai, int *ptypel, int *pnbtng, float ***pcoord, int *pnbtel
 	fclose(pfichier_maillage);
 
 	// Validation de la fonction
-	FILE *verif = fopen("Donnees/verif_lecfima.txt", "w"); 
+	FILE *verif = fopen("../Donnees_1/verif_lecfima.txt", "w"); 
 	// Test du bon deroulement de l'ouverture
   if (verif==NULL) { 
-    printf("ERREUR : Le fichier n'a pas pu etre ouvert.\n");
+    printf("ERREUR : Le fichier verif_lecfima.txt n'a pas pu etre ouvert.\n");
     return 1;
     }
 
@@ -228,7 +229,7 @@ void modeSaisie2 () {
 	int  n1, n2, t, nrefdom, nrefcot[4];
   float a, b, c, d;
 
-	FILE *Donnees = fopen("ficInput.txt", "w");
+	FILE *Donnees = fopen("../Donnees_1/ficInput.txt", "w");
     // Test du bon deroulement de l'ouverture
     if (Donnees==NULL) { 
       printf("ERREUR : Le fichier n'a pas pu etre ouvert.\n");

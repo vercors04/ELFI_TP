@@ -116,25 +116,3 @@ int numAret (int t, int nba, int* couple);
  */
 void selectPts(int nb, int num[], float* coorEns[], float* coorSel[]);
 
-
-/* 
---------------------------------------------------------------------------------
-  Autres fonctions non demandés mais utile.
---------------------------------------------------------------------------------
-*/
-
-float **alloctab_f(int dim1, int dim2);
-
-int **alloctab_i(int dim1, int dim2); 
-
-void freetab(void *ptr); 
-
-float *allocvec_f(int dim);
-
-int *allocvec_i(int dim);
-
-void freevec(void *ptr);
-
-void printMat(int m, int n, float **mat);
-
-void printVect(int n, float *v);
