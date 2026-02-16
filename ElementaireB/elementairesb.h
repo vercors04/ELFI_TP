@@ -28,7 +28,18 @@ float FN(float* x);
 float UD(float* x);
 
 
-
+/* Procedure W
+ * Calcul de : $\int_{K}f_{\Omega}(x)dx$ --ou-- $\int_{K'}f_{N}(\sigma)w_{j}^{K'}d\sigma$
+ * ---------------------------------------------------------------------------------------
+ * @param[in]  nbneel :
+ * @param[in]  fctbas :
+ * @param[in]  eltdif :
+ * @param[in]  cofvar :
+ *
+ * @param[out] vecelm :
+ * ---------------------------------------------------------------------------------------
+ */
+void w(int nbneel, float* fctbas, float eltdif, float cofvar, float* vecelm);
 
 /* 
 --------------------------------------------------------------------------------
