@@ -1,28 +1,29 @@
-float A11(float* x){
+
+float A11(){
   return 1.0f;
 }
 
-float A22(float* x){
+float A22(){
   return 1.0f;
 }
 
-float A12(float* x){
+float A12(){
   return 0;
 }
 
-float A00(float* x){
+float A00(){
   return 1.0f;
 }
 
-float BN(float* x){
+float BN(){
   return 0;
 }
 
-float FOMEGA(float* x){
+float FOMEGA(){
   return 1.0f;
 }
 
-float FN(float* x){
+float FN(){
   return 1.0f;
 }
 
