@@ -68,7 +68,7 @@ int maillage (char *ficInput, char *ficOutput ) {
 		nRefAr[i] = &nRefAr_alloc[i * q];
  	}
 
- 	etiqAr(t,n1,n2,nrefdom,nrefcot,m,q,nRefAr);
+ 	etiqAr(t,n1,n2,nrefdom,nrefcot,nRefAr);
 
 
 	int k=0; // Parcours de chaque element, de 0 à m. 
@@ -108,14 +108,28 @@ int maillage (char *ficInput, char *ficOutput ) {
 	// Fermeture des fichiers
 	fclose(Output);
 	fclose(Donnees);
+	freetab(nRefAr);
   return 0;
 }
 
 
 
-void etiqAr (int t, int n1, int n2, int nrefdom, const int *nrefcot, int m, int q, int **nRefAr){
+int etiqAr (int t, int n1, int n2, int nrefdom, const int *nrefcot, int **nRefAr){
+
+
+	//calcul de m
+	int m, q;
+
+	switch (t) {
+		
+    case 1: m=(n1-1)*(n2-1); q=4; break; // Quadrangles
+    case 2: m=2*((n1-1)*(n2-1)); q=3; break; // Triangles
+    default: printf("ERREUR : Cas possibles : \n t=1 : Quadrangles\n t=2 : Triangles");return 1;
+
+	}
 
 	// Remplissage de tout les elements à 0
+	
 
 	for (int i = 0; i < m; i++) {
     for (int j = 0; j < q; j++) {
@@ -150,6 +164,7 @@ void etiqAr (int t, int n1, int n2, int nrefdom, const int *nrefcot, int m, int 
 		  nRefAr[m-1-i][1] = nrefcot[1];
 	  }
 	}
+	return 0;
 }
 
 
@@ -194,6 +209,12 @@ int lecfima(char *ficmai, int *ptypel, int *pnbtng, float ***pcoord, int *pnbtel
 
 	fclose(pfichier_maillage);
 
+	/*
+	Verif fichier lecfima
+	*/
+
+
+	/* 
 	// Validation de la fonction
 	FILE *verif = fopen("../Donnees_1/verif_lecfima.txt", "w"); 
 	// Test du bon deroulement de l'ouverture
@@ -214,12 +235,12 @@ int lecfima(char *ficmai, int *ptypel, int *pnbtng, float ***pcoord, int *pnbtel
       fprintf(verif, "%d ",(*pngnel)[i][j]);
     }
     for (int j=0;j<*pnbneel;j++) {
-      fprintf(pfichier_maillage, "%d ",(*pnRefAr)[i][j]);
+      fprintf(verif, "%d ",(*pnRefAr)[i][j]);
     }
     fprintf(verif, "\n");
   }
-	fclose(verif);
-
+	fclose(verif); */
+	return 0;
 }	
 
 
@@ -237,25 +258,25 @@ void modeSaisie2 () {
     }
 
 	printf("Inserez les donnees :\nDomaine [a,b]x[c,d] (Entrez les valeures de a b c d) :\n");
-  scanf("%lf %lf %lf %lf", &a, &b, &c, &d);
+  scanf("%f %f %f %f", &a, &b, &c, &d);
 	fprintf(Donnees,"%f %f %f %f\n", a, b, c, d);
 
   printf("\nNombres de points n1 et n2 :\n");
   scanf("%d %d", &n1, &n2);
-	fprintf(Donnees,"%d %d", n1, n2);
+	fprintf(Donnees,"%d %d\n", n1, n2);
 
   printf("\nType des elements a construire (1. Quadrangles - 2. Triangles) : \n");
   scanf("%d", &t);
-	fprintf(Donnees,"%d",t);
+	fprintf(Donnees,"%d\n",t);
 
   printf("\nNuméro de reference du domaine\n");
   scanf("%d", &nrefdom);
-	fprintf(Donnees,"%d\n", nrefdom);
+	fprintf(Donnees,"%d ", nrefdom);
 
   for (int i = 1; i < 5; i++) {
     printf("\nNuméro de reference du cote %d : \n",i);
 		scanf("%d", &nrefcot[i-1]);
-		fprintf(Donnees,"%d\n", nrefcot[i-1]);	
+		fprintf(Donnees,"%d ", nrefcot[i-1]);	
   }
 
 	fclose(Donnees);

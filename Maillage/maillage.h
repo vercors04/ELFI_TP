@@ -16,11 +16,9 @@ int maillage (char* ficInput, char *ficOutput ); //doc à changer
  * param[in] n1 & n2 : nombre de points sur les cotes 1 et 2
  * param[in] nrefdom : numero de reference associe au domaine
  * param[in] nrefcot : pointeur donnant acces au numero de reference associe aux cotes
- * param[in] nbtel : nombre d'elements du maillage
- * param[in] nbaret : nombre d'aretes par element
  * param[out] nRefAr : double pointeur donnant acces au numero de reference de chaque arete
 */
-void etiqAr (int typel, int n1, int n2, int nrefdom, const int *nrefcot, int nbtel, int nbaret, int **nRefAr);
+int etiqAr (int typel, int n1, int n2, int nrefdom, const int *nrefcot, int **nRefAr);
 
 /* Fonction qui : lit un fichier de maillage - alloue dynamiquement la memoire et remplit des tableaux : coord, ngnel et nRefAr
  * param[in] ficmai : fichier lu par la fonction
