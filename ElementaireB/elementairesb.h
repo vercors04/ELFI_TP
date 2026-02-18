@@ -36,7 +36,7 @@ float UD(float* x);
  * @param[in]  eltdif :
  * @param[in]  cofvar :
  *
- * @param[out] vecelm :
+ * @param[in/out] vecelm :
  * ---------------------------------------------------------------------------------------
  */
 void w(int nbneel, float* fctbas, float eltdif, float cofvar, float* vecelm);
