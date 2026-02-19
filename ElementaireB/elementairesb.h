@@ -90,6 +90,6 @@ void impCalEl(int K, int typEl, int nbneel, float **MatElem, float *SMbrElem,int
 void WW(int nbneel, float *fctbas, float eltdif, float cofvar, float **matelm);
 
 
-void ADWDW (int nbneel, float** pderWi, float** cofvar, float eltdif, float** matelm);
+void ADWDW (int nbneel, float** dpfctbas, float** cofvar, float eltdif, float** matelm);
 
-void pder_WI (int nbneel, float** der_fctbas, float** invjacob, float** res);
+//void pder_WI (int nbneel, float** der_fctbas, float** invjacob, float** res);
