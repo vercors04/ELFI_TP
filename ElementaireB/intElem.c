@@ -1,16 +1,19 @@
 #include <stdio.h>
 #include <math.h>
 #include "../Utilitaire/utilitaires.h"
+#include "../ElementaireA/elementairesa.h"
+#include "../ElementaireB/elementairesb.h"
 
+void pder_WI (int , float** , float** , float** );
 
 void intElem (int t, int nbneel, float** coordElem, float** matelm, float* vecelm){
-    int q = q_associate(t);
+    int q = q_associe(t);
 
     float detJFK_abs;
     float eltdif;
     float cofvar_zz;
+    float cofvar_f;
 
-    float* point = allocvec_f(2);
     float* valFctBase = allocvec_f(2);
     float* Fkx = allocvec_f(2);
     float* poids = allocvec_f(q);
@@ -23,21 +26,18 @@ void intElem (int t, int nbneel, float** coordElem, float** matelm, float* vecel
 
     // Boucle qui parcours tous les points et poids de quadrature
     for (int i=0; i<q ; i++){
-        //coordonne du point de quadrature courant
-        point[0]=coordElem [i][0];
-        point[1]=coordElem [i][1];
 
         // Fonction de base au point de quadrature courant
-        calFbase (t, point, valFctBase); 
-        
+        calFbase(t, coordElem[i], valFctBase); 
+
         // Sert a calculer les points de quadrature de l'element courant
-        transFK (nbneel, coordElem, valFctBase, Fkx);
+        transFK(nbneel, coordElem, valFctBase, Fkx);
 
         // Derivees des fonctions de base sur le point de quadrature courant
-        calDerFbase (t, point, valDerFctBase);
+        calDerFbase(t, coordElem[i], valDerFctBase);
 
         // Matrice jacobienne 
-        matJacob (nbneel, coordElem, d_associe(t), valDerFctBase, matJac);
+        matJacob(nbneel, coordElem, d_associe(t), valDerFctBase, matJac);
 
         // Determinant de la matrice jacobienne
         detJFK_abs = fabs(invertM2x2(matJac, invMatJac));
@@ -59,12 +59,9 @@ void intElem (int t, int nbneel, float** coordElem, float** matelm, float* vecel
         W(nbneel, valFctBase, eltdif, cofvar_f, vecelm);
 
     }
-
-
-
-
-
 }
+
+
 /*
 Creation d'une matrice avec pour chaque ligne correspondant à un noeud les dérivée partielle en ce 
 noeud * la colonne associé à alpha (1 ou 2) de l'inverse de la matrice jacobienne de la transformée Fk 

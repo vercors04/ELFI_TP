@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <math.h>
 
-
 /* Fonctions qui renvoient les resultats des fonctions intervenant dans les intégrales
  * ---------------------------------------------------------------------------------------
  * @param[in] x : point de coordonne x = (x1, x2)
@@ -27,7 +26,6 @@ float FN(float* x);
 
 float UD(float* x);
 
-
 /* Procedure W
  * Calcul de : $\int_{K}f_{\Omega}(x)dx$ --ou-- $\int_{K'}f_{N}(\sigma)w_{j}^{K'}d\sigma$
  * ---------------------------------------------------------------------------------------
@@ -39,7 +37,21 @@ float UD(float* x);
  * @param[in/out] vecelm :
  * ---------------------------------------------------------------------------------------
  */
-void w(int nbneel, float* fctbas, float eltdif, float cofvar, float* vecelm);
+void W(int nbneel, float* fctbas, float eltdif, float cofvar, float* vecelm);
+
+/* Procedure ADWDW
+ * Calcul de :
+ * ---------------------------------------------------------------------------------------
+ * @param[in]  nbneel :
+ * @param[in]  dpfctbas :
+ * @param[in]  eltdif :
+ * @param[in]  cofvar :
+ *
+ * @param[in/out] matelm :
+ * ---------------------------------------------------------------------------------------
+ */
+void ADWDW(int nbneel, float** dpfctbas, float eltdif, float** cofvar, float** matelm);
+
 
 /* 
 --------------------------------------------------------------------------------
@@ -88,8 +100,3 @@ void impCalEl(int K, int typEl, int nbneel, float **MatElem, float *SMbrElem,int
 --------------------------------------------------------------------------------
 */
 void WW(int nbneel, float *fctbas, float eltdif, float cofvar, float **matelm);
-
-
-void ADWDW (int nbneel, float** dpfctbas, float eltdif, float** cofvar, float** matelm);
-
-//void pder_WI (int nbneel, float** der_fctbas, float** invjacob, float** res);
