@@ -25,6 +25,16 @@ int ppquad(int t, float* poids, float** points);
  */
 int q_associe(int t);
 
+/* Fonction qui renvoie la dimension d associee au type de l'element
+ * ---------------------------------------------------------------------------------------
+ * @param[in] t : type de l'element (1 - quadrangle ; 2 - triangle ; 3 - segment)
+ *
+ * @return d : dimension de l'element en fonction de t
+ * Attention : d = -1 si t n'est pas une des valeurs autorisee
+ * ---------------------------------------------------------------------------------------
+ */
+int d_associe(int t);
+
 /* Fonction qui calcule la valeur en un point des p fonctions de
  * base associees a l'element de reference de type t
  * ---------------------------------------------------------------------------------------

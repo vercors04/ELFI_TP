@@ -63,6 +63,18 @@ int q_associe(int t){
   return q;
 }
 
+int d_associe(int t){
+  int d;
+  switch (t) {
+    case 1: d=2; break; // Quadrangle
+    case 2: d=2; break; // Triangle
+    case 3: d=1; break; // Segment
+    default: d=-1; // Valeur ne correspondant a aucun type
+  }
+  return d;
+}
+
+
 
 int calFbase (int t, float* point, float* vect){
   switch (t){
