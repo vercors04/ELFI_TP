@@ -147,6 +147,10 @@ void transFK (int Nk, float** coordElem, float* valFctBase, float* image){
 void matJacob(int Nk, float** coordElem, int d, float** tab, float** matJac){
   switch (d) {
     case 2 : 
+      matJac[0][0] = 0.0f;
+      matJac[0][1] = 0.0f;
+      matJac[1][0] = 0.0f;
+      matJac[1][1] = 0.0f;
     for (int i=0;i<Nk;i++) {
       matJac[0][0] += coordElem[i][0] * tab[i][0]; 
       matJac[0][1] += coordElem[i][0] * tab[i][1]; 
@@ -156,6 +160,8 @@ void matJacob(int Nk, float** coordElem, int d, float** tab, float** matJac){
   break;
 
   case 1 : 
+    matJac[0][0] = 0.0f;
+    matJac[0][1] = 0.0f;
     for (int i=0;i<Nk;i++) {
       matJac[0][0] += coordElem[i][0] * tab[i][0]; 
       matJac[0][1] += coordElem[i][1] * tab[i][0]; 
