@@ -19,7 +19,7 @@ void intElem (int t, int nbneel, float** coordElem, float** matelm, float* vecel
     //poid associe au point de quadrature
     ppquad(t, poids, points);
 
-    for (int i=0; i<q_associate(t) ; i++){
+    for (int i=0; i<q_associe(t) ; i++){
         //coordonne du point de quadrature courant
         point[0]=points [i][0];
         point[1]=points [i][1];
