@@ -1,5 +1,3 @@
-#include <stdio.h>
-#include <math.h>
 #include "../Utilitaire/utilitaires.h"
 #include "../ElementaireA/elementairesa.h"
 #include "../ElementaireB/elementairesb.h"
@@ -7,6 +5,7 @@
 void pder_WI (int , float** , float** , float** );
 
 void intElem (int t, int nbneel, float** coordElem, float** matelm, float* vecelm){
+
     int q = q_associe(t);
 
     float detJFK_abs;
