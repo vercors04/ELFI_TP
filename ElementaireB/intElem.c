@@ -2,65 +2,65 @@
 #include "../ElementaireA/elementairesa.h"
 #include "../ElementaireB/elementairesb.h"
 
+void pder_WI (int, float** , float**, float**);
 
 void intElem (int t, int nbneel, float** coordElem, float** matelm, float* vecelm){
-    float* point = allocvec (2);
-    float* valFctBase = allocvec (nbneel);
-    float* Fkx = allocvec (2);
-    float* poids = allocvec (q_associe(t));
+    int q = q_associe(t);
 
-    float** valDerFctBase = alloctab (nbneel,2);
-    float** matJac = alloctab (2,2);
-    float** invMatJac = alloctab (2,2);
-    float** points = alloctab(q_associe(t),2);
-    float** cofvar = alloctab (2,2);
-    float** dpfctbas = alloctab (nbneel, 2);
+    float det, eltdif;
+
+    float* valFctBase = allocvec_f (nbneel);
+    float* Fkx = allocvec_f (2);
+    float* poids = allocvec_f (q);
+
+    float** valDerFctBase = alloctab_f (nbneel,2);
+    float** matJac = alloctab_f (2,2);
+    float** invMatJac = alloctab_f (2,2);
+    float** points = alloctab_f(q,2);
+    float** cofvar = alloctab_f (2,2);
+    float** dpfctbas = alloctab_f (nbneel, 2);
 
     //poid associe au point de quadrature
     ppquad(t, poids, points);
 
-    for (int i=0; i<q_associe(t) ; i++){
-        //coordonne du point de quadrature courant
-        point[0]=points [i][0];
-        point[1]=points [i][1];
+    for (int i=0; i<q ; i++){
 
-        //fonction de base au point de quadrature courant
-        calFbase (t, point, valFctBase); 
+        // Fonction de base au point de quadrature courant
+        calFbase (t, points[i], valFctBase); 
 
-        //Sert a calculer les points de quadrature de l'element courant
+        // Calcul des points de quadrature de l'element courant
         transFK (nbneel, coordElem, valFctBase, Fkx);
 
-        //valeur du coeficient variant en fonction du point de quadrature courant (non necessaire pour le moment)
+        // Valeur du coeficient variant en fonction du point de quadrature courant (non necessaire pour le moment)
         cofvar[0][0]=A11(Fkx);
         cofvar[0][1]=A12(Fkx);
         cofvar[1][0]=A12(Fkx);
         cofvar[1][1]=A22(Fkx);
 
-        //derivees des fonctions de base sur le point de quadrature courant
-        calDerFbase (t, point, valDerFctBase);
+        // Derivees des fonctions de base sur le point de quadrature courant
+        calDerFbase (t, points[i], valDerFctBase);
 
-        //matrice jacobienne 
+        // Matrice jacobienne 
         matJacob(nbneel, coordElem, d_associe(t), valDerFctBase, matJac);
 
-        //determinant de la matrice jacobienne
-        float det = invertM2x2(matJac, invMatJac);
+        // Determinant de la matrice jacobienne
+        det = invertM2x2(matJac, invMatJac);
 
-        //element differentiel * poid au point de quadrature courant
-        float eltdif = poids[i]*fabs(det);
+        // Element differentiel * poid au point de quadrature courant
+        eltdif = poids[i]*fabs(det);
 
-        //appel de WW
+        // Appel de WW
         WW(nbneel, valFctBase, eltdif, A00(Fkx), matelm);
 
-        //appel ADWDW
+        // Appel ADWDW
         pder_WI (nbneel, valDerFctBase, invMatJac, dpfctbas);
         ADWDW (nbneel, dpfctbas, eltdif, cofvar, matelm);
 
-        //appel de W
-        w(nbneel, valFctBase, eltdif, FOMEGA(Fkx), vecelm);
+        // Appel de W
+        W(nbneel, valFctBase, eltdif, FOMEGA(Fkx), vecelm);
 
     }
 
-    freevec(point);
     freevec(valFctBase);
     freevec(Fkx);
     freevec(poids);
@@ -74,3 +74,19 @@ void intElem (int t, int nbneel, float** coordElem, float** matelm, float* vecel
 }
 
 
+/* Fonction aidant au calcul de ADWDW
+ * ---------------------------------------------------------------------------------------
+ * @param[in] nbneel : nombre de noeuds de l'element
+ * @param[in] der_fctbas : derivee des fonctions de base au point de quadrature courant
+ * @param[in] invjacob : inverse de la matrice jacobienne au point de quadrature courant
+ *
+ * @param[out] dpfctbas : derivee partielle des fonctions de base au points de quadrature courant *  la 
+ * colonne associé à alpha (1 ou 2) de l'inverse de la matrice jacobienne de la transformée Fk
+ * ---------------------------------------------------------------------------------------
+*/
+void pder_WI (int nbneel, float** der_fctbas, float** invjacob, float** dpfctbas){
+  for (int i=0 ; i<nbneel; i++) {
+      dpfctbas [i][0]=der_fctbas[i][0] * invjacob [0][0] + der_fctbas[i][1] * invjacob [1][0];
+      dpfctbas [i][1]=der_fctbas[i][0] * invjacob [0][1] + der_fctbas[i][1] * invjacob [1][1];
+  }
+}

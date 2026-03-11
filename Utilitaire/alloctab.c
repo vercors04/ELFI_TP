@@ -79,6 +79,7 @@ int **alloctab_i(int dim1, int dim2) {
 }
 
 
+
 /*
  * -----------------------------------------------------------------------------
  * Modifications effectuees sur le fichier original :
@@ -89,3 +90,59 @@ int **alloctab_i(int dim1, int dim2) {
  * -----------------------------------------------------------------------------
 */
 
+
+
+
+
+
+/*
+ * -----------------------------------------------------------------------------
+ * Même fonction que alloctab_f, en initialisant a 0 (calloc)
+ * -----------------------------------------------------------------------------
+*/
+float **calloctab_f(int dim1, int dim2) {
+  float **ptr;
+
+  ptr = malloc(dim1*sizeof(float *));
+  if (ptr != NULL) {
+    int i, taille_ligne = dim2*sizeof(float);
+    float *tmp = calloc(dim1,taille_ligne);
+    if (tmp != NULL) {
+      for (i=0; i<dim1; i++) {
+     	  ptr[i] = tmp;
+  	     tmp += dim2;
+      }
+    }
+    else {
+      free(ptr);
+      ptr = NULL;
+    }
+  }
+  return(ptr);
+}
+
+/*
+ * -----------------------------------------------------------------------------
+ * Cette fonction fait la meme chose que calloctab_f pour des Int
+ * -----------------------------------------------------------------------------
+*/
+int **calloctab_i(int dim1, int dim2) {
+  int **ptr;
+
+  ptr = malloc(dim1*sizeof(int *));
+  if (ptr != NULL) {
+    int i, taille_ligne = dim2*sizeof(int);
+    int *tmp = calloc(dim1,taille_ligne);
+    if (tmp != NULL) {
+      for (i=0; i<dim1; i++) {
+     	  ptr[i] = tmp;
+  	     tmp += dim2;
+      }
+    }
+    else {
+      free(ptr);
+      ptr = NULL;
+    }
+  }
+  return(ptr);
+}

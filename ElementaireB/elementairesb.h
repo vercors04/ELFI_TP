@@ -39,19 +39,43 @@ float UD(float* x);
  */
 void W(int nbneel, float* fctbas, float eltdif, float cofvar, float* vecelm);
 
-/* Procedure ADWDW
- * Calcul de :
+/* fonction pour le calcul de la matrice de rigidite
  * ---------------------------------------------------------------------------------------
- * @param[in]  nbneel :
- * @param[in]  dpfctbas :
- * @param[in]  eltdif :
- * @param[in]  cofvar :
- *
- * @param[in/out] matelm :
+ * @param[in] nbneel : nombre de noeuds de l'element
+ * @param[in] dpfctbas : derivee partielle des fonctions de base au points de quadrature courant *  la 
+ * colonne associé à alpha (1 ou 2) de l'inverse de la matrice jacobienne de la transformée Fk
+ * @param[in] eltdif : element differentiel multiplie par le poids de quadrature
+ * @param[in] cofvar : valeur du coefficient variable (fonction a integrer calculee
+ * en l'image par FK du point de quadrature courant)
+ * 
+ * @param[out] matelm : matrice lementaire de rigidite a actualiser
  * ---------------------------------------------------------------------------------------
- */
-void ADWDW(int nbneel, float** dpfctbas, float eltdif, float** cofvar, float** matelm);
+*/
+void ADWDW (int nbneel, float** dpfctbas, float eltdif, float** cofvar, float** matelm);
 
+/* fonction pour le calcul de la matrice elementaire
+ * ---------------------------------------------------------------------------------------
+ * @param[in] t : type de l'element (1 - quadrangle ; 2 - triangle ; 3 - segment)
+ * @param[in] nbneel : nombre de noeuds de l'element
+ * @param[in] coordElem : coordonnees de l'element courant
+ *
+ * @param[out] matelm : matrice elementaire
+ * @param[out] vecelm : vecteur elementaire
+ * ---------------------------------------------------------------------------------------
+*/
+void intElem (int t, int nbneel, float** coordElem, float** matelm, float* vecelm);
+
+/* fonction aidant le calcul de ADWDW
+ * ---------------------------------------------------------------------------------------
+ * @param[in] nbneel : nombre de noeuds de l'element
+ * @param[in] der_fctbas : derivee des fonctions de base au point de quadrature courant
+ * @param[in] invjacob : inverse de la matrice jacobienne au point de quadrature courant
+ *
+ * @param[out] dpfctbas : derivee partielle des fonctions de base au points de quadrature courant *  la 
+ * colonne associé à alpha (1 ou 2) de l'inverse de la matrice jacobienne de la transformée Fk
+ * ---------------------------------------------------------------------------------------
+*/
+void pder_WI (int nbneel, float** der_fctbas, float** invjacob, float** dpfctbas);
 
 /* 
 --------------------------------------------------------------------------------
@@ -100,41 +124,3 @@ void impCalEl(int K, int typEl, int nbneel, float **MatElem, float *SMbrElem,int
 --------------------------------------------------------------------------------
 */
 void WW(int nbneel, float *fctbas, float eltdif, float cofvar, float **matelm);
-
-/* fonction pour le calcul de la matrice de rigidite
- * ---------------------------------------------------------------------------------------
- * @param[in] nbneel : nombre de noeuds de l'element
- * @param[in] dpfctbas : derivee partielle des fonctions de base au points de quadrature courant *  la 
- * colonne associé à alpha (1 ou 2) de l'inverse de la matrice jacobienne de la transformée Fk
- * @param[in] eltdif : element differentiel multiplie par le poids de quadrature
- * @param[in] cofvar : valeur du coefficient variable (fonction a integrer calculee
- * en l'image par FK du point de quadrature courant)
- * 
- * @param[out] matelm : matrice lementaire de rigidite a actualiser
- * ---------------------------------------------------------------------------------------
-*/
-void ADWDW (int nbneel, float** dpfctbas, float eltdif, float** cofvar, float** matelm);
-
-/* fonction pour le calcul de la matrice elementaire
- * ---------------------------------------------------------------------------------------
- * @param[in] t : type de l'element (1 - quadrangle ; 2 - triangle ; 3 - segment)
- * @param[in] nbneel : nombre de noeuds de l'element
- * @param[in] coordElem : coordonnees de l'element courant
- *
- * @param[out] matelm : matrice elementaire
- * @param[out] vecelm : vecteur elementaire
- * ---------------------------------------------------------------------------------------
-*/
-void intElem (int t, int nbneel, float** coordElem, float** matelm, float* vecelm);
-
-/* fonction aidant le calcul de ADWDW
- * ---------------------------------------------------------------------------------------
- * @param[in] nbneel : nombre de noeuds de l'element
- * @param[in] der_fctbas : derivee des fonctions de base au point de quadrature courant
- * @param[in] invjacob : inverse de la matrice jacobienne au point de quadrature courant
- *
- * @param[out] dpfctbas : derivee partielle des fonctions de base au points de quadrature courant *  la 
- * colonne associé à alpha (1 ou 2) de l'inverse de la matrice jacobienne de la transformée Fk
- * ---------------------------------------------------------------------------------------
-*/
-void pder_WI (int nbneel, float** der_fctbas, float** invjacob, float** dpfctbas);
