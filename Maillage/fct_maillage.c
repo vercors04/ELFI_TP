@@ -103,7 +103,7 @@ int maillage (char *ficInput, char *ficOutput ) {
 				k=k+1;
 			}
 		}
-	}	
+	}
 
 	// Fermeture des fichiers
 	fclose(Output);
@@ -241,7 +241,7 @@ int lecfima(char *ficmai, int *ptypel, int *pnbtng, float ***pcoord, int *pnbtel
   }
 	fclose(verif); */
 	return 0;
-}	
+}
 
 
 

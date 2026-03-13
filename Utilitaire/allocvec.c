@@ -16,7 +16,7 @@ float *callocvec_f(int dim) {
 }
 
 int *callocvec_i(int dim) {
-    int *v = mclloc(dim , sizeof(int));
+    int *v = calloc(dim , sizeof(int));
     return v;
 }
 

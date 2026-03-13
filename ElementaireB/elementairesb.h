@@ -77,6 +77,11 @@ void intElem (int t, int nbneel, float** coordElem, float** matelm, float* vecel
 */
 void pder_WI (int nbneel, float** der_fctbas, float** invjacob, float** dpfctbas);
 
+void cal1Elem (int nRefDom, int nbRefD0, int* numRefD0, int nbRefD1, int* numRefD1, 
+               int nbRefF1, int* numRefF1, int t, int nbneel, float** coordElem, int nbaret, 
+               int* nRefArEl, float*** MatElem, float** SMbrElem, int** NuDElem, float** uDElem);
+
+
 /* 
 --------------------------------------------------------------------------------
   Fonction fournies avec l'ennonce.

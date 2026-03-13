@@ -21,15 +21,15 @@ int maillage (char* ficInput, char *ficOutput ); //doc à changer
 int etiqAr (int typel, int n1, int n2, int nrefdom, const int *nrefcot, int **nRefAr);
 
 /* Fonction qui : lit un fichier de maillage - alloue dynamiquement la memoire et remplit des tableaux : coord, ngnel et nRefAr
- * param[in] ficmai : fichier lu par la fonction
- * param[out] ptypel : pointeur vers le type des elements du maillage
- * param[out] pnbtng : pointeur vers le nombre de noeuds geometriques
- * param[out] pcoord : pointeur vers les coordonnees des noeuds geometriques
- * param[out] pnbtel : pointeur vers le nombre d'elements du maillage
- * param[out] pngnel : pointeur vers les numeros globaux des noeuds des elements
- * param[out] pnbneel : pointeur vers le nombre de noeuds geometriques par element
- * param[out] pnbaret : pointeur vers le nombre d'aretes par element
- * param[out] pnRefAr : pointeur vers les numeros de reference associes aux aretes
+ * param[in]   ficmai   :  fichier lu par la fonction
+ * param[out]  ptypel   :  pointeur vers le type des elements du maillage
+ * param[out]  pnbtng   :  pointeur vers le nombre de noeuds geometriques
+ * param[out]  pcoord   :  pointeur vers les coordonnees des noeuds geometriques
+ * param[out]  pnbtel   :  pointeur vers le nombre d'elements du maillage
+ * param[out]  pngnel   :  pointeur vers les numeros globaux des noeuds des elements
+ * param[out]  pnbneel  :  pointeur vers le nombre de noeuds geometriques par element
+ * param[out]  pnbaret  :  pointeur vers le nombre d'aretes par element
+ * param[out]  pnRefAr  :  pointeur vers les numeros de reference associes aux aretes
  * return 0 si la fonction si s'est bien deroulee, 1 sinon
  */
 int lecfima(char *ficmai, int *ptypel, int *pnbtng, float ***pcoord, int *pnbtel, int ***pngnel, int *pnbneel, int *pnbaret, int ***pnRefAr);
