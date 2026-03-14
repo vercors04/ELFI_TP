@@ -93,7 +93,7 @@ void cal1Elem (int nRefDom, int nbRefD0, int* numRefD0, int nbRefD1, int* numRef
   ainsi que les conditions Dirichlet en chaque noeud
   et les valeurs des conditions Dirichlet non homogene
  
-*** Arguments *** 
+*** Arguments ***
    K        : Numero de l'element
    typEl    : Numero de type de l'element
    nbneel   : Nombre de noeuds de l'element

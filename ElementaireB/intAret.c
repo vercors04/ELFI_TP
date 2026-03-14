@@ -3,7 +3,6 @@
 #include "../ElementaireB/elementairesb.h"
 
 void intAret (int nbneel, float** coordElem, float** coordAret, float** matelm, float* vecelm){
-    
     int t = 3, q = 3; // Cas segment
 
     float det, eltdif;
