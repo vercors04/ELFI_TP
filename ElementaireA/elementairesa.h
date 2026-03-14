@@ -122,6 +122,8 @@ int numAret (int t, int nba, int* couple);
  *                        l'ensemble de base
  *
  * param[out] coorSel[] : pointeur donnant acces aux coordonnees des points selectionnes
+ * @return 0 si t est bien une des valeurs autorisees (1 - 2 )
+ * @return -1 si t n'est pas une des valeurs autorisees
  * ---------------------------------------------------------------------------------------
  */
 void selectPts(int nb, int num[], float* coorEns[], float* coorSel[]);

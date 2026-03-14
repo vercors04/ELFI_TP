@@ -44,12 +44,11 @@ int main (){
   int numRefD1[] = {1,4};
   int numRefF1[] = {2,2,3};
 
-  printf("boucle");
   for (int i=0; i<nbtel; i++) {
     float** MatElem;
     float* SMbrElem;
-    float* uDElem;
-    int* NuDElem;
+    float* uDElem; // Indices i tq : NuDElem[i] = -1 si Dirichlet non homogène ; 0 sinon
+    int* NuDElem; // Reperer les noeuds porteurs d'une condition de Dirichlet
     selectPts(nbneel, ngnel[i], coord, coordElem);
 
     cal1Elem (nRefDom, nbRefD0, numRefD0, nbRefD1, numRefD1, nbRefF1, numRefF1, typel, 

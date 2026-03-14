@@ -12,11 +12,11 @@ float A12(float* x){
 }
 
 float A00(float* x){
-  return 0.0f;
+  return 1.0f;
 }
 
 float BN(float* x){
-  return 0;
+  return 1.0f;
 }
 
 float FOMEGA(float* x){
@@ -24,7 +24,7 @@ float FOMEGA(float* x){
 }
 
 float FN(float* x){
-  return 0.0f;
+  return 1.0f;
 }
 
 float UD(float* x){
