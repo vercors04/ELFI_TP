@@ -29,12 +29,6 @@ void intAret (int nbneel, float** coordElem, float** coordAret, float** matelm, 
         // Image du point de quadrature courant dans l'element courant
         transFK (nbneel, coordElem, valFctBase, Fkx);
 
-        // Valeur du coeficient variant en fonction du point de quadrature courant (non necessaire pour le moment)
-        cofvar[0][0] = A11(Fkx);
-        cofvar[0][1] = A12(Fkx);
-        cofvar[1][0] = A12(Fkx);
-        cofvar[1][1] = A22(Fkx);
-
         // Derivees des fonctions de base sur le point de quadrature courant
         calDerFbase (t, points[i], valDerFctBase);
 

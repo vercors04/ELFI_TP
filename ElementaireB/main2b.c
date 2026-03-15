@@ -19,30 +19,21 @@ int main (){
   int** nRefAr; // Numeros de reference associes aux aretes
   float** coord; // Coordonnees des noeuds geometriques
 
-    char* ficmai = "../Donnees_1/car1x1t_1";
+    char* ficmai = "../Donnees_1/car3x3t_3";
 
-  if (lecfima(ficmai, &typel, &nbtng, &coord, &nbtel, &ngnel, &nbneel, &nbaret, &nRefAr)) return 1;
- 
+  if (lecfima(ficmai, &typel, &nbtng, &coord, &nbtel, &ngnel, &nbneel, &nbaret, &nRefAr)){printf("erreur lecture du fichier de maillage");
+    return 1;
+  } 
+
   float** coordElem = alloctab_f(nbneel,2);
 
-  /*
-  int t = 3, nbneel;
-  switch (t) {
-    case 1: nbneel = 4 ; break; // Quadrangles
-    case 2: nbneel = 3 ; break; // Triangles
-    default: printf("ERREUR : Cas possibles : \n t=1 : Quadrangles\n t=2 : Triangles");return 1;
-  }
-  */
-  
-
-
-  int nbRefD0 = 2;
-  int nbRefD1 = 2;
-  int nbRefF1 = 3;
+  int nbRefD0 = 1;
+  int nbRefD1 = 1;
+  int nbRefF1 = 2;
   int nRefDom = 0;
-  int numRefD0[] = {1,1};
-  int numRefD1[] = {1,4};
-  int numRefF1[] = {2,2,3};
+  int numRefD0[] = {1};
+  int numRefD1[] = {4};
+  int numRefF1[] = {2,3};
 
   for (int i=0; i<nbtel; i++) {
     float** MatElem;
