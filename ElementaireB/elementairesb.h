@@ -65,17 +65,18 @@ void ADWDW (int nbneel, float** dpfctbas, float eltdif, float** cofvar, float** 
 */
 void intElem (int t, int nbneel, float** coordElem, float** matelm, float* vecelm);
 
-/* fonction aidant le calcul de ADWDW
+/* fonction pour le calcul l'integrale sur une arrete
  * ---------------------------------------------------------------------------------------
- * @param[in] nbneel : nombre de noeuds de l'element
- * @param[in] der_fctbas : derivee des fonctions de base au point de quadrature courant
- * @param[in] invjacob : inverse de la matrice jacobienne au point de quadrature courant
+ * @param[in] coordElem : coordonnees de l'element courant
+ * @param[in] coordAret : coordonnees des noeuds de l'arrete
  *
- * @param[out] dpfctbas : derivee partielle des fonctions de base au points de quadrature courant *  la 
- * colonne associé à alpha (1 ou 2) de l'inverse de la matrice jacobienne de la transformée Fk
+ * @param[out] matAret : matrice de l'arrete
+ * @param[out] vecAret : vecteur de l'arrete
  * ---------------------------------------------------------------------------------------
 */
-void pder_WI (int nbneel, float** der_fctbas, float** invjacob, float** dpfctbas);
+void intAret ( float** coordAret, float** matAret, float* vecAret);
+
+
 
 void cal1Elem (int nRefDom, int nbRefD0, int* numRefD0, int nbRefD1, int* numRefD1, 
                int nbRefF1, int* numRefF1, int t, int nbneel, float** coordElem, int nbaret, 

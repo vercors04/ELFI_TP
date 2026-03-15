@@ -1,22 +1,21 @@
 #include "../Utilitaire/utilitaires.h"
+
 #include "../ElementaireA/elementairesa.h"
 #include "../ElementaireB/elementairesb.h"
 
-void intAret (int nbneel, float** coordElem, float** coordAret, float** matelm, float* vecelm){
-    int t = 3, q = 3; // Cas segment
+void intAret ( float** coordAret, float** matAret, float* vecAret){
+    
+    int t = 3, q = 3, nbneelAr =2; // Cas segment
 
     float det, eltdif;
 
-    float* valFctBase = allocvec_f (nbneel);
+    float* valFctBase = allocvec_f (nbneelAr);
     float* Fkx = allocvec_f (2);
     float* poids = allocvec_f (q);
 
-    float** valDerFctBase = alloctab_f (nbneel,2);
+    float** valDerFctBase = alloctab_f (nbneelAr,2);
     float** matJac = alloctab_f (2,2);
-    float** invMatJac = alloctab_f (2,2);
     float** points = alloctab_f(q,2);
-    float** cofvar = alloctab_f (2,2);
-    float** dpfctbas = alloctab_f (nbneel, 2);
 
     // Poids et points de quadrature associe au segment de reference
     ppquad(t, poids, points);
@@ -27,25 +26,26 @@ void intAret (int nbneel, float** coordElem, float** coordAret, float** matelm, 
         calFbase (t, points[i], valFctBase); 
 
         // Image du point de quadrature courant dans l'element courant
-        transFK (nbneel, coordElem, valFctBase, Fkx);
+        transFK (nbneelAr, coordAret, valFctBase, Fkx);
+
 
         // Derivees des fonctions de base sur le point de quadrature courant
         calDerFbase (t, points[i], valDerFctBase);
 
         // Matrice jacobienne 
-        matJacob(nbneel, coordElem, 1, valDerFctBase, matJac);
+        matJacob(nbneelAr, coordAret, 1, valDerFctBase, matJac);
 
         // Determinant de la matrice jacobienne
-        det = invertM2x2(matJac, invMatJac);
+        float normeEucl = sqrt(matJac[0][0]*matJac[0][0] + matJac[0][1]*matJac[0][1]);
 
         // Element differentiel * poid au point de quadrature courant
-        eltdif = poids[i]*fabs(det);
+        eltdif = poids[i]*normeEucl;
 
         // Appel de WW
-        WW(nbneel, valFctBase, eltdif, BN(Fkx), matelm);
+        WW(nbneelAr, valFctBase, eltdif, BN(Fkx), matAret);
 
         // Appel de W
-        W(nbneel, valFctBase, eltdif, FN(Fkx), vecelm);
+        W(nbneelAr, valFctBase, eltdif, FN(Fkx), vecAret);
 
     }
 
@@ -55,8 +55,5 @@ void intAret (int nbneel, float** coordElem, float** coordAret, float** matelm, 
  
     freetab(valDerFctBase);
     freetab(matJac);
-    freetab(invMatJac);
     freetab(points);
-    freetab(cofvar);
-    freetab(dpfctbas);
 }
