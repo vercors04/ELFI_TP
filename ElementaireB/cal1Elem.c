@@ -28,23 +28,27 @@ void cal1Elem (int nRefDom, int nbRefD0, int* numRefD0, int nbRefD1, int* numRef
         if (nRefArEl[i]==numRefF1[k]) {
           numAret (t, i + 1, couplePtsAret);
 
-          float** coordAret = alloctab_f(2,2);
+          float** coordAret = malloc(2 * sizeof(float*));
           selectPts(2, couplePtsAret, coordElem, coordAret);
 
           float** matAret = alloctab_f(2, 2);
           float* vecAret = allocvec_f(2);
           intAret (coordAret, matAret, vecAret);
 
-          /* Ajout dans MatElem et VecElem - cause une segmentation fault + pas sur. 
+          //probablement pas a faire dans le TP2b - cause erreurs NaN dans le resultat 
 
-          (*SMbrElem)[couplePtsAret[0]]+=vecAret[0];
-          (*SMbrElem)[couplePtsAret[1]]+=vecAret[1];
+/*
+          (*SMbrElem)[couplePtsAret[0]-1]+=vecAret[0];
+          (*SMbrElem)[couplePtsAret[1]-1]+=vecAret[1];
 
-          (*MatElem)[couplePtsAret[0]][couplePtsAret[0]]+=matAret[0][0];
-          (*MatElem)[couplePtsAret[0]][couplePtsAret[1]]+=matAret[0][1];
-          (*MatElem)[couplePtsAret[1]][couplePtsAret[0]]+=matAret[1][0];
-          (*MatElem)[couplePtsAret[1]][couplePtsAret[1]]+=matAret[1][1];
-          */
+          (*MatElem)[couplePtsAret[0]-1][couplePtsAret[0]-1]+=matAret[0][0];
+          (*MatElem)[couplePtsAret[0]-1][couplePtsAret[1]-1]+=matAret[0][1];
+          (*MatElem)[couplePtsAret[1]-1][couplePtsAret[0]-1]+=matAret[1][0];
+          (*MatElem)[couplePtsAret[1]-1][couplePtsAret[1]-1]+=matAret[1][1];
+*/
+         free(coordAret);
+         freetab(matAret);
+         freevec(vecAret);
         }
       }
 
@@ -66,10 +70,11 @@ void cal1Elem (int nRefDom, int nbRefD0, int* numRefD0, int nbRefD1, int* numRef
           (*NuDElem)[couplePtsAret[0] - 1] = -1;
           (*NuDElem)[couplePtsAret[1] - 1] = -1;
 
-          float** coordAret = alloctab_f(2,2);
+          float** coordAret = malloc(2 * sizeof(float*));
           selectPts(2, couplePtsAret, coordElem, coordAret);
           (*uDElem)[couplePtsAret[0] - 1] = UD(coordAret[0]);
           (*uDElem)[couplePtsAret[1] - 1] = UD(coordAret[1]);
+          free(coordAret);
         }
       }
 
