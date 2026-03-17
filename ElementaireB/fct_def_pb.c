@@ -16,7 +16,7 @@ float A00(float* x){
 }
 
 float BN(float* x){
-  return 0.0f;
+  return 1.0f;
 }
 
 float FOMEGA(float* x){

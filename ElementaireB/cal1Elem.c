@@ -31,13 +31,13 @@ void cal1Elem (int nRefDom, int nbRefD0, int* numRefD0, int nbRefD1, int* numRef
           float** coordAret = malloc(2 * sizeof(float*));
           selectPts(2, couplePtsAret, coordElem, coordAret);
 
-          float** matAret = alloctab_f(2, 2);
-          float* vecAret = allocvec_f(2);
+          float** matAret = calloctab_f(2, 2);
+          float* vecAret = callocvec_f(2);
           intAret (coordAret, matAret, vecAret);
 
           //probablement pas a faire dans le TP2b - cause erreurs NaN dans le resultat 
 
-/*
+
           (*SMbrElem)[couplePtsAret[0]-1]+=vecAret[0];
           (*SMbrElem)[couplePtsAret[1]-1]+=vecAret[1];
 
@@ -45,7 +45,7 @@ void cal1Elem (int nRefDom, int nbRefD0, int* numRefD0, int nbRefD1, int* numRef
           (*MatElem)[couplePtsAret[0]-1][couplePtsAret[1]-1]+=matAret[0][1];
           (*MatElem)[couplePtsAret[1]-1][couplePtsAret[0]-1]+=matAret[1][0];
           (*MatElem)[couplePtsAret[1]-1][couplePtsAret[1]-1]+=matAret[1][1];
-*/
+
          free(coordAret);
          freetab(matAret);
          freevec(vecAret);

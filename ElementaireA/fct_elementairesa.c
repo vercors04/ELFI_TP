@@ -126,7 +126,7 @@ int calDerFbase (int t, float* point, float** tab){
 
     case 3 :
       tab[0][0] = 1.0f;
-      tab[0][1] = -1.0f;
+      tab[1][0] = -1.0f;
       break;
 
     default: printf("\nERREUR : fonction calDerFbase valeur de t != 1,2,3\n"); return -1;
