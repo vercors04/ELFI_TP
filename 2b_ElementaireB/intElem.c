@@ -1,6 +1,6 @@
 #include "../Utilitaire/utilitaires.h"
-#include "../ElementaireA/elementairesa.h"
-#include "../ElementaireB/elementairesb.h"
+#include "../2a_ElementaireA/elementairesa.h"
+#include "../2b_ElementaireB/elementairesb.h"
 
 void pder_WI (int, float** , float**, float**);
 

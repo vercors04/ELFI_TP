@@ -1,7 +1,7 @@
 #include "../Utilitaire/utilitaires.h"
 
-#include "../ElementaireA/elementairesa.h"
-#include "../ElementaireB/elementairesb.h"
+#include "../2a_ElementaireA/elementairesa.h"
+#include "../2b_ElementaireB/elementairesb.h"
 
 void cal1Elem (int nRefDom, int nbRefD0, int* numRefD0, int nbRefD1, int* numRefD1, 
                int nbRefF1, int* numRefF1, int t, int nbneel, float** coordElem, int nbaret, 

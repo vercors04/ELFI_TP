@@ -1,20 +1,20 @@
 # Projet Librairie Éléments Finis (ELFI)
 
-Ce projet, réalisé dans le cadre du Master 1 CSM, vise à développer une mini-librairie de calcul par la méthode des Éléments Finis (MEF) en langage C. Il est structuré en 5 étapes progressives (Travaux Pratiques).
+Mini librairie Elements finis réalisée dans le cadre du master 1 CSM.
 
 ## Architecture du Projet
 
-Le développement suit le cycle de vie d'une résolution FEM classique :
+Le projet est en réalisation sur 5 phases. 
 
 ### Phase 1 : Pré-traitement Géométrique
 
-* **TP1 : Maillage**
-  * Discrétisation du domaine $\Omega$ en triangles ($P_1$) ou quadrangles ($Q_1$).
-  * Attribution des références pour les conditions aux limites.
+* **TP1 : Construction de la triangulation **
+  * Discrétisation du domaine $\Omega$ en triangles ($P_1$)i ou quadrangles ($Q_1$).
+  * Attribution des références pour les conditions aux limtes.
 
 ### Phase 2
 
-* **TP2a : Fonctions mathématiques utilitaires**
+* **TP2a : Procédures utilitaires pour les calculs élémentaires**
     *
 
 * **TP2b : Calculs élémentaires**

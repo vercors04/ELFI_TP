@@ -6,8 +6,8 @@
 * -----------------------------------------
 */
 #include "elementairesb.h"
-#include "../ElementaireA/elementairesa.h"
-#include "../Maillage/maillage.h"
+#include "../2a_ElementaireA/elementairesa.h"
+#include "../1_Maillage/maillage.h"
 #include "../Utilitaire/utilitaires.h"
 
 int main (){
