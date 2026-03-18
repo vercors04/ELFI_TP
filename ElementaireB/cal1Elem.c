@@ -35,9 +35,8 @@ void cal1Elem (int nRefDom, int nbRefD0, int* numRefD0, int nbRefD1, int* numRef
           float* vecAret = callocvec_f(2);
           intAret (coordAret, matAret, vecAret);
 
-          //probablement pas a faire dans le TP2b - cause erreurs NaN dans le resultat 
 
-
+          //assemblage matAret/vecAret & matElem/vecElem
           (*SMbrElem)[couplePtsAret[0]-1]+=vecAret[0];
           (*SMbrElem)[couplePtsAret[1]-1]+=vecAret[1];
 

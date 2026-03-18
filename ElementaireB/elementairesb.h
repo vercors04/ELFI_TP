@@ -67,7 +67,6 @@ void intElem (int t, int nbneel, float** coordElem, float** matelm, float* vecel
 
 /* fonction pour le calcul l'integrale sur une arrete
  * ---------------------------------------------------------------------------------------
- * @param[in] coordElem : coordonnees de l'element courant
  * @param[in] coordAret : coordonnees des noeuds de l'arrete
  *
  * @param[out] matAret : matrice de l'arrete
