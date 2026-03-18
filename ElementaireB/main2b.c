@@ -1,7 +1,8 @@
 /*
 * POUR COMPILER LE PROGRAMME ET CREER L'EXECUTABLE :
 * -----------------------------------------
-*
+* cd Executables
+* ./main2b.sh
 * -----------------------------------------
 */
 #include "elementairesb.h"
@@ -19,7 +20,7 @@ int main (){
   int** nRefAr; // Numeros de reference associes aux aretes
   float** coord; // Coordonnees des noeuds geometriques
 
-    char* ficmai = "../Donnees_1/car3x3t_3";
+    char* ficmai = "../Donnees_1/car1x1t_1";
 
   if (lecfima(ficmai, &typel, &nbtng, &coord, &nbtel, &ngnel, &nbneel, &nbaret, &nRefAr)){printf("erreur lecture du fichier de maillage");
     return 1;

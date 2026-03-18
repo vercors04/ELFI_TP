@@ -1,4 +1,5 @@
 #include "../Utilitaire/utilitaires.h"
+#include <math.h>
 
 #include "../ElementaireA/elementairesa.h"
 #include "../ElementaireB/elementairesb.h"
@@ -27,7 +28,6 @@ void intAret ( float** coordAret, float** matAret, float* vecAret){
 
         // Image du point de quadrature courant dans l'element courant
         transFK (nbneelAr, coordAret, valFctBase, Fkx);
-
 
         // Derivees des fonctions de base sur le point de quadrature courant
         calDerFbase (t, points[i], valDerFctBase);
