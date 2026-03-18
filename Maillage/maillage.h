@@ -5,6 +5,7 @@
 
 /* Fonction qui creer fichier de maillage 
  * param[in] ficInput : nom du fichier de donnees d'entree
+ 
  * param[out] ficOutput : nom du fichier de sortie
  * return 0 si la fonction s'est bien deroulee, 1 sinon
 */
@@ -16,6 +17,7 @@ int maillage (char* ficInput, char *ficOutput ); //doc à changer
  * param[in] n1 & n2 : nombre de points sur les cotes 1 et 2
  * param[in] nrefdom : numero de reference associe au domaine
  * param[in] nrefcot : pointeur donnant acces au numero de reference associe aux cotes
+ * 
  * param[out] nRefAr : double pointeur donnant acces au numero de reference de chaque arete
 */
 int etiqAr (int typel, int n1, int n2, int nrefdom, const int *nrefcot, int **nRefAr);
@@ -29,6 +31,7 @@ int etiqAr (int typel, int n1, int n2, int nrefdom, const int *nrefcot, int **nR
  * param[out]  pngnel   :  pointeur vers les numeros globaux des noeuds des elements
  * param[out]  pnbneel  :  pointeur vers le nombre de noeuds geometriques par element
  * param[out]  pnbaret  :  pointeur vers le nombre d'aretes par element
+ * 
  * param[out]  pnRefAr  :  pointeur vers les numeros de reference associes aux aretes
  * return 0 si la fonction si s'est bien deroulee, 1 sinon
  */
