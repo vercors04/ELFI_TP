@@ -61,7 +61,7 @@ Prise en compte des conditions aux limites de Dirichlet.
 - forfun.h (Fortran)
 
 ## Structure du projet
-
+```text
 └── ELFI_TP
     ├── README.md
     ├── Executables
@@ -121,4 +121,4 @@ Prise en compte des conditions aux limites de Dirichlet.
        ├── NUMREF.Test
        ├── Tests.3x3
        └── Tests.1x1
-    
+```
