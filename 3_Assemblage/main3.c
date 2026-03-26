@@ -30,12 +30,22 @@ int main (){
 
   int nbRef[] = {nbRefD0, nbRefD1, nbRefF1};
 
-  int nbLign = nbtng;
-  int NbCoef = nbtng * 2*typel * 2;
-  int* Matrice = callocvec_i((**2)); // Surestimation : 
-					       //    Triangle : 6*nb-noeuds
-					       //    Quadrangle : 8*nb-noeuds 
-  int* AdPrCoefLi = callocvec_i(());
+  int nbLign = nbtng, NbCoef;
+  // Surestimation de NbCoef pour la longueur de LMat
+  if (1==typel) {
+    NbCoef = nbtng * 8; // Quadrangle : 8 * nb-noeuds
+  }
+  else if (2==typel) {
+    NbCoef = nbtng * 6; // Triangle : 6 * nb-noeuds
+  }
+  else{
+    printf("ERREUR - typel != 1 ou 2");
+    return 1;
+  }
+  float* Matrice = callocvec_f(NbLign+NbCoef);
+  int* AdPrCoefLi = callocvec_i(NbLign*2);
+  int* AdSuccLi = callocvec_i(NbCoef);
+  int* NumCol = allocvec_i(NbCoef);
 
   assemblage(typel, nbtng, coord, nbtel, ngnel, nbneel, nbaret, nRefAr, 
 	     nbRef[3], nRefDom, numRefD0[], numRefD1[], numRefF1[], NbLign, 
