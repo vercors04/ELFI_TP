@@ -3,20 +3,11 @@
 void assemblage(int typel, int nbtng, float** coord, int nbtel, int** ngnel,
 	              int nbneel, int nbaret, int** nRefAr, int nbRef[3], int nRefDom,
 	              int numRefD0[], int numRefD1[], int numRefF1[], int NbLign,
-                int NbCoef, float* Matrice, int* AdPrCoefLi, int* AdSuccLi,
-                int* NumCol){
+                int NbCoef, float** pMatrice, int** pAdPrCoefLi, int** pAdSuccLi,
+                int** pNumCol){
 
   float** coordElem = alloctab_f(nbneel,2);
-
-  int nbRefD0 = 1;
-  int nbRefD1 = 1;
-  int nbRefF1 = 2;
-  int nRefDom = 0;
-  int numRefD0[] = {1};
-  int numRefD1[] = {4};
-  int numRefF1[] = {2,3};
-
-  float* LowMat = &Matrice[nbLign];
+  float* LowMat = &((*Matrice)[nbLign]);
 
   // Boucle sur K dans Th
   for (int K=0; K<nbtel; K++) {
@@ -48,8 +39,8 @@ void assemblage(int typel, int nbtng, float** coord, int nbtel, int** ngnel,
 	        J_tilde = I;
 	      }
 
-	      assmat_(&I_tilde, &J_tilde, &MatElem[i-1][j-1], AdPrCoefLi, NumCol, 
-		            AdSuccLi, LMat, NextAd);
+	      assmat_(&I_tilde, &J_tilde, &MatElem[i-1][j-1], pAdPrCoefLi, pNumCol, 
+		            pAdSuccLi, LowMat, NextAd);
   
       }
       // Gestion de la partie diagonale

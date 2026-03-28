@@ -14,7 +14,8 @@ int main (){
 
   char* ficmai = "../Donnees_1/car1x1t_1";
 
-  if (lecfima(ficmai, &typel, &nbtng, &coord, &nbtel, &ngnel, &nbneel, &nbaret, &nRefAr)){printf("erreur lecture du fichier de maillage");
+  if (lecfima(ficmai, &typel, &nbtng, &coord, &nbtel, &ngnel, &nbneel, &nbaret, &nRefAr)){
+    printf("ERREUR : lecture du fichier de maillage");
     return 1;
   }
 
@@ -39,17 +40,30 @@ int main (){
     NbCoef = nbtng * 6; // Triangle : 6 * nb-noeuds
   }
   else{
-    printf("ERREUR - typel != 1 ou 2");
+    printf("ERREUR : typel != 1 ou 2");
     return 1;
   }
   float* Matrice = callocvec_f(NbLign+NbCoef);
-  int* AdPrCoefLi = callocvec_i(NbLign*2);
+  int* AdPrCoefLi = callocvec_i(NbLign*2); // Longueur >= NbLign
   int* AdSuccLi = callocvec_i(NbCoef);
   int* NumCol = allocvec_i(NbCoef);
 
   assemblage(typel, nbtng, coord, nbtel, ngnel, nbneel, nbaret, nRefAr, 
-	     nbRef[3], nRefDom, numRefD0[], numRefD1[], numRefF1[], NbLign, 
-	     NbCoef, Matrice, AdPrCoefLi, AdSuccLi, NumCol);
+	     nbRef[], nRefDom, numRefD0[], numRefD1[], numRefF1[], NbLign, 
+	     NbCoef, &Matrice, &AdPrCoefLi, &AdSuccLi, &NumCol);
+ 
 
 
+  freevec(Matrice);
+  freevec(AdPrCoefLi);
+  freevec(AdSuccLi);
+  freevec(NumCol);
+
+  freetab(coord);
+  freetab(ngnel);
+  freetab(nRefAr);
+  freevec(coordElem);
+  
+
+  return 0;
 }
