@@ -1,4 +1,5 @@
-
+#include "../Utilitaire/utilitaires.h"
+#include "../1_Maillage/maillage.h"
 
 
 int main (){
@@ -31,7 +32,7 @@ int main (){
 
   int nbRef[] = {nbRefD0, nbRefD1, nbRefF1};
 
-  int nbLign = nbtng, NbCoef;
+  int nbLign = nbtng, NbCoef; // 
   // Surestimation de NbCoef pour la longueur de LMat
   if (1==typel) {
     NbCoef = nbtng * 8; // Quadrangle : 8 * nb-noeuds
@@ -44,20 +45,26 @@ int main (){
     return 1;
   }
   float* Matrice = callocvec_f(NbLign+NbCoef);
-  int* AdPrCoefLi = callocvec_i(NbLign*2); // Longueur >= NbLign
+  float* SecMembre = callocvec_f(NbLign);
+  float* ValDLDir = callocvec_f(NbLign);
+  int* AdPrCoefLi = callocvec_i(NbLign);
+  int* NumDLDir = callocvec_i(NbLign);
   int* AdSuccLi = callocvec_i(NbCoef);
   int* NumCol = allocvec_i(NbCoef);
 
   assemblage(typel, nbtng, coord, nbtel, ngnel, nbneel, nbaret, nRefAr, 
 	     nbRef[], nRefDom, numRefD0[], numRefD1[], numRefF1[], NbLign, 
-	     NbCoef, &Matrice, &AdPrCoefLi, &AdSuccLi, &NumCol);
+	     NbCoef, &Matrice, &SecMembre, &AdPrCoefLi, &AdSuccLi, &NumCol);
  
 
 
   freevec(Matrice);
+  freevec(SecMembre);
   freevec(AdPrCoefLi);
   freevec(AdSuccLi);
   freevec(NumCol);
+  freevec(ValDLDir);
+  freevec(NumDLDir);
 
   freetab(coord);
   freetab(ngnel);

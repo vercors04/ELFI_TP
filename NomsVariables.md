@@ -20,3 +20,5 @@ coefficient est le dernier mémorisé sur la ligne
 - **NumCol** : Tableau (de type entier, de longueur >= NbCoef) contenant, pour
 chaque coefficient de la partie triangulaire inferieure stricte de A, le numéro
 de colonne du coefficient
+- NextAd : indice dans le tableau LowMat indiquant la prochaine adresse
+d'emplacement disponible
