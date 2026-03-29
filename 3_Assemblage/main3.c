@@ -54,7 +54,7 @@ int main (){
 
   assemblage(typel, nbtng, coord, nbtel, ngnel, nbneel, nbaret, nRefAr, 
 	     nbRef[], nRefDom, numRefD0[], numRefD1[], numRefF1[], NbLign, 
-	     NbCoef, &Matrice, &SecMembre, &AdPrCoefLi, &AdSuccLi, &NumCol);
+	     NbCoef, &Matrice, &SecMembre, &AdPrCoefLi, &AdSuccLi, &NumCol, );
  
 
 

@@ -6,8 +6,9 @@
 void assemblage(int typel, int nbtng, float** coord, int nbtel, int** ngnel,
 	              int nbneel, int nbaret, int** nRefAr, int nbRef[3], int nRefDom,
 	              int numRefD0[], int numRefD1[], int numRefF1[], int NbLign,
-                int NbCoef, float** pMatrice, float** pSecMembre, 
-                int** pAdPrCoefLi, int** pAdSuccLi, int** pNumCol){
+                int NbCoef, float** pMatrice, float** pSecMembre,
+                int** pAdPrCoefLi, int** pAdSuccLi, int** pNumCol,
+                float** pValDLDir, int** pNumDLDir){
 
   float** coordElem = alloctab_f(nbneel,2);
   float* LowMat = &((*pMatrice)[NbLign]);
@@ -19,7 +20,7 @@ void assemblage(int typel, int nbtng, float** coord, int nbtel, int** ngnel,
     float* uDElem; // Indices i tq : NuDElem[i] = -1 si Dirichlet non homogène
 		               //                              0 sinon
     int* NuDElem;  // Reperer les noeuds porteurs d'une condition de Dirichlet
-    int NextAd=0;
+    int NextAd=1;
     selectPts(nbneel, ngnel[K], coord, coordElem);
 
     cal1Elem (nRefDom, nbRef[0], numRefD0, nbRef[1], numRefD1, nbRef[2], numRefF1,
@@ -43,8 +44,8 @@ void assemblage(int typel, int nbtng, float** coord, int nbtel, int** ngnel,
 	        J_tilde = I;
 	      }
 
-	      assmat_(&I_tilde, &J_tilde, &MatElem[i-1][j-1], pAdPrCoefLi, pNumCol, 
-		            pAdSuccLi, &LowMat, &NextAd);
+	      assmat_(&I_tilde, &J_tilde, &MatElem[i-1][j-1], *pAdPrCoefLi, *pNumCol, 
+		            *pAdSuccLi, LowMat, &NextAd);
         NextAd++;
 
       }
@@ -54,10 +55,11 @@ void assemblage(int typel, int nbtng, float** coord, int nbtel, int** ngnel,
 
       // Gestion du Second membre
       // Peut etre voir dans le cours le vecteur F_SMD
-      //
+      
+
       // Gestion des conditions de Dirichlet
-      NumDLDir[i-1] = i * NuDElem[i-1];
-      if (-1==NuDElem[i-1]) ValDLDir[i-1] = uDElem[i-1];
+      (*pNumDLDir)[i-1] = i * NuDElem[i-1];
+      if (-1==NuDElem[i-1]) (*pValDLDir)[i-1] = uDElem[i-1];
 
     }
 
@@ -68,5 +70,4 @@ void assemblage(int typel, int nbtng, float** coord, int nbtel, int** ngnel,
     freevec(uDElem);
     freevec(NuDElem);
   }
-    
 }
