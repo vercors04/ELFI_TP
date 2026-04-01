@@ -1,6 +1,6 @@
 #include "../Utilitaire/utilitaires.h"
 #include "../1_Maillage/maillage.h"
-
+#include "assemblage.h"
 
 int main (){
 
@@ -53,8 +53,8 @@ int main (){
   int* NumCol = allocvec_i(NbCoef);
 
   assemblage(typel, nbtng, coord, nbtel, ngnel, nbneel, nbaret, nRefAr, 
-	     nbRef[], nRefDom, numRefD0[], numRefD1[], numRefF1[], NbLign, 
-	     NbCoef, &Matrice, &SecMembre, &AdPrCoefLi, &AdSuccLi, &NumCol, );
+	     nbRef, nRefDom, numRefD0, numRefD1, numRefF1, NbLign, 
+	     NbCoef, Matrice, SecMembre, AdPrCoefLi, AdSuccLi, NumCol, ValDLDir, NumDLDir);
  
 
 

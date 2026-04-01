@@ -3,3 +3,6 @@
 .vscode/
 *.out
 *.zip
+
+!affsmd.o
+!assmat.out

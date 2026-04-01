@@ -1,17 +1,17 @@
 #include "../Utilitaire/utilitaires.h"
 #include "../2a_ElementaireA/elementairesa.h"
 #include "../2b_ElementaireB/elementairesb.h"
-#include "../3_Assemblage/forfun.h"
+#include "forfun.h"
 
 void assemblage(int typel, int nbtng, float** coord, int nbtel, int** ngnel,
 	              int nbneel, int nbaret, int** nRefAr, int nbRef[3], int nRefDom,
 	              int numRefD0[], int numRefD1[], int numRefF1[], int NbLign,
-                int NbCoef, float** pMatrice, float** pSecMembre,
-                int** pAdPrCoefLi, int** pAdSuccLi, int** pNumCol,
-                float** pValDLDir, int** pNumDLDir){
+                int NbCoef, float* Matrice, float* SecMembre,
+                int* AdPrCoefLi, int* AdSuccLi, int* NumCol,
+                float* ValDLDir, int* NumDLDir){
 
   float** coordElem = alloctab_f(nbneel,2);
-  float* LowMat = &((*pMatrice)[NbLign]);
+  float* LowMat = &(Matrice)[NbLign];
 
   // Boucle sur K dans Th
   for (int K=0; K<nbtel; K++) {
@@ -44,22 +44,23 @@ void assemblage(int typel, int nbtng, float** coord, int nbtel, int** ngnel,
 	        J_tilde = I;
 	      }
 
-	      assmat_(&I_tilde, &J_tilde, &MatElem[i-1][j-1], *pAdPrCoefLi, *pNumCol, 
-		            *pAdSuccLi, LowMat, &NextAd);
+	      assmat_(&I_tilde, &J_tilde, &MatElem[i-1][j-1], AdPrCoefLi, NumCol, 
+		            AdSuccLi, LowMat, &NextAd);
         NextAd++;
 
       }
 
       // Gestion de la partie diagonale
-      (*pMatrice)[i-1] = MatElem[i-1][i-1];
+      Matrice[I-1] += MatElem[i-1][i-1];
 
       // Gestion du Second membre
+      SecMembre[I-1] += SMbrElem [i-1];
       // Peut etre voir dans le cours le vecteur F_SMD
       
 
       // Gestion des conditions de Dirichlet
-      (*pNumDLDir)[i-1] = i * NuDElem[i-1];
-      if (-1==NuDElem[i-1]) (*pValDLDir)[i-1] = uDElem[i-1];
+      NumDLDir[I-1] = i * NuDElem[i-1];
+      if (-1==NuDElem[i-1]) ValDLDir[I-1] = uDElem[i-1];
 
     }
 
