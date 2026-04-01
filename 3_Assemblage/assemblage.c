@@ -30,7 +30,7 @@ void assemblage(int typel, int nbtng, float** coord, int nbtel, int** ngnel,
     for (int i=1; i<nbneel+1; i++){
       int I = ngnel[K-1][i-1];
 
-      for (int j=1; j<i-1; j++){
+      for (int j=1; j<i; j++){
         int J = ngnel[K-1][j-1];
 	      int I_tilde, J_tilde;
 	
@@ -46,17 +46,13 @@ void assemblage(int typel, int nbtng, float** coord, int nbtel, int** ngnel,
 
 	      assmat_(&I_tilde, &J_tilde, &MatElem[i-1][j-1], AdPrCoefLi, NumCol, 
 		            AdSuccLi, LowMat, &NextAd);
-        NextAd++;
-
       }
 
       // Gestion de la partie diagonale
       Matrice[I-1] += MatElem[i-1][i-1];
 
       // Gestion du Second membre
-      SecMembre[I-1] += SMbrElem [i-1];
-      // Peut etre voir dans le cours le vecteur F_SMD
-      
+      SecMembre[I-1] += SMbrElem [i-1];      
 
       // Gestion des conditions de Dirichlet
       NumDLDir[I-1] = i * NuDElem[i-1];
