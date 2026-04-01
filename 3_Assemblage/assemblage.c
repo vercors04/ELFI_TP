@@ -12,7 +12,6 @@ void assemblage(int typel, int nbtng, float** coord, int nbtel, int** ngnel,
 
   float** coordElem = alloctab_f(nbneel,2);
   float* LowMat = &(Matrice)[NbLign];
-
   // Boucle sur K dans Th
   for (int K=0; K<nbtel; K++) {
     float** MatElem;
@@ -28,10 +27,10 @@ void assemblage(int typel, int nbtng, float** coord, int nbtel, int** ngnel,
 	            &NuDElem, &uDElem);
 
     for (int i=1; i<nbneel+1; i++){
-      int I = ngnel[K-1][i-1];
+      int I = ngnel[K][i-1];
 
       for (int j=1; j<i; j++){
-        int J = ngnel[K-1][j-1];
+        int J = ngnel[K][j-1];
 	      int I_tilde, J_tilde;
 	
 	      // I_tilde = max(I,J) ; J_tilde = min(I,J)
@@ -55,7 +54,7 @@ void assemblage(int typel, int nbtng, float** coord, int nbtel, int** ngnel,
       SecMembre[I-1] += SMbrElem [i-1];      
 
       // Gestion des conditions de Dirichlet
-      NumDLDir[I-1] = i * NuDElem[i-1];
+      NumDLDir[I-1] = I * NuDElem[i-1];
       if (-1==NuDElem[i-1]) ValDLDir[I-1] = uDElem[i-1];
 
     }

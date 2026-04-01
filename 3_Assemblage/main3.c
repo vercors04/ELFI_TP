@@ -1,6 +1,7 @@
 #include "../Utilitaire/utilitaires.h"
 #include "../1_Maillage/maillage.h"
 #include "assemblage.h"
+#include "forfun.h"
 
 int main (){
 
@@ -57,6 +58,7 @@ int main (){
 	     NbCoef, Matrice, SecMembre, AdPrCoefLi, AdSuccLi, NumCol, ValDLDir, NumDLDir);
  
 
+  affsmd_ (&NbLign, AdPrCoefLi, NumCol, AdSuccLi, Matrice, SecMembre, NumDLDir, ValDLDir);
 
   freevec(Matrice);
   freevec(SecMembre);
