@@ -32,7 +32,7 @@ int main (){
 
   int nbRef[] = {nbRefD0, nbRefD1, nbRefF1};
 
-  int nbLign = nbtng, NbCoef; // 
+  int NbLign = nbtng, NbCoef; // 
   // Surestimation de NbCoef pour la longueur de LMat
   if (1==typel) {
     NbCoef = nbtng * 8; // Quadrangle : 8 * nb-noeuds
@@ -48,7 +48,7 @@ int main (){
   float* SecMembre = callocvec_f(NbLign);
   float* ValDLDir = callocvec_f(NbLign);
   int* AdPrCoefLi = callocvec_i(NbLign);
-  int* NumDLDir = callocvec_i(NbLign);
+  int* NumDLDir = allocvec_i(NbLign);
   int* AdSuccLi = callocvec_i(NbCoef);
   int* NumCol = allocvec_i(NbCoef);
 
