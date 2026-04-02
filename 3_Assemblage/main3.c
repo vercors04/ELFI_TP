@@ -49,7 +49,7 @@ int main (){
   float* SecMembre = callocvec_f(NbLign);
   float* ValDLDir = callocvec_f(NbLign);
   int* AdPrCoefLi = callocvec_i(NbLign);
-  int* NumDLDir = allocvec_i(NbLign);
+  int* NumDLDir = callocvec_i(NbLign);
   int* AdSuccLi = callocvec_i(NbCoef);
   int* NumCol = allocvec_i(NbCoef);
 
