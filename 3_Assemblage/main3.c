@@ -49,10 +49,11 @@ int main (){
   float* SecMembre = callocvec_f(NbLign);
   float* ValDLDir = callocvec_f(NbLign);
   int* AdPrCoefLi = callocvec_i(NbLign);
-  int* NumDLDir = callocvec_i(NbLign);
   int* AdSuccLi = callocvec_i(NbCoef);
-  int* NumCol = allocvec_i(NbCoef);
-
+  int* NumCol = callocvec_i(NbCoef);
+  int* NumDLDir = allocvec_i(NbLign);
+  for (int i=1; i<NbLign+1; i++) NumDLDir[i-1]=1*i;
+  
   assemblage(typel, nbtng, coord, nbtel, ngnel, nbneel, nbaret, nRefAr, 
 	     nbRef, nRefDom, numRefD0, numRefD1, numRefF1, NbLign, 
 	     NbCoef, Matrice, SecMembre, AdPrCoefLi, AdSuccLi, NumCol, ValDLDir, NumDLDir);

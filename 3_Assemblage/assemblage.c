@@ -6,14 +6,13 @@
 void assemblage(int typel, int nbtng, float** coord, int nbtel, int** ngnel,
 	              int nbneel, int nbaret, int** nRefAr, int nbRef[3], int nRefDom,
 	              int numRefD0[], int numRefD1[], int numRefF1[], int NbLign,
-                int NbCoef, float* Matrice, float* SecMembre,
-                int* AdPrCoefLi, int* AdSuccLi, int* NumCol,
-                float* ValDLDir, int* NumDLDir){
+                int NbCoef, float* Matrice, float* SecMembre, int* AdPrCoefLi,
+                int* AdSuccLi, int* NumCol, float* ValDLDir, int* NumDLDir){
 
   float** coordElem = alloctab_f(nbneel,2);
   float* LowMat = &(Matrice)[NbLign];
 
-  for (int i=1; i<NbLign+1; i++) NumDLDir[i-1]=1*i;
+
   // Boucle sur K dans Th
   for (int K=0; K<nbtel; K++) {
     float** MatElem;
@@ -43,8 +42,8 @@ void assemblage(int typel, int nbtng, float** coord, int nbtel, int** ngnel,
 	        J_tilde = I;
 	      }
 
-	      assmat_(&I_tilde, &J_tilde, &MatElem[i-1][j-1], AdPrCoefLi, NumCol,
-		            AdSuccLi, LowMat, &NextAd);
+	      assmat_ (&I_tilde, &J_tilde, &MatElem[i-1][j-1], AdPrCoefLi, NumCol,
+		             AdSuccLi, LowMat, &NextAd);
       }
 
       // Gestion de la partie diagonale
@@ -60,8 +59,6 @@ void assemblage(int typel, int nbtng, float** coord, int nbtel, int** ngnel,
         ValDLDir[I-1] = uDElem[i-1];
       }
     }
-
-
 
     freetab(MatElem);
     freevec(SMbrElem);
