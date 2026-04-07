@@ -21,7 +21,7 @@ int main (){
     return 1;
   }
 
-  float** coordElem = alloctab_f(nbneel,2);
+  //float** coordElem = alloctab_f(nbneel,2);
 
   int nbRefD0 = 1;
   int nbRefD1 = 1;
@@ -54,12 +54,36 @@ int main (){
   int* NumDLDir = allocvec_i(NbLign);
   for (int i=1; i<NbLign+1; i++) NumDLDir[i-1]=1*i;
   
-  assemblage(typel, nbtng, coord, nbtel, ngnel, nbneel, nbaret, nRefAr, 
+  int choix = 0;
+  while (1) {
+    printf("1. ASSEMBLER LE SYSTEME\n");
+    printf("2. AFFICHER LE SYSTEME ASSEMBLE\n");
+    printf("3. QUITTER\n");
+    scanf("%d", &choix);
+
+    if (choix == 1) {
+      assemblage(typel, nbtng, coord, nbtel, ngnel, nbneel, nbaret, nRefAr, 
 	     nbRef, nRefDom, numRefD0, numRefD1, numRefF1, NbLign, 
 	     NbCoef, Matrice, SecMembre, AdPrCoefLi, AdSuccLi, NumCol, ValDLDir, NumDLDir);
+      printf("Assemblage termine.\n");
+    }
+
+    else if (choix == 2) {
+        affsmd_ (&NbLign, AdPrCoefLi, NumCol, AdSuccLi, Matrice, SecMembre, NumDLDir, ValDLDir);
+      }
+
+    else if (choix == 3) {
+      printf("\nFermeture du programme.\n");
+      break;
+    }
+  
+    else {
+      printf("\nChoisir 1, 2 ou 3.\n");
+      }
+    }
  
 
-  affsmd_ (&NbLign, AdPrCoefLi, NumCol, AdSuccLi, Matrice, SecMembre, NumDLDir, ValDLDir);
+  
 
   freevec(Matrice);
   freevec(SecMembre);
@@ -72,8 +96,7 @@ int main (){
   freetab(coord);
   freetab(ngnel);
   freetab(nRefAr);
-  freevec(coordElem);
+  //freetab(coordElem);
   
-
   return 0;
 }
