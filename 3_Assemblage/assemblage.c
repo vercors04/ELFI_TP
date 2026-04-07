@@ -12,6 +12,7 @@ void assemblage(int typel, int nbtng, float** coord, int nbtel, int** ngnel,
   float** coordElem = alloctab_f(nbneel,2);
   float* LowMat = &(Matrice)[NbLign];
 
+  int NextAd=1;
 
   // Boucle sur K dans Th
   for (int K=0; K<nbtel; K++) {
@@ -20,7 +21,6 @@ void assemblage(int typel, int nbtng, float** coord, int nbtel, int** ngnel,
     float* uDElem; // Indices i tq : NuDElem[i] = -1 si Dirichlet non homogène
 		               //                              0 sinon
     int* NuDElem;  // Reperer les noeuds porteurs d'une condition de Dirichlet
-    int NextAd=1;
     selectPts(nbneel, ngnel[K], coord, coordElem);
 
     cal1Elem (nRefDom, nbRef[0], numRefD0, nbRef[1], numRefD1, nbRef[2], numRefF1,
