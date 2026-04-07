@@ -16,6 +16,7 @@ void assemblage(int typel, int nbtng, float** coord, int nbtel, int** ngnel,
 
   // Boucle sur K dans Th
   for (int K=0; K<nbtel; K++) {
+
     float** MatElem;
     float* SMbrElem;
     float* uDElem; // Indices i tq : NuDElem[i] = -1 si Dirichlet non homogène
