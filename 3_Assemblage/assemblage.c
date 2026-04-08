@@ -9,7 +9,7 @@ void assemblage(int typel, int nbtng, float** coord, int nbtel, int** ngnel,
                 int NbCoef, float* Matrice, float* SecMembre, int* AdPrCoefLi,
                 int* AdSuccLi, int* NumCol, float* ValDLDir, int* NumDLDir){
 
-  float** coordElem = alloctab_f(nbneel,2);
+  float** coordElem = (float**) malloc(nbneel * sizeof(float*)); //non-utilisation de "float** coordElem = alloctab_f(nbneel, 2);" pour eviter fuite de memoire due a selectPts
   float* LowMat = &(Matrice)[NbLign];
 
   int NextAd=1;
@@ -65,5 +65,9 @@ void assemblage(int typel, int nbtng, float** coord, int nbtel, int** ngnel,
     freevec(SMbrElem);
     freevec(uDElem);
     freevec(NuDElem);
+
+    free(coordElem);
+
+    //AdPrCoefLi[NbLign - 1] = NextAd - 1; //Memorisation nb de coeficients
   }
 }
