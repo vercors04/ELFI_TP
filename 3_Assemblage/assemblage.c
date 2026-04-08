@@ -1,7 +1,7 @@
 #include "../Utilitaire/utilitaires.h"
 #include "../2a_ElementaireA/elementairesa.h"
 #include "../2b_ElementaireB/elementairesb.h"
-#include "forfun.h"
+#include "../forfun.h"
 
 void assemblage(int typel, int nbtng, float** coord, int nbtel, int** ngnel,
 	              int nbneel, int nbaret, int** nRefAr, int nbRef[3], int nRefDom,
@@ -9,9 +9,7 @@ void assemblage(int typel, int nbtng, float** coord, int nbtel, int** ngnel,
                 int NbCoef, float* Matrice, float* SecMembre, int* AdPrCoefLi,
                 int* AdSuccLi, int* NumCol, float* ValDLDir, int* NumDLDir){
 
-  float** coordElem = (float**) malloc(nbneel * sizeof(float*)); //non-utilisation de "float** coordElem = alloctab_f(nbneel, 2);" pour eviter fuite de memoire due a selectPts
-  float* LowMat = &(Matrice)[NbLign];
-
+  float** coordElem = (float**) malloc(nbneel * sizeof(float*)); //non-utilisation de "float** coordElem = alloctab_f(nbneel, 2);" pour eviter fuite de memoire due a selectPts                
   int NextAd=1;
 
   // Boucle sur K dans Th
@@ -43,8 +41,13 @@ void assemblage(int typel, int nbtng, float** coord, int nbtel, int** ngnel,
 	        J_tilde = I;
 	      }
 
+        else if (NextAd > NbCoef) {
+          printf("augmenter NbCoef dans le main, NbCoef = %d", NbCoef);
+          exit(1);
+        }
+
 	      assmat_ (&I_tilde, &J_tilde, &MatElem[i-1][j-1], AdPrCoefLi, NumCol,
-		             AdSuccLi, LowMat, &NextAd);
+		             AdSuccLi, Matrice + NbLign, &NextAd); //Matrice + NbLign pointe vers le premier element de LowMat
       }
 
       // Gestion de la partie diagonale
@@ -66,8 +69,9 @@ void assemblage(int typel, int nbtng, float** coord, int nbtel, int** ngnel,
     freevec(uDElem);
     freevec(NuDElem);
 
-    free(coordElem);
 
-    //AdPrCoefLi[NbLign - 1] = NextAd - 1; //Memorisation nb de coeficients
+    AdPrCoefLi[NbLign - 1] = NextAd - 1; //Memorisation nb de coeficients
   }
+  free(coordElem);
+
 }

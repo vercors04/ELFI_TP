@@ -26,7 +26,7 @@ int main (){
     return 1;
   } 
 
-  float** coordElem = alloctab_f(nbneel,2);
+  float** coordElem = (float**) malloc(nbneel * sizeof(float*));
 
   int nbRefD0 = 1;
   int nbRefD1 = 1;
@@ -58,7 +58,7 @@ int main (){
   freetab(coord);
   freetab(ngnel);
   freetab(nRefAr);
-  freevec(coordElem);
+  free(coordElem);
 
 
 

@@ -1,7 +1,7 @@
 #include "../Utilitaire/utilitaires.h"
 #include "../1_Maillage/maillage.h"
 #include "assemblage.h"
-#include "forfun.h"
+#include "../forfun.h"
 
 int main (){
 
@@ -20,8 +20,6 @@ int main (){
     printf("ERREUR : lecture du fichier de maillage");
     return 1;
   }
-
-  //float** coordElem = alloctab_f(nbneel,2);
 
   int nbRefD0 = 1;
   int nbRefD1 = 1;
@@ -55,6 +53,7 @@ int main (){
   for (int i=1; i<NbLign+1; i++) NumDLDir[i-1]=1*i;
   
   int choix = 0;
+  int assemb= 0;
   while (1) {
     printf("1. ASSEMBLER LE SYSTEME\n");
     printf("2. AFFICHER LE SYSTEME ASSEMBLE\n");
@@ -66,9 +65,14 @@ int main (){
 	     nbRef, nRefDom, numRefD0, numRefD1, numRefF1, NbLign, 
 	     NbCoef, Matrice, SecMembre, AdPrCoefLi, AdSuccLi, NumCol, ValDLDir, NumDLDir);
       printf("Assemblage termine.\n");
+      assemb=1;
     }
 
     else if (choix == 2) {
+      if (assemb == 0){
+        printf("ERREUR : assembler avant d'afficher\n\n");
+        return 1;
+      }
         affsmd_ (&NbLign, AdPrCoefLi, NumCol, AdSuccLi, Matrice, SecMembre, NumDLDir, ValDLDir);
       }
 
@@ -96,7 +100,6 @@ int main (){
   freetab(coord);
   freetab(ngnel);
   freetab(nRefAr);
-  //freetab(coordElem);
   
   return 0;
 }
