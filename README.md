@@ -66,6 +66,9 @@ TP5 : mise en pratique
 - ww.c
 - assmat.f (Fortran)
 - affsmd.f (Fortran)
+- cdesse.f (Fortran)
+- tri.f    (Fortran)
+- affsmo.f (Fortran)
 - forfun.h (Fortran)
 
 ## Structure du projet
