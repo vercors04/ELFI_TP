@@ -29,50 +29,51 @@ float UD(float* x);
 /* Procedure W
  * Calcul de : $\int_{K}f_{\Omega}(x)dx$ --ou-- $\int_{K'}f_{N}(\sigma)w_{j}^{K'}d\sigma$
  * ---------------------------------------------------------------------------------------
- * @param[in]  nbneel : nombre de noeuds de l'element
- * @param[in]  fctbas : valeurs des fonctions de base au point de quadrature courant
- *                      Dimensions utiles : fctbas(nbneel)
- * @param[in]  eltdif : element differentiel multiplie par le poids de quadrature
- * @param[in]  cofvar :
+ * @param[in]  nbneel : Nombre de noeuds de l'element
+ * @param[in]  fctbas : Valeurs des fonctions de base au point de quadrature courant
+ *                      -> Dimensions utiles : fctbas(nbneel)
+ * @param[in]  eltdif : Element differentiel multiplie par le poids de quadrature
+ * @param[in]  cofvar : Valeur de f au point de l'element courant image du point
+ *                      de quadrature x_q par l'application Fk
  *
- * @param[in/out] vecelm :
+ * @param[in/out] vecelm : Vecteur elementaire
  * ---------------------------------------------------------------------------------------
  */
 void W(int nbneel, float* fctbas, float eltdif, float cofvar, float* vecelm);
 
 /* fonction pour le calcul de la matrice de rigidite
  * ---------------------------------------------------------------------------------------
- * @param[in]  nbneel   : nombre de noeuds de l'element
- * @param[in]  dpfctbas : derivee partielle des fonctions de base au points de quadrature 
- *                       courant *  la colonne associé à alpha (1 ou 2) de l'inverse de 
- *                       la matrice jacobienne de la transformée Fk
- * @param[in]  eltdif   : element differentiel multiplie par le poids de quadrature
- * @param[in]  cofvar   : valeur du coefficient variable (fonction a integrer calculee
- *                     en l'image par FK du point de quadrature courant)
+ * @param[in]  nbneel   : Nombre de noeuds de l'element
+ * @param[in]  dpfctbas : Derivee partielle des fonctions de base au points de quadrature 
+ *                        courant multiplie par la colonne associé à alpha (1 ou 2) de 
+ *                        l'inverse de la matrice jacobienne de la transformée Fk
+ * @param[in]  eltdif   : Element differentiel multiplie par le poids de quadrature
+ * @param[in]  cofvar   : Valeur du coefficient variable (fonction a integrer calculee
+ *                        en l'image par FK du point de quadrature courant)
  * 
- * @param[out]  matelm  : matrice lementaire de rigidite a actualiser
+ * @param[out]  matelm  : Matrice lementaire de rigidite a actualiser
  * ---------------------------------------------------------------------------------------
 */
 void ADWDW (int nbneel, float** dpfctbas, float eltdif, float** cofvar, float** matelm);
 
 /* fonction pour le calcul de la matrice elementaire
  * ---------------------------------------------------------------------------------------
- * @param[in]  t         : type de l'element (1 - quadrangle ; 2 - triangle ; 3 - segment)
- * @param[in]  nbneel    : nombre de noeuds de l'element
- * @param[in]  coordElem : coordonnees de l'element courant
+ * @param[in]  t         : Type de l'element (1 - quadrangle ; 2 - triangle ; 3 - segment)
+ * @param[in]  nbneel    : Nombre de noeuds de l'element
+ * @param[in]  coordElem : Coordonnees de l'element courant
  *
- * @param[out]  matelm   : matrice elementaire
- * @param[out]  vecelm   : vecteur elementaire
+ * @param[out]  matelm   : Matrice elementaire
+ * @param[out]  vecelm   : Vecteur elementaire
  * ---------------------------------------------------------------------------------------
 */
 void intElem (int t, int nbneel, float** coordElem, float** matelm, float* vecelm);
 
 /* fonction pour le calcul l'integrale sur une arrete
  * ---------------------------------------------------------------------------------------
- * @param[in] coordAret : coordonnees des noeuds de l'arrete
+ * @param[in] coordAret : Coordonnees des noeuds de l'arrete
  *
- * @param[out] matAret  : matrice de l'arrete
- * @param[out] vecAret  : vecteur de l'arrete
+ * @param[out] matAret  : Matrice de l'arete
+ * @param[out] vecAret  : Vecteur de l'arete
  * ---------------------------------------------------------------------------------------
 */
 void intAret ( float** coordAret, float** matAret, float* vecAret);
@@ -80,27 +81,27 @@ void intAret ( float** coordAret, float** matAret, float* vecAret);
 
 /* fonction pour l'assemblage de la matrice/second membre elementaire
  * ---------------------------------------------------------------------------------------
- * @param[in]  nRefDom   : numero de reference associe aux aretes internes du domaine 
- * @param[in]  nbRefD0   : nombre de valeur utile dans le tableau numRefD0
- * @param[in]  numRefD0  : tableau contenant les numeros des bords du maillage associe a une
+ * @param[in]  nRefDom   : Numero de reference associe aux aretes internes du domaine 
+ * @param[in]  nbRefD0   : Nombre de valeur utile dans le tableau numRefD0
+ * @param[in]  numRefD0  : Tableau contenant les numeros des bords du maillage associe a une
  *                         condition de dirichlet homogene
- * @param[in]  nbRefD1   : nombre de valeur utile dans le tableau numRefD1
- * @param[in]  numRefD1  : tableau contenant les numeros des bords du maillage associe a une
+ * @param[in]  nbRefD1   : Nombre de valeur utile dans le tableau numRefD1
+ * @param[in]  numRefD1  : Tableau contenant les numeros des bords du maillage associe a une
  *                         condition de dirichlet non homogene
- * @param[in]  nbRefF1   : nombre de valeur utile dans le tableau numRefF1
- * @param[in]  numRefF1  : tableau contenant les numeros des bords du maillage associe a une
+ * @param[in]  nbRefF1   : Nombre de valeur utile dans le tableau numRefF1
+ * @param[in]  numRefF1  : Tableau contenant les numeros des bords du maillage associe a une
  *                         condition de Neumann ou Fourier
- * @param[in]  t         : type de l'element (1 - quadrangle ; 2 - triangle ; 3 - segment)
- * @param[in]  nbneel    : nombre de noeuds de l'element
- * @param[in]  coordElem : coordonnees de l'element courant
- * @param[in]  nbaret    : nombre d'arrete par element
- * @param[in]  nRefArEl  : vecteur contenant les numeros de reference de chaque arrete
- 
+ * @param[in]  t         : Type de l'element (1 - quadrangle ; 2 - triangle ; 3 - segment)
+ * @param[in]  nbneel    : Nombre de noeuds de l'element
+ * @param[in]  coordElem : Coordonnees de l'element courant
+ * @param[in]  nbaret    : Nombre d'arrete par element
+ * @param[in]  nRefArEl  : Vecteur contenant les numeros de reference de chaque arrete
  *
- * @param[out]  MatElem  : pointeur vers la matrice elementaire
- * @param[out]  SMbrElem : pointeur vers le second membre elementaire
- * @param[out]  NuDElem  : tableau reperant les noeuds associe a une condition de Dirichlet
- * @param[out]  uDElem   : tableau contenant la valeur impose par la condition de Dirichlet 
+ *
+ * @param[out]  MatElem  : Pointeur vers la matrice elementaire
+ * @param[out]  SMbrElem : Pointeur vers le second membre elementaire
+ * @param[out]  NuDElem  : Tableau reperant les noeuds associe a une condition de Dirichlet
+ * @param[out]  uDElem   : Tableau contenant la valeur impose par la condition de Dirichlet 
  *                         si il s'agit d'un noeuds de type "Dirichlet non homogene"
  * ---------------------------------------------------------------------------------------
 */

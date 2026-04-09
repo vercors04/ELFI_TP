@@ -1,5 +1,4 @@
-
-/* Fonction qui affecte un numero de reference a chaque arete :
+/* Fonction qui realise l'assemblage des matrices et seconds membres elementaires
  * ----------------------------------------------------------------------------
  * param[in]  typel    : Type des elements a construire
  * param[in]  nbtng    : Nombre de noeuds geometriques
@@ -10,14 +9,19 @@
  * param[in]  nbaret   : Nombre d'aretes par element
  * param[in]  nRefAr   : Double pointeur donnant acces au numero de reference
  *                       de chaque arete
- * param[in]  nbRef    : ???????????????????
- * param[in]  nRefDom  : ???????????????????
- * param[in]  numRefD0 : ???????????????????
- * param[in]  numRefD1 : ???????????????????
- * param[in]  numRefF1 : ???????????????????
+ * param[in]  nbRef    : Tableau contenant le nombre de valeurs utiles dans les
+ *                       tableaux : nbRefD0 - nbRefD1 - nbRefF1
+ * param[in]  nRefDom  : Numero de reference associe aux aretes internes du 
+ *                       domaine
+ * param[in]  numRefD0 : Tableau contenant les numeros des bords du maillage
+ *                       associe a une condition de dirichlet homogene
+ * param[in]  numRefD1 : Tableau contenant les numeros des bords du maillage
+ *                       associe a une condition de dirichlet non homogene
+ * param[in]  numRefF1 : Tableau contenant les numeros des bords du maillage 
+ *                       associe a une condition de Neumann ou Fourier
  * param[in]  NbLign   : Nombre de lignes et de colonnes de la matrice A
  * param[in]  NbCoef   : Nombre de coefficients mémorises de la partie
- *                      triangulaire inferieure stricte de A
+ *                       triangulaire inferieure stricte de A
  *
  *
  * param[out]  Matrice   : Tableau de float, de longueur >= NbLign+NbCoef
