@@ -58,7 +58,11 @@ int main (){
     printf("1. ASSEMBLER LE SYSTEME\n");
     printf("2. AFFICHER LE SYSTEME ASSEMBLE\n");
     printf("3. QUITTER\n");
-    scanf("%d", &choix);
+        
+    if (scanf("%d", &choix) != 1) {
+      printf("tapez un entier\n");
+      return 1;
+    }
 
     if (choix == 1) {
       assemblage(typel, nbtng, coord, nbtel, ngnel, nbneel, nbaret, nRefAr, 

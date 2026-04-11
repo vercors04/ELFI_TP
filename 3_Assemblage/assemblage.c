@@ -26,8 +26,6 @@ void assemblage(int typel, int nbtng, float** coord, int nbtel, int** ngnel,
 	            typel, nbneel, coordElem, nbaret, nRefAr[K], &MatElem, &SMbrElem,
 	            &NuDElem, &uDElem);
 
-    impCalEl(K+1, typel, nbneel, MatElem, SMbrElem, NuDElem, uDElem);
-
     for (int i=1; i<nbneel+1; i++){
       int I = ngnel[K][i-1];
 
@@ -41,7 +39,7 @@ void assemblage(int typel, int nbtng, float** coord, int nbtel, int** ngnel,
 	        J_tilde = I;
 	      }
 
-        else if (NextAd > NbCoef) {
+        if (NextAd > NbCoef) {
           printf("augmenter NbCoef dans le main, NbCoef = %d", NbCoef);
           exit(1);
         }
@@ -70,8 +68,8 @@ void assemblage(int typel, int nbtng, float** coord, int nbtel, int** ngnel,
     freevec(NuDElem);
 
 
-    AdPrCoefLi[NbLign - 1] = NextAd - 1; //Memorisation nb de coeficients
   }
+  AdPrCoefLi[NbLign - 1] = NextAd - 1; //Memorisation nb de coeficients
   free(coordElem);
 
 }

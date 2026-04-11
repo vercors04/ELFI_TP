@@ -1,3 +1,10 @@
+#include <stdio.h>
+
+#include "../Utilitaire/utilitaires.h"
+#include "../1_Maillage/maillage.h"
+#include "../3_Assemblage/assemblage.h"
+#include "../forfun.h"
+#include "construction_SL.h"
 
 int main () {
 
@@ -56,19 +63,24 @@ int main () {
 
 
   int choix = 0;
-  int assemb= 0;
+  int assemb = 0;
+  int assemb0 = 0;
   while (1) {
     printf("1. ASSEMBLER LE SYSTEME\n");
     printf("2. AFFICHER LE SYSTEME ASSEMBLE\n");
-    printf("3. QUITTER\n");
-    printf("4. CONSTRUIRE LA S.M.O");
-    printf("5. AFFICHER LA S.M.O");
-    scanf("%d", &choix);
+    printf("3. CONSTRUIRE LA S.M.O\n");
+    printf("4. AFFICHER LA S.M.O\n");
+    printf("5. QUITTER\n");
+    if (scanf("%d", &choix) != 1) {
+      printf("tapez un entier\n");
+      return 1;
+    }
 
     if (choix == 1) {
       assemblage(typel, nbtng, coord, nbtel, ngnel, nbneel, nbaret, nRefAr, 
-	     nbRef, nRefDom, numRefD0, numRefD1, numRefF1, NbLign, 
-	     NbCoef, Matrice, SecMembre, AdPrCoefLi, AdSuccLi, NumCol, ValDLDir, NumDLDir);
+	               nbRef, nRefDom, numRefD0, numRefD1, numRefF1, NbLign, 
+	               NbCoef, Matrice, SecMembre, AdPrCoefLi, AdSuccLi, NumCol, 
+                 ValDLDir, NumDLDir);
       printf("Assemblage termine.\n");
       assemb=1;
     }
@@ -76,24 +88,36 @@ int main () {
     else if (choix == 2) {
       if (assemb == 0){
         printf("ERREUR : assembler avant d'afficher\n\n");
-        return 1;
+        continue;
       }
-        affsmd_ (&NbLign, AdPrCoefLi, NumCol, AdSuccLi, Matrice, SecMembre, NumDLDir, ValDLDir);
+        affsmd_ (&NbLign, AdPrCoefLi, NumCol, AdSuccLi, Matrice, SecMembre,
+                 NumDLDir, ValDLDir);
       }
 
     else if (choix == 3) {
+      if (assemb == 0) {
+        printf("ERREUR : assembler avant de construire la SMO\n\n");
+        continue;
+      }
+      dSMDaSMO (NbLign, AdPrCoefLi, NumCol, AdSuccLi, Matrice, SecMembre, 
+                  NumDLDir, ValDLDir, AdPrCoefLiO, NumColO, MatriceO, SecMembreO);
+      printf("SMD vers SMO termine.\n");
+      assemb0=1;
+    }
+
+    else if (choix == 4) {
+      if (assemb0 == 0){
+        printf("ERREUR : assembler avant d'afficher\n\n");
+        continue;
+      }
+      affsmo_(&NbLign, AdPrCoefLiO, NumColO, MatriceO, SecMembreO);
+    }
+
+    else if (choix == 5) {
       printf("\nFermeture du programme.\n");
       break;
     }
 
-    else if (choix == 4) {
-        
-    }
-
-    else if (choix == 5) {
-        
-    }
-  
     else {
       printf("\nChoisir 1, 2, 3, 4 ou 5\n");
       }
@@ -113,6 +137,11 @@ int main () {
   freetab(coord);
   freetab(ngnel);
   freetab(nRefAr);
+
+  freevec(MatriceO);
+  freevec(SecMembreO);
+  freevec(AdPrCoefLiO);
+  freevec(NumColO);
   
   return 0;
   
