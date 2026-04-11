@@ -1,7 +1,7 @@
 
 int main () {
 
-      int typel; // Type des elements du maillage
+  int typel; // Type des elements du maillage
   int nbtng; // Nombre de noeuds géométriques
   int nbtel; // Nombre d'elements du maillage
   int nbneel; // Nombre de noeuds geometriques par element
@@ -24,7 +24,8 @@ int main () {
   int numRefD0[] = {1};
   int numRefD1[] = {4};
   int numRefF1[] = {2,3};
-
+  
+  // On stocke ces valeurs dans un tableau pour diminuer le nombre d'arguments
   int nbRef[] = {nbRefD0, nbRefD1, nbRefF1};
 
   int NbLign = nbtng, NbCoef; // 
