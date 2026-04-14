@@ -1,0 +1,28 @@
+
+void dSMOaPR(int NbLign,int* AdPrCoefLiO,  int* NumColO, float* MatriceO,
+             int* Profil, float* MatProf){
+  Profil[0] = 1;
+  MatProf[0] = MatriceO[0]; // Premier Coefficient diagonal
+
+  for (int i=2;i<=NbLign;i++) {
+    MatProf[i-1] = MatriceO[i-1]; // i-eme Coefficient diagonal
+    int NbCoefLi = AdPrCoefLiO[i-2]-AdPrCoefLiO[i-1]; // Nombre de Coefficients
+    int TailleLiP = 0;
+    if (!NbCoefLi) { // Si il y a au moins 1 coefficient pour la ligne i
+ 
+      for (int j=0; j<NbCoefLi; j++) {
+        int IndiceCoefLowMat = AdPrCoefLiO[i-2]-1 + j;
+        int IndiceCoefLowMatProf = Profil[i-2]-1 + NumColO[IndiceCoefLowMat]-1;
+
+        (MatProf+NbLign)[IndiceCoefLowMatProf] = (Mat+NbLign)[IndiceCoefLowMat];
+      }
+
+      // Nombre d'elements d'une ligne Profil
+      // Num de ligne - Num de colonne du premier coefficient de la ligne i
+      TailleLiP = i - NumColO[AdPrCoefLiO[i-2]-1];
+    }
+ 
+    Profil[i-1] = Profil[i-2] + TailleLiP;
+  }
+
+}
