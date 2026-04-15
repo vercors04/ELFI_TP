@@ -1,5 +1,5 @@
 
-void dSMOaPR(int NbLign,int* AdPrCoefLiO,  int* NumColO, float* MatriceO,
+void dSMOaPR2(int NbLign,int* AdPrCoefLiO,  int* NumColO, float* MatriceO,
              int* Profil, float* MatProf){
   Profil[0] = 1;
   MatProf[0] = MatriceO[0]; // Premier Coefficient diagonal
@@ -25,4 +25,10 @@ void dSMOaPR(int NbLign,int* AdPrCoefLiO,  int* NumColO, float* MatriceO,
     Profil[i-1] = Profil[i-2] + TailleLiP;
   }
 
+}
+
+int dSMOaLongPR(int NbLign, int* AdPrCoefLiO, int* NumColO, float* MatriceO){
+  int longueur;
+
+  return longueur;
 }
