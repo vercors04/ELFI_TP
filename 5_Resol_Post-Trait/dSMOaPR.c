@@ -27,7 +27,7 @@ void dSMOaPR2(int NbLign,int* AdPrCoefLiO,  int* NumColO, float* MatriceO,
 
 }
 
-int dSMOaLongPR(int NbLign, int* AdPrCoefLiO, int* NumColO, float* MatriceO){
+int dSMOaLongPR2(int NbLign, int* AdPrCoefLiO, int* NumColO, float* MatriceO){
   int longueur;
 
   return longueur;
