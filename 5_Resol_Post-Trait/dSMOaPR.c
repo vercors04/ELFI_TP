@@ -14,7 +14,7 @@ void dSMOaPR2(int NbLign,int* AdPrCoefLiO,  int* NumColO, float* MatriceO,
         int IndiceCoefLowMat = AdPrCoefLiO[i-2]-1 + j;
         int IndiceCoefLowMatProf = Profil[i-2]-1 + NumColO[IndiceCoefLowMat]-1;
 
-        (MatProf+NbLign)[IndiceCoefLowMatProf] = (Mat+NbLign)[IndiceCoefLowMat];
+        (MatProf+NbLign)[IndiceCoefLowMatProf] = (MatriceO+NbLign)[IndiceCoefLowMat];
       }
 
       // Nombre d'elements d'une ligne Profil
@@ -28,7 +28,10 @@ void dSMOaPR2(int NbLign,int* AdPrCoefLiO,  int* NumColO, float* MatriceO,
 }
 
 int dSMOaLongPR2(int NbLign, int* AdPrCoefLiO, int* NumColO, float* MatriceO){
-  int longueur;
+  int longueur = 0;
 
+  for (int i=1;i<=NbLign;i++) {
+    longueur += i+1 - NumColO[AdPrCoefLiO[i-1]-1];
+  }
   return longueur;
 }
