@@ -58,11 +58,24 @@ int main (){
     printf("1. ASSEMBLER LE SYSTEME\n");
     printf("2. AFFICHER LE SYSTEME ASSEMBLE\n");
     printf("3. QUITTER\n");
-        
+
     if (scanf("%d", &choix) != 1) {
-      printf("tapez un entier\n");
+      printf("ERREUR : tapez un entier\n");
+      freevec(Matrice);
+      freevec(SecMembre);
+      freevec(AdPrCoefLi);
+      freevec(AdSuccLi);
+      freevec(NumCol);
+      freevec(ValDLDir);
+      freevec(NumDLDir);
+
+      freetab(coord);
+      freetab(ngnel);
+      freetab(nRefAr);
+
       return 1;
-    }
+    } 
+        
 
     if (choix == 1) {
       assemblage(typel, nbtng, coord, nbtel, ngnel, nbneel, nbaret, nRefAr, 

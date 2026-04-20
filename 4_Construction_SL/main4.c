@@ -72,9 +72,27 @@ int main () {
     printf("4. AFFICHER LA S.M.O\n");
     printf("5. QUITTER\n");
     if (scanf("%d", &choix) != 1) {
-      printf("tapez un entier\n");
+      printf("ERREUR : tapez un entier\n");
+      freevec(Matrice);
+      freevec(SecMembre);
+      freevec(AdPrCoefLi);
+      freevec(AdSuccLi);
+      freevec(NumCol);
+      freevec(ValDLDir);
+      freevec(NumDLDir);
+
+      freetab(coord);
+      freetab(ngnel);
+      freetab(nRefAr);
+
+      freevec(MatriceO);
+      freevec(SecMembreO);
+      freevec(AdPrCoefLiO);
+      freevec(NumColO);
+
       return 1;
-    }
+    } 
+
 
     if (choix == 1) {
       assemblage(typel, nbtng, coord, nbtel, ngnel, nbneel, nbaret, nRefAr, 

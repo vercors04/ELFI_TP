@@ -18,7 +18,7 @@ int main () {
   int** nRefAr; // Numeros de reference associes aux aretes
   float** coord; // Coordonnees des noeuds geometriques
 
-  char* ficmai = "../Donnees_1/car1x1t_1";
+  char* ficmai = "../Donnees_1/car3x3t_3";
 
   if (lecfima(ficmai, &typel, &nbtng, &coord, &nbtel, &ngnel, &nbneel, &nbaret, &nRefAr)){
     printf("ERREUR : lecture du fichier de maillage");
@@ -64,6 +64,8 @@ int main () {
 
   int* Profil;
   float* MatProf;
+  int* ProfilTest;
+  float* MatProfTest;
 
   
   
@@ -78,7 +80,8 @@ int main () {
     printf("5. CONSTRUIRE LA STRUCTURE PROFIL\n");
     printf("6. AFFICHER LA STRUCTURE PROFIL\n");
     printf("7. QUITTER\n");
-    if (scanf("%d", &choix) != 1) {
+
+     if (scanf("%d", &choix) != 1) {
       printf("ERREUR : tapez un entier\n");
       freevec(Matrice);
       freevec(SecMembre);
@@ -98,7 +101,7 @@ int main () {
       freevec(NumColO);
 
       return 1;
-    }
+    } 
     
     switch (choix) {
       case 1:
@@ -144,14 +147,41 @@ int main () {
           printf("ERREUR : construire la SMO avant de construire la structure Profil\n\n");
           continue;
         }
+
+        if (assembP) {
+          freevec(Profil);
+          freevec(MatProf);
+          freevec(ProfilTest);
+          freevec(MatProfTest);
+        }
+        
         int longProfilMat = dSMOaLongPR(NbLign, AdPrCoefLiO, NumColO, MatriceO);
         int longProfilMatTest = dSMOaLongPR2(NbLign, AdPrCoefLiO, NumColO, MatriceO);
+
         Profil = allocvec_i(NbLign);
         MatProf = callocvec_f(longProfilMat);
         dSMOaPR(NbLign, AdPrCoefLiO, NumColO, MatriceO, longProfilMat, Profil, MatProf);
+
+        ProfilTest = allocvec_i(NbLign);
+        MatProfTest = callocvec_f(longProfilMatTest);
+        dSMOaPR2(NbLign, AdPrCoefLiO, NumColO, MatriceO, ProfilTest, MatProfTest);
+        
         printf("\n------SM0 vers PROFIL termine------\n\n");
         printf("Longueur matrice profil VERFIF: %d\n",longProfilMat);
         printf("Longueur matrice profil TEST: %d\n",longProfilMatTest);
+
+        int erreur = 0;
+        for (int k = 0; k < longProfilMat; k++) {
+            if (MatProf[k] != MatProfTest[k]) {
+                printf("erreur sur le coef %d : attentu : %f     calculé : %f\n", k, MatProf[k], MatProfTest[k]);
+                erreur = 1;
+            }
+        }
+        if (erreur == 0) {
+            printf("\nTest reussi - coefs profil ok\n\n");
+        }
+
+
         assembP = 1;
         break;
 
@@ -160,8 +190,13 @@ int main () {
           printf("ERREUR : assembler avant d'afficher\n\n");
           continue;
         }
+        printf("\n\n Resultat attendu \n\n");
         int impfch = 0;
         impmpr_(&impfch, &NbLign, Profil, MatProf, MatProf+NbLign);
+
+        printf("\n\n Resultat obtenu \n\n");
+        int impfch2 = 0;
+        impmpr_(&impfch2, &NbLign, ProfilTest, MatProfTest, MatProfTest+NbLign);
         break;
       
       case 7:
@@ -189,11 +224,15 @@ int main () {
   freevec(SecMembreO);
   freevec(AdPrCoefLiO);
   freevec(NumColO);
-  
-  if (assembP) { // S'il y a deja eu un assemblage Profil
-  freevec(Profil);
-  freevec(MatProf);
+
+  if (assembP) {
+    freevec(Profil);
+    freevec(MatProf);
+    freevec(ProfilTest);
+    freevec(MatProfTest);
   }
+  
+
   return 0;
   
 }
