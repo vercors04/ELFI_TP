@@ -28,10 +28,15 @@ void dSMOaPR2(int NbLign,int* AdPrCoefLiO,  int* NumColO, float* MatriceO,
 }
 
 int dSMOaLongPR2(int NbLign, int* AdPrCoefLiO, int* NumColO, float* MatriceO){
-  int longueur = 0;
+  // DEMANDER INTERET DE MatriceO
 
-  for (int i=1;i<=NbLign;i++) {
-    longueur += i+1 - NumColO[AdPrCoefLiO[i-1]-1];
+  int longueur = NbLign + 1; // Elements diagonaux + Element fictif 
+
+  for (int i=1;i<NbLign;i++) {
+    // Test si : AdPrCoefLiO(i)-AdPrCoefLiO(i+1) != 0
+    // Car si = 0, Alors la ligne i n'a pas de coefficient non logiquement nul
+    // Operation : NumLigneMatrice - NumColPremierCoefNonNul
+    if (AdPrCoefLiO[i-1]-AdPrCoefLiO[i]) longueur += i+1 - NumColO[AdPrCoefLiO[i-1]-1];
   }
   return longueur;
 }

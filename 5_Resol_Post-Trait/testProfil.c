@@ -18,7 +18,7 @@ int main () {
   int** nRefAr; // Numeros de reference associes aux aretes
   float** coord; // Coordonnees des noeuds geometriques
 
-  char* ficmai = "../Donnees_1/car3x3t_3";
+  char* ficmai = "../Donnees_1/car1x1t_1";
 
   if (lecfima(ficmai, &typel, &nbtng, &coord, &nbtel, &ngnel, &nbneel, &nbaret, &nRefAr)){
     printf("ERREUR : lecture du fichier de maillage");
@@ -145,12 +145,13 @@ int main () {
           continue;
         }
         int longProfilMat = dSMOaLongPR(NbLign, AdPrCoefLiO, NumColO, MatriceO);
-        int longProfilMatTest = 1; // A finir
+        int longProfilMatTest = dSMOaLongPR2(NbLign, AdPrCoefLiO, NumColO, MatriceO);
         Profil = allocvec_i(NbLign);
         MatProf = callocvec_f(longProfilMat);
         dSMOaPR(NbLign, AdPrCoefLiO, NumColO, MatriceO, longProfilMat, Profil, MatProf);
         printf("\n------SM0 vers PROFIL termine------\n\n");
         printf("Longueur matrice profil VERFIF: %d\n",longProfilMat);
+        printf("Longueur matrice profil TEST: %d\n",longProfilMatTest);
         assembP = 1;
         break;
 

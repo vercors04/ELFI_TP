@@ -8,7 +8,7 @@ gcc ../3_Assemblage/assemblage.c ../3_Assemblage/*.o \
     ../2b_ElementaireB/w.c ../2b_ElementaireB/ww.c ../2b_ElementaireB/adwdw.c \
     ../2a_ElementaireA/fct_elementairesa.c ../2b_ElementaireB/intAret.c \
     ../5_Resol_Post-Trait/dsmoapr.o ../5_Resol_Post-Trait/testProfil.c \
-    ../5_Resol_Post-Trait/impmpr.o \
+    ../5_Resol_Post-Trait/impmpr.o ../5_Resol_Post-Trait/dSMOaPR.c\
     -o testProfil.exe \
     -lm \
     -lgfortran \

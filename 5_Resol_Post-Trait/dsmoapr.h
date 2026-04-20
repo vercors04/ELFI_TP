@@ -10,3 +10,5 @@ int dSMOaLongPR(int NbLign, int* AdPrCoefLiO, int* NumColO, float* MatriceO);
 
 void dSMOaPR(int NbLign, int* AdPrCoefLiO, int* NumColO, float* MatriceO, int longProfilMat, int* Profil, float* MatProf);
 
+
+int dSMOaLongPR2(int NbLign, int* AdPrCoefLiO, int* NumColO, float* MatriceO);
