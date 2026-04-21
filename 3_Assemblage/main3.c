@@ -1,6 +1,7 @@
+#include <stdio.h>
 #include "../Utilitaire/utilitaires.h"
 #include "../1_Maillage/maillage.h"
-#include "assemblage.h"
+#include "../3_Assemblage/assemblage.h"
 #include "../forfun.h"
 
 int main (){

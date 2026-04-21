@@ -5,8 +5,8 @@
 * Attention : l'executable doit se trouver dans le dossier "Executables/"
 * -----------------------------------------
 */
-
-#include "elementairesa.h"
+#include <stdio.h>
+#include "../2a_ElementaireA/elementairesa.h"
 #include "../Utilitaire/utilitaires.h"
 
 

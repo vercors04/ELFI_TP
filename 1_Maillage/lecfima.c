@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include "../Utilitaire/utilitaires.h"
 
 int lecfima(char *ficmai, int *ptypel, int *pnbtng, float ***pcoord, int *pnbtel, int ***pngnel, int *pnbneel,int *pnbaret, int ***pnRefAr){

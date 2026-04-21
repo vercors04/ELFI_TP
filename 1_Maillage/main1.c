@@ -5,9 +5,9 @@
 * Attention : l'executable doit se trouver dans le dossier "Executables/"
 * -----------------------------------------
 */
-
-#include "maillage.h"
+#include <stdio.h>
 #include "../Utilitaire/utilitaires.h"
+#include "../1_Maillage/maillage.h"
 
 int main() {
   int mode_saisie;

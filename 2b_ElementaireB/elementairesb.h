@@ -1,7 +1,6 @@
 // Declarations
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
+#ifndef ELEMENTAIRESB_H
+#define ELEMENTAIRESB_H
 
 /* Fonctions qui renvoient les resultats des fonctions intervenant dans les intégrales
  * ---------------------------------------------------------------------------------------
@@ -157,3 +156,5 @@ void impCalEl(int K, int typEl, int nbneel, float **MatElem, float *SMbrElem,int
 --------------------------------------------------------------------------------
 */
 void WW(int nbneel, float *fctbas, float eltdif, float cofvar, float **matelm);
+
+#endif

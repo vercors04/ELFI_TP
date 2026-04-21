@@ -1,10 +1,9 @@
 #include <stdio.h>
-
 #include "../Utilitaire/utilitaires.h"
 #include "../1_Maillage/maillage.h"
 #include "../3_Assemblage/assemblage.h"
+#include "../4_Construction_SL/construction_SL.h"
 #include "../forfun.h"
-#include "construction_SL.h"
 
 int main () {
 

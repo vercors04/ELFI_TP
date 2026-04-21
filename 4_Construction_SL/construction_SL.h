@@ -1,3 +1,6 @@
+#ifndef CONSTRUCTION_SL_H
+#define CONSTRUCTION_SL_H
+
 /* Fonction qui permet de passer de la Structure Morse Desordonnee a la
  * Structure Morse Ordonnee.   SMD --> SMO
  * ----------------------------------------------------------------------------
@@ -50,4 +53,4 @@ void dSMDaSMO (int NbLign, int* AdPrCoefLi, int* NumCol, int* AdSuccLi,
                float* MatriceO, float* SecMembreO);
 
 
-
+#endif

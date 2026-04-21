@@ -1,3 +1,5 @@
+#ifndef DSMOAPR_H
+#define DSMOAPR_H
 /* * ---------------------------------------------------------------------------------------
  * @param[in]  NbLign       : Nombre de lignes et de colonnes de la matrice A
  * @param[in]  AdPrCoefLiO  : Tableau de longueur NbLign des adresses des premiers
@@ -89,3 +91,5 @@ int dSMOaLongPR(int NbLign, int* AdPrCoefLiO, int* NumColO, float* MatriceO);
 void dSMOaPR(int NbLign, int* AdPrCoefLiO, int* NumColO, float* MatriceO, int longProfilMat, int* Profil, float* MatProf);
 
 float solex(float *coor);
+
+#endif

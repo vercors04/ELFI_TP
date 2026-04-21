@@ -1,5 +1,3 @@
-#include <stdio.h>
-
 
 void ADWDW (int nbneel, float** dpfctbas, float eltdif, float** cofvar, float** matelm){
   float som1, som2, som3, som4;

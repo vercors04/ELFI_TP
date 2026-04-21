@@ -1,6 +1,5 @@
-#include "../Utilitaire/utilitaires.h"
 #include <math.h>
-
+#include "../Utilitaire/utilitaires.h"
 #include "../2a_ElementaireA/elementairesa.h"
 #include "../2b_ElementaireB/elementairesb.h"
 

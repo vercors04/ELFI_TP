@@ -1,7 +1,5 @@
-// Declarations
-#include <stdio.h>
-#include <stdlib.h>
-
+#ifndef MAILLAGE_H
+#define MAILLAGE_H
 
 /* Fonction qui creer fichier de maillage 
  * param[in] ficInput : nom du fichier de donnees d'entree
@@ -40,3 +38,5 @@ int lecfima(char *ficmai, int *ptypel, int *pnbtng, float ***pcoord, int *pnbtel
 /* Entree des variables par l'utilisateur et creation d'un fichier de donnees pour la fonction maillage
 */
 void modeSaisie2 ();
+
+#endif

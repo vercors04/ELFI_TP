@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 
 int etiqAr (int t, int n1, int n2, int nrefdom, const int *nrefcot, int **nRefAr){
 

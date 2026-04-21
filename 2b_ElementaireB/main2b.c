@@ -5,7 +5,9 @@
 * ./main2b.sh
 * -----------------------------------------
 */
-#include "elementairesb.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include "../2b_ElementaireB/elementairesb.h"
 #include "../2a_ElementaireA/elementairesa.h"
 #include "../1_Maillage/maillage.h"
 #include "../Utilitaire/utilitaires.h"

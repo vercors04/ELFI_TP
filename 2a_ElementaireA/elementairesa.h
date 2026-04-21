@@ -1,7 +1,6 @@
 // Declarations
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
+#ifndef ELEMENTAIRESA_H
+#define ELEMENTAIRESA_H
 
 /* Fonction qui renvoie les poids et points de quadrature en fonction du type de l'element
  * ---------------------------------------------------------------------------------------
@@ -130,3 +129,4 @@ int numAret (int t, int nba, int* couple);
  */
 void selectPts(int nb, int num[], float* coorEns[], float* coorSel[]);
 
+#endif

@@ -1,4 +1,6 @@
-#include "maillage.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include "../1_Maillage/maillage.h"
 #include "../Utilitaire/utilitaires.h"
 
 

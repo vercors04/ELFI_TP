@@ -1,3 +1,5 @@
+#ifndef ASSEMBLAGE_H
+#define ASSEMBLAGE_H
 /* Fonction qui realise l'assemblage des matrices et seconds membres elementaires
  * ----------------------------------------------------------------------------
  * param[in]  typel    : Type des elements a construire
@@ -54,3 +56,5 @@ void assemblage(int typel, int nbtng, float** coord, int nbtel, int** ngnel,
 	              int numRefD0[], int numRefD1[], int numRefF1[], int NbLign,
                 int NbCoef, float* Matrice, float* SecMembre, int* AdPrCoefLi,
                 int* AdSuccLi, int* NumCol, float* ValDLDir, int* NumDLDir);
+
+#endif

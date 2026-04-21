@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 
 void modeSaisie2 () {
   int  n1, n2, t, nrefdom, nrefcot[4];
