@@ -29,7 +29,7 @@
  *
  * param[out]  AdPrCoefLiO: Tableau de longueur NbLign des adresses des premiers
  *                          coefficients des lignes : pour I dans {2,..,NbLign}
- *                          AdPrCoefLiO(I-1) cotient l'adresse (dans LowMat) du
+ *                          AdPrCoefLiO(I-1) contient l'adresse (dans LowMat) du
  *                          premier coefficient non logiquement nul de la ligne
  *                          I de A_tilde dans sa part. triangulaire inf stricte
  *                          et AdPrCoefLiO(NbLign) = NbCoef+1 ------------- (SMO)
