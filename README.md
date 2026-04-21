@@ -70,6 +70,14 @@ TP5 : mise en pratique
 - tri.f    (Fortran)
 - affsmo.f (Fortran)
 - forfun.h (Fortran)
+- affsol.f (Fortran)
+- dsmoapr.o
+- impmpr.f (Fortran)
+- ltlpr.f  (Fortran)
+- rsprl.f  (Fortran)
+- rspru.f  (Fortran)
+- solex.c
+
 
 ## Structure du projet
 

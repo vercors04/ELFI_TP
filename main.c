@@ -1,11 +1,14 @@
 #include <stdio.h>
 
-#include "../Utilitaire/utilitaires.h"
-#include "../1_Maillage/maillage.h"
-#include "../3_Assemblage/assemblage.h"
-#include "../forfun.h"
-#include "../4_Construction_SL/construction_SL.h"
-#include "../5_Resol_Post-Trait/dsmoapr.h"
+#include "1_Maillage/maillage.h"
+#include "3_Assemblage/assemblage.h"
+#include "4_Construction_SL/construction_SL.h"
+#include "5_Resol_Post-Trait/dsmoapr.h"
+#include "Utilitaire/utilitaires.h"
+#include "forfun.h"
+
+
+int nucas = 1; //pour solex
 
 int main () {
 
@@ -18,7 +21,7 @@ int main () {
   int** nRefAr; // Numeros de reference associes aux aretes
   float** coord; // Coordonnees des noeuds geometriques
 
-  char* ficmai = "../Donnees_1/car3x3t_3";
+  char* ficmai = "../Donnees_5/Maillages/d1t1_2";
 
   if (lecfima(ficmai, &typel, &nbtng, &coord, &nbtel, &ngnel, &nbneel, &nbaret, &nRefAr)){
     printf("ERREUR : lecture du fichier de maillage");
@@ -48,6 +51,9 @@ int main () {
     printf("ERREUR : typel != 1 ou 2");
     return 1;
   }
+
+
+
   float* Matrice    = callocvec_f(NbLign+NbCoef);
   float* SecMembre  = callocvec_f(NbLign);
   float* ValDLDir   = callocvec_f(NbLign);
@@ -64,22 +70,29 @@ int main () {
 
   int* Profil;
   float* MatProf;
-  int* ProfilTest;
-  float* MatProfTest;
+  int* ProfilVerif;
+  float* MatProfVerif;
+
+  float* U           = allocvec_f(NbLign);
+  float* UEX         = allocvec_f(NbLign);
 
   
   
   int stop = 0, choix = 0;
-  int assemb = 0, assemb0 = 0, assembP = 0;
+  int assemb = 0, assemb0 = 0, assembP = 0, resol = 0;
+
 
   while (!stop) {
-    printf("1. ASSEMBLER LE SYSTEME\n");
-    printf("2. AFFICHER LE SYSTEME ASSEMBLE\n");
-    printf("3. CONSTRUIRE LA S.M.O\n");
-    printf("4. AFFICHER LA S.M.O\n");
-    printf("5. CONSTRUIRE LA STRUCTURE PROFIL\n");
-    printf("6. AFFICHER LA STRUCTURE PROFIL\n");
-    printf("7. QUITTER\n");
+      printf("\n1. ASSEMBLER LE SYSTEME\n");
+      printf("2. AFFICHER LE SYSTEME ASSEMBLE\n");
+      printf("3. CONSTRUIRE LA S.M.O\n");
+      printf("4. AFFICHER LA S.M.O\n");
+      printf("5. CONSTRUIRE LA STRUCTURE PROFIL\n");
+      printf("6. AFFICHER LA STRUCTURE PROFIL\n");
+      printf("7. RÉSOUDRE LE SYSTÈME (CHOLESKY)\n");
+      printf("8. CALCULER LA SOLUTION EXACTE\n");
+      printf("9. AFFICHER L'ERREUR\n");
+      printf("10. QUITTER\n");
 
      if (scanf("%d", &choix) != 1) {
       printf("ERREUR : tapez un entier\n");
@@ -127,7 +140,7 @@ int main () {
           printf("ERREUR : assembler avant de construire la SMO\n\n");
           continue;
         }
-        // VOIR SI ON NE PEUT PAS MODIFIER NbCoef APRES CETTE FCT
+
         dSMDaSMO (NbLign, AdPrCoefLi, NumCol, AdSuccLi, Matrice, SecMembre, 
                   NumDLDir, ValDLDir, AdPrCoefLiO, NumColO, MatriceO, SecMembreO);
         printf("\n------SMD vers SMO termine------\n\n");
@@ -151,36 +164,15 @@ int main () {
         if (assembP) {
           freevec(Profil);
           freevec(MatProf);
-          freevec(ProfilTest);
-          freevec(MatProfTest);
         }
         
-        int longProfilMat = dSMOaLongPR(NbLign, AdPrCoefLiO, NumColO, MatriceO);
-        int longProfilMatTest = dSMOaLongPR2(NbLign, AdPrCoefLiO, NumColO, MatriceO);
+        int longProfilMat = dSMOaLongPR2(NbLign, AdPrCoefLiO, NumColO, MatriceO);
 
         Profil = allocvec_i(NbLign);
         MatProf = callocvec_f(longProfilMat);
-        dSMOaPR(NbLign, AdPrCoefLiO, NumColO, MatriceO, longProfilMat, Profil, MatProf);
-
-        ProfilTest = allocvec_i(NbLign);
-        MatProfTest = callocvec_f(longProfilMatTest);
-        dSMOaPR2(NbLign, AdPrCoefLiO, NumColO, MatriceO, ProfilTest, MatProfTest);
+        dSMOaPR2(NbLign, AdPrCoefLiO, NumColO, MatriceO, Profil, MatProf);
         
         printf("\n------SM0 vers PROFIL termine------\n\n");
-        printf("Longueur matrice profil VERFIF: %d\n",longProfilMat);
-        printf("Longueur matrice profil TEST: %d\n",longProfilMatTest);
-
-        int erreur = 0;
-        for (int k = 0; k < longProfilMat; k++) {
-            if (MatProf[k] != MatProfTest[k]) {
-                printf("erreur sur le coef %d : attentu : %f     calculé : %f\n", k, MatProf[k], MatProfTest[k]);
-                erreur = 1;
-            }
-        }
-        if (erreur == 0) {
-            printf("\nTest reussi - coefs profil ok\n\n");
-        }
-
 
         assembP = 1;
         break;
@@ -190,16 +182,41 @@ int main () {
           printf("ERREUR : assembler avant d'afficher\n\n");
           continue;
         }
-        printf("\n\n Resultat attendu \n\n");
-        int impfch = 0;
-        impmpr_(&impfch, &NbLign, Profil, MatProf, MatProf+NbLign);
 
-        printf("\n\n Resultat obtenu \n\n");
-        int impfch2 = 0;
-        impmpr_(&impfch2, &NbLign, ProfilTest, MatProfTest, MatProfTest+NbLign);
+        int impfch_Test = 0;
+        impmpr_(&impfch_Test, &NbLign, Profil, MatProf, MatProf+NbLign);
         break;
       
-      case 7:
+      
+      case 7 :
+        if (!assembP){
+          printf("ERREUR : assembler avant d'afficher\n\n");
+          continue;
+        }
+
+        resolsyst(NbLign, longProfilMat, Profil, MatProf, SecMembreO, U);
+        printf("\n------Resolution Cholesky terminee------\n\n");
+        resol = 1;
+        break;
+        
+
+      case 8 :
+        CalSol (NbLign, coord, UEX);
+        printf("\n------Calcul solution exacte UEX terminee------\n\n");
+        break;
+
+      case 9 :
+        if (!resol) {
+          printf("ERREUR : resoudre le système d'abord\n\n");
+          continue;
+        }
+
+        int impfch_Aff = 0;
+        affsol_(&NbLign, &coord[0][0], U, UEX, &impfch_Aff);
+
+        break;
+
+      case 10:
         stop = 1;
         printf("\nFermeture du programme.\n");
         break;
@@ -208,6 +225,8 @@ int main () {
         printf("\nChoisir 1, 2, 3, 4, 5, 6 ou 7\n");
     }
   }
+
+
   freevec(Matrice);
   freevec(SecMembre);
   freevec(AdPrCoefLi);
@@ -228,10 +247,10 @@ int main () {
   if (assembP) {
     freevec(Profil);
     freevec(MatProf);
-    freevec(ProfilTest);
-    freevec(MatProfTest);
   }
   
+  freevec(U);
+  freevec(UEX);
 
   return 0;
   

@@ -15,3 +15,9 @@ void dSMOaPR(int NbLign, int* AdPrCoefLiO, int* NumColO, float* MatriceO, int lo
 int dSMOaLongPR2(int NbLign, int* AdPrCoefLiO, int* NumColO, float* MatriceO);
 
 void dSMOaPR2(int NbLign,int* AdPrCoefLiO,  int* NumColO, float* MatriceO, int* Profil, float* MatProf);
+
+void resolsyst(int NbLign, int LongMatProf, int* Profil, float* MatProf, float* SecMembre, float* Sol);
+
+void CalSol (int NbLign, float **coord, float *UEX);
+
+float solex(float *coor);
