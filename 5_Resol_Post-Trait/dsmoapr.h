@@ -1,6 +1,8 @@
 #ifndef DSMOAPR_H
 #define DSMOAPR_H
-/* * ---------------------------------------------------------------------------------------
+/* Fonction qui calcul la longueur de la matrice Profile associee a une matrice sous la 
+ * forme : Stockage Morse Ordonne
+ * ---------------------------------------------------------------------------------------
  * @param[in]  NbLign       : Nombre de lignes et de colonnes de la matrice A
  * @param[in]  AdPrCoefLiO  : Tableau de longueur NbLign des adresses des premiers
  *                            coefficients des lignes : pour I dans {2,..,NbLign}
@@ -22,7 +24,9 @@
  */
 int dSMOaLongPR2(int NbLign, int* AdPrCoefLiO, int* NumColO, float* MatriceO);
 
-/* * ---------------------------------------------------------------------------------------
+/* Fonction qui cree la matrice Profile associee a une matrice sous la forme : Stockage
+ * Morse Ordonne
+ * ---------------------------------------------------------------------------------------
  * @param[in]  NbLign       : Nombre de lignes et de colonnes de la matrice A
  * @param[in]  AdPrCoefLiO  : leau de longueur NbLign des adresses des premiers
  *                            coefficients des lignes : pour I dans {2,..,NbLign}
@@ -48,7 +52,10 @@ int dSMOaLongPR2(int NbLign, int* AdPrCoefLiO, int* NumColO, float* MatriceO);
  */
 void dSMOaPR2(int NbLign, int* AdPrCoefLiO, int* NumColO, float* MatriceO, int* Profil, float* MatProf);
 
-/* * ---------------------------------------------------------------------------------------
+/* Fonction qui resoud un systeme lineaire de la forme AX=B par une decomposition de
+ * Cholesky puis par une methode de descente-remonte. 
+ * Avec A stockee sous la forme Profile
+ * ---------------------------------------------------------------------------------------
  * @param[in]  NbLign       : Nombre de lignes et de colonnes de la matrice A
  * @param[in]  LongMatProf  : Longueur totale nécessaire pour le tableau MatProf
  * @param[in]  Profil       : Tableau d'entier contenant la position du premier 
@@ -63,13 +70,14 @@ void dSMOaPR2(int NbLign, int* AdPrCoefLiO, int* NumColO, float* MatriceO, int* 
  */
 void resolsyst(int NbLign, int LongMatProf, int* Profil, float* MatProf, float* SecMembre, float* Sol);
 
-/* * ---------------------------------------------------------------------------------------
+/* Fonctions qui calcul le tableau des valeurs de la solution exacte UEX
+ * ---------------------------------------------------------------------------------------
  * @param[in]  NbLign       : Nombre de lignes et de colonnes de la matrice A
  * @param[in]  coord        : Coordonnees globale des noeuds geometriques du
  *                            maillage
  *
  * @param[out] UEX          : Vecteur contenant la valeur exacte calculee en
- *                            chaques points
+ *                            chaque point
  * ---------------------------------------------------------------------------------------
  */
 void CalSol (int NbLign, float **coord, float *UEX);

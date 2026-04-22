@@ -63,36 +63,38 @@ int main () {
   int*   NumDLDir   = allocvec_i(NbLign);
   for (int i=1; i<NbLign+1; i++) NumDLDir[i-1]=1*i;
 
-  int*   AdPrCoefLiO = callocvec_i(NbLign);
-  int*   NumColO     = callocvec_i(NbCoef);
-  float* MatriceO    = callocvec_f(NbLign+NbCoef);
-  float* SecMembreO  = callocvec_f(NbLign);
+  int*   AdPrCoefLiO;
+  int*   NumColO;
+  float* MatriceO;
+  float* SecMembreO;
 
-  int* Profil;
+  int*   Profil;
   float* MatProf;
-  int* ProfilVerif;
+  int*   ProfilVerif;
   float* MatProfVerif;
 
-  float* U           = allocvec_f(NbLign);
-  float* UEX         = allocvec_f(NbLign);
+  float* U;
+  float* UEX;
 
-  
-  
   int stop = 0, choix = 0;
-  int assemb = 0, assemb0 = 0, assembP = 0, resol = 0;
+  int assemb = 0, assemb0 = 0, assembP = 0, resol = 0, exacte = 0;
 
 
   while (!stop) {
-      printf("\n1. ASSEMBLER LE SYSTEME\n");
-      printf("2. AFFICHER LE SYSTEME ASSEMBLE\n");
-      printf("3. CONSTRUIRE LA S.M.O\n");
-      printf("4. AFFICHER LA S.M.O\n");
-      printf("5. CONSTRUIRE LA STRUCTURE PROFIL\n");
-      printf("6. AFFICHER LA STRUCTURE PROFIL\n");
-      printf("7. RÉSOUDRE LE SYSTÈME (CHOLESKY)\n");
-      printf("8. CALCULER LA SOLUTION EXACTE\n");
-      printf("9. AFFICHER L'ERREUR\n");
-      printf("10. QUITTER\n");
+      
+    printf("\n ___________________________________ \
+            \n| 1. ASSEMBLER LE SYSTEME           |\
+            \n| 2. AFFICHER LE SYSTEME ASSEMBLE   |\
+            \n| 3. CONSTRUIRE LA S.M.O            |\
+            \n| 4. AFFICHER LA S.M.O              |\
+            \n| 5. CONSTRUIRE LA STRUCTURE PROFIL |\
+            \n| 6. AFFICHER LA STRUCTURE PROFIL   |\
+            \n| 7. RÉSOUDRE LE SYSTÈME (CHOLESKY) |\
+            \n| 8. CALCULER LA SOLUTION EXACTE    |\
+            \n| 9. AFFICHER L'ERREUR              |\
+            \n| 10. QUITTER                       |\
+            \n|___________________________________|\n\
+            \n> ");
 
      if (scanf("%d", &choix) != 1) {
       printf("ERREUR : tapez un entier\n");
@@ -108,11 +110,18 @@ int main () {
       freetab(ngnel);
       freetab(nRefAr);
 
-      freevec(MatriceO);
-      freevec(SecMembreO);
-      freevec(AdPrCoefLiO);
-      freevec(NumColO);
-
+      if (assemb0){
+        freevec(MatriceO);
+        freevec(SecMembreO);
+        freevec(AdPrCoefLiO);
+        freevec(NumColO);
+      }
+      if (assembP) {
+        freevec(Profil);
+        freevec(MatProf);
+      }
+      if (resol) freevec(U);
+      if (exacte) freevec(UEX);
       return 1;
     } 
     
@@ -140,6 +149,16 @@ int main () {
           printf("ERREUR : assembler avant de construire la SMO\n\n");
           continue;
         }
+        if (assemb0){
+          freevec(MatriceO);
+          freevec(SecMembreO);
+          freevec(AdPrCoefLiO);
+          freevec(NumColO);
+        }
+        AdPrCoefLiO = callocvec_i(NbLign);
+        NumColO     = callocvec_i(NbCoef);
+        MatriceO    = callocvec_f(NbLign+NbCoef);
+        SecMembreO  = callocvec_f(NbLign);
 
         dSMDaSMO (NbLign, AdPrCoefLi, NumCol, AdSuccLi, Matrice, SecMembre, 
                   NumDLDir, ValDLDir, AdPrCoefLiO, NumColO, MatriceO, SecMembreO);
@@ -186,43 +205,53 @@ int main () {
         int impfch_Test = 0;
         impmpr_(&impfch_Test, &NbLign, Profil, MatProf, MatProf+NbLign);
         break;
-      
-      
+
       case 7 :
         if (!assembP){
           printf("ERREUR : assembler avant d'afficher\n\n");
           continue;
         }
-
+        if (resol) freevec(U);
+        U = allocvec_f(NbLign);
         resolsyst(NbLign, longProfilMat, Profil, MatProf, SecMembreO, U);
         printf("\n------Resolution Cholesky terminee------\n\n");
         resol = 1;
         break;
-        
 
       case 8 :
+        if (exacte) freevec(UEX);
+        UEX = allocvec_f(NbLign);
         CalSol (NbLign, coord, UEX);
         printf("\n------Calcul solution exacte UEX terminee------\n\n");
+        solex = 1;
         break;
 
       case 9 :
-        if (!resol) {
+        if (!resol && !exacte) {
+          printf("ERREUR : resoudre le système et calculer la solution exacte d'abord\n\n");
+          continue;
+        }
+        else if (!resol) {
           printf("ERREUR : resoudre le système d'abord\n\n");
+          continue;
+        }
+        else if (!exacte) {
+          printf("ERREUR : calculer la solution exacte d'abord\n\n");
           continue;
         }
 
         int impfch_Aff = 0;
         affsol_(&NbLign, &coord[0][0], U, UEX, &impfch_Aff);
-
+        
         break;
 
       case 10:
         stop = 1;
         printf("\nFermeture du programme.\n");
         break;
-      
+
       default:
-        printf("\nChoisir 1, 2, 3, 4, 5, 6 ou 7\n");
+        printf("\nChoisir 1, 2, 3, 4, 5, 6, 7, 8, 9 ou 10\n");
     }
   }
 
@@ -238,19 +267,19 @@ int main () {
   freetab(coord);
   freetab(ngnel);
   freetab(nRefAr);
-
-  freevec(MatriceO);
-  freevec(SecMembreO);
-  freevec(AdPrCoefLiO);
-  freevec(NumColO);
-
+  
+  if (assemb0){
+    freevec(MatriceO);
+    freevec(SecMembreO);
+    freevec(AdPrCoefLiO);
+    freevec(NumColO);
+  }
   if (assembP) {
     freevec(Profil);
     freevec(MatProf);
   }
-  
-  freevec(U);
-  freevec(UEX);
+  if (resol) freevec(U);
+  if (exacte) freevec(UEX);
 
   return 0;
   
