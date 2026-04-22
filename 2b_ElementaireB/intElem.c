@@ -11,20 +11,20 @@ void intElem (int t, int nbneel, float** coordElem, float** matelm, float* vecel
     float det, eltdif;
 
     float* valFctBase = allocvec_f (nbneel);
-    float* Fkx = allocvec_f (2);
-    float* poids = allocvec_f (q);
+    float* Fkx        = allocvec_f (2);
+    float* poids      = allocvec_f (q);
 
     float** valDerFctBase = alloctab_f (nbneel,2);
-    float** matJac = alloctab_f (2,2);
-    float** invMatJac = alloctab_f (2,2);
-    float** points = alloctab_f(q,2);
-    float** cofvar = alloctab_f (2,2);
-    float** dpfctbas = alloctab_f (nbneel, 2);
+    float** matJac        = alloctab_f (2,2);
+    float** invMatJac     = alloctab_f (2,2);
+    float** points        = alloctab_f (q,2);
+    float** cofvar        = alloctab_f (2,2);
+    float** dpfctbas      = alloctab_f (nbneel, 2);
 
     //poid associe au point de quadrature
     ppquad(t, poids, points);
 
-    for (int i=0; i<q ; i++){
+    for (int i=0; i<q; i++){
 
         // Fonction de base au point de quadrature courant
         calFbase (t, points[i], valFctBase); 
@@ -33,32 +33,32 @@ void intElem (int t, int nbneel, float** coordElem, float** matelm, float* vecel
         transFK (nbneel, coordElem, valFctBase, Fkx);
 
         // Valeur du coeficient variant en fonction du point de quadrature courant (non necessaire pour le moment)
-        cofvar[0][0]=A11(Fkx);
-        cofvar[0][1]=A12(Fkx);
-        cofvar[1][0]=A12(Fkx);
-        cofvar[1][1]=A22(Fkx);
+        cofvar[0][0] = A11(Fkx);
+        cofvar[0][1] = A12(Fkx);
+        cofvar[1][0] = A12(Fkx);
+        cofvar[1][1] = A22(Fkx);
 
         // Derivees des fonctions de base sur le point de quadrature courant
         calDerFbase (t, points[i], valDerFctBase);
 
         // Matrice jacobienne 
-        matJacob(nbneel, coordElem, d_associe(t), valDerFctBase, matJac);
+        matJacob (nbneel, coordElem, d_associe(t), valDerFctBase, matJac);
 
         // Determinant de la matrice jacobienne
-        det = invertM2x2(matJac, invMatJac);
+        det = invertM2x2 (matJac, invMatJac);
 
         // Element differentiel * poid au point de quadrature courant
-        eltdif = poids[i]*fabs(det);
+        eltdif = poids[i] * fabsf(det);
 
         // Appel de WW
-        WW(nbneel, valFctBase, eltdif, A00(Fkx), matelm);
+        WW (nbneel, valFctBase, eltdif, A00(Fkx), matelm);
 
         // Appel ADWDW
         pder_WI (nbneel, valDerFctBase, invMatJac, dpfctbas);
         ADWDW (nbneel, dpfctbas, eltdif, cofvar, matelm);
 
         // Appel de W
-        W(nbneel, valFctBase, eltdif, FOMEGA(Fkx), vecelm);
+        W (nbneel, valFctBase, eltdif, FOMEGA(Fkx), vecelm);
 
     }
 
@@ -87,7 +87,7 @@ void intElem (int t, int nbneel, float** coordElem, float** matelm, float* vecel
 */
 void pder_WI (int nbneel, float** der_fctbas, float** invjacob, float** dpfctbas){
   for (int i=0 ; i<nbneel; i++) {
-      dpfctbas [i][0]=der_fctbas[i][0] * invjacob [0][0] + der_fctbas[i][1] * invjacob [1][0];
-      dpfctbas [i][1]=der_fctbas[i][0] * invjacob [0][1] + der_fctbas[i][1] * invjacob [1][1];
+      dpfctbas[i][0] = der_fctbas[i][0] * invjacob[0][0] + der_fctbas[i][1] * invjacob[1][0];
+      dpfctbas[i][1] = der_fctbas[i][0] * invjacob[0][1] + der_fctbas[i][1] * invjacob[1][1];
   }
 }

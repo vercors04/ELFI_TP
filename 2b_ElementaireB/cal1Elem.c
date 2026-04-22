@@ -7,16 +7,15 @@ void cal1Elem (int nRefDom, int nbRefD0, int* numRefD0, int nbRefD1, int* numRef
                int nbRefF1, int* numRefF1, int t, int nbneel, float** coordElem, int nbaret, 
                int* nRefArEl, float*** MatElem, float** SMbrElem, int** NuDElem, float** uDElem){
 
-  *MatElem = calloctab_f (nbneel, nbneel);
+  *MatElem  = calloctab_f (nbneel, nbneel);
   *SMbrElem = callocvec_f (nbneel);
-
-  *NuDElem = allocvec_i (nbneel);
+  *NuDElem  = allocvec_i  (nbneel);
+  *uDElem   = allocvec_f  (nbneel);
   for (int i = 0 ;  i< nbneel ; i++ ) (*NuDElem)[i] = 1;
-  *uDElem = allocvec_f(nbneel);
-  for (int i = 0 ;  i< nbneel ; i++ ) (*uDElem)[i] = 0;
+  for (int i = 0 ;  i< nbneel ; i++ ) (*uDElem)[i]  = 0.0f;
 
   intElem (t, nbneel, coordElem, *MatElem, *SMbrElem);
-  
+
   // Procedure intAret
   for (int i=0; i<nbaret; i++) {
 
@@ -32,22 +31,22 @@ void cal1Elem (int nRefDom, int nbRefD0, int* numRefD0, int nbRefD1, int* numRef
           selectPts(2, couplePtsAret, coordElem, coordAret);
 
           float** matAret = calloctab_f(2, 2);
-          float* vecAret = callocvec_f(2);
+          float*  vecAret = callocvec_f(2);
           intAret (coordAret, matAret, vecAret);
 
 
           //assemblage matAret/vecAret & matElem/vecElem
-          (*SMbrElem)[couplePtsAret[0]-1]+=vecAret[0];
-          (*SMbrElem)[couplePtsAret[1]-1]+=vecAret[1];
+          (*SMbrElem)[couplePtsAret[0]-1] += vecAret[0];
+          (*SMbrElem)[couplePtsAret[1]-1] += vecAret[1];
 
-          (*MatElem)[couplePtsAret[0]-1][couplePtsAret[0]-1]+=matAret[0][0];
-          (*MatElem)[couplePtsAret[0]-1][couplePtsAret[1]-1]+=matAret[0][1];
-          (*MatElem)[couplePtsAret[1]-1][couplePtsAret[0]-1]+=matAret[1][0];
-          (*MatElem)[couplePtsAret[1]-1][couplePtsAret[1]-1]+=matAret[1][1];
+          (*MatElem)[couplePtsAret[0]-1][couplePtsAret[0]-1] += matAret[0][0];
+          (*MatElem)[couplePtsAret[0]-1][couplePtsAret[1]-1] += matAret[0][1];
+          (*MatElem)[couplePtsAret[1]-1][couplePtsAret[0]-1] += matAret[1][0];
+          (*MatElem)[couplePtsAret[1]-1][couplePtsAret[1]-1] += matAret[1][1];
 
-         free(coordAret);
-         freetab(matAret);
-         freevec(vecAret);
+          free(coordAret);
+          freetab(matAret);
+          freevec(vecAret);
         }
       }
 
@@ -59,7 +58,7 @@ void cal1Elem (int nRefDom, int nbRefD0, int* numRefD0, int nbRefD1, int* numRef
           (*NuDElem)[couplePtsAret[0] - 1] = 0;
           (*NuDElem)[couplePtsAret[1] - 1] = 0;
         }
-     }
+      }
 
       // Cas Dirichlet non homogene
       for (int l=0; l<nbRefD1; l++){

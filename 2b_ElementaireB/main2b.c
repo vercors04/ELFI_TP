@@ -24,7 +24,8 @@ int main (){
 
   char* ficmai = "../Donnees_1/car3x3t_3";
 
-  if (lecfima(ficmai, &typel, &nbtng, &coord, &nbtel, &ngnel, &nbneel, &nbaret, &nRefAr)){printf("erreur lecture du fichier de maillage");
+  if (lecfima(ficmai, &typel, &nbtng, &coord, &nbtel, &ngnel, &nbneel, &nbaret, &nRefAr)){
+    printf("ERREUR : lecture du fichier de maillage");
     return 1;
   } 
 
@@ -40,12 +41,12 @@ int main (){
 
   for (int i=0; i<nbtel; i++) {
     float** MatElem;
-    float* SMbrElem;
-    float* uDElem; // Indices i tq : NuDElem[i] = -1 si Dirichlet non homogène ; 0 sinon
-    int* NuDElem; // Reperer les noeuds porteurs d'une condition de Dirichlet
-    selectPts(nbneel, ngnel[i], coord, coordElem);
+    float*  SMbrElem;
+    float*  uDElem;  // Indices i tq : NuDElem[i] = -1 si Dirichlet non homogène ; 0 sinon
+    int*    NuDElem; // Reperer les noeuds porteurs d'une condition de Dirichlet
+    selectPts (nbneel, ngnel[i], coord, coordElem);
 
-    cal1Elem (nRefDom, nbRefD0, numRefD0, nbRefD1, numRefD1, nbRefF1, numRefF1, typel, 
+    cal1Elem (nRefDom, nbRefD0, numRefD0, nbRefD1, numRefD1, nbRefF1, numRefF1, typel,
               nbneel, coordElem, nbaret, nRefAr[i], &MatElem, &SMbrElem, &NuDElem, &uDElem);
 
     impCalEl(i+1, typel, nbneel, MatElem, SMbrElem, NuDElem, uDElem);
@@ -55,16 +56,13 @@ int main (){
     freevec(NuDElem);
   }
 
-
   // Liberation de la memoire
   freetab(coord);
   freetab(ngnel);
   freetab(nRefAr);
   free(coordElem);
 
-
-
-    return 0;
-} 
+  return 0;
+}
 
 
