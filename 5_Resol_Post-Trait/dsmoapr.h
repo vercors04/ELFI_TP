@@ -19,7 +19,7 @@
  *                            LowMat dans la seconde (coefficient non logiquement
  *                            nuls) ----------------------------------------- (SMO)
  *
- * * @return                : Longueur totale nécessaire pour le tableau MatProf
+ * @return                  : Longueur totale nécessaire pour le tableau MatProf
  * ---------------------------------------------------------------------------------------
  */
 int dSMOaLongPR2(int NbLign, int* AdPrCoefLiO, int* NumColO, float* MatriceO);
@@ -42,7 +42,6 @@ int dSMOaLongPR2(int NbLign, int* AdPrCoefLiO, int* NumColO, float* MatriceO);
  *                            (coefficients diagonaux) dans sa premiere partie et
  *                            LowMat dans la seconde (coefficient non logiquement
  *                            nuls) ----------------------------------------- (SMO)
-
  *
  * @param[out] Profil       : Tableau d'entier contenant la position du premier 
  *                            coeficient de chaque ligne dans MatProf

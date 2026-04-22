@@ -11,17 +11,17 @@ void assemblage(int typel, int nbtng, float** coord, int nbtel, int** ngnel,
                 int NbCoef, float* Matrice, float* SecMembre, int* AdPrCoefLi,
                 int* AdSuccLi, int* NumCol, float* ValDLDir, int* NumDLDir){
 
-  float** coordElem = (float**) malloc(nbneel * sizeof(float*)); //non-utilisation de "float** coordElem = alloctab_f(nbneel, 2);" pour eviter fuite de memoire due a selectPts                
-  int NextAd=1;
+  float** coordElem = (float**) malloc(nbneel * sizeof(float*)); //non-utilisation de "float** coordElem = alloctab_f(nbneel, 2);" pour eviter fuite de memoire due a selectPts
+  int NextAd = 1;
 
   // Boucle sur K dans Th
   for (int K=0; K<nbtel; K++) {
 
     float** MatElem;
-    float* SMbrElem;
-    float* uDElem; // Indices i tq : NuDElem[i] = -1 si Dirichlet non homogène
-		               //                              0 sinon
-    int* NuDElem;  // Reperer les noeuds porteurs d'une condition de Dirichlet
+    float*  SMbrElem;
+    float*  uDElem; // Indices i tq : NuDElem[i] = -1 si Dirichlet non homogène
+		                //                              0 sinon
+    int*    NuDElem;// Reperer les noeuds porteurs d'une condition de Dirichlet
     selectPts(nbneel, ngnel[K], coord, coordElem);
 
     cal1Elem (nRefDom, nbRef[0], numRefD0, nbRef[1], numRefD1, nbRef[2], numRefF1,
