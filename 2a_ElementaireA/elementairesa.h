@@ -8,7 +8,7 @@
  * @param[out]  poids  : pointeur donnant acces aux poids de quadrature
  * @param[out]  points : pointeur donnant acces aux points de quadrature
  *
- * @return 0   si t est bien une des valeurs autorisees (1 - 2 - 3)
+ * @return  0  si t est bien une des valeurs autorisees (1 - 2 - 3)
  * @return -1  si t n'est pas une des valeurs autorisees
  * ---------------------------------------------------------------------------------------
  */
@@ -42,7 +42,7 @@ int d_associe(int t);
  * @param[out]  vect  : pointeur donnant acces à la valeur en ce point 
  *                      des p fonctions de base associees a t
  *
- * @return 0   si t est bien une des valeurs autorisees (1 - 2 - 3)
+ * @return  0  si t est bien une des valeurs autorisees (1 - 2 - 3)
  * @return -1  si t n'est pas une des valeurs autorisees
  * ---------------------------------------------------------------------------------------
  */
@@ -56,7 +56,7 @@ int calFbase (int t, float* point, float* vect);
  * @param[out]  tab   : pointeur donnant acces à la valeur en ce point 
  *                      des derivees des p fonctions de base associees a t
  *
- * @return 0   si t est bien une des valeurs autorisees (1 - 2 - 3)
+ * @return  0  si t est bien une des valeurs autorisees (1 - 2 - 3)
  * @return -1  si t n'est pas une des valeurs autorisees
  * ---------------------------------------------------------------------------------------
  */
@@ -119,11 +119,11 @@ int numAret (int t, int nba, int* couple);
  * @param[in]  nb        : nombre de points a selectionner
  * @param[in]  num[]     : pointeur donnant acces aux numeros des points a selectionner
  * @param[in]  coorEns[] : pointeur donnant acces aux coordonnees des points de 
- *                          l'ensemble de base
+ *                         l'ensemble de base
  *
  * param[out]  coorSel[] : pointeur donnant acces aux coordonnees des points selectionnes
- * 
- * @return 0   si t est bien une des valeurs autorisees (1 - 2 )
+ *
+ * @return  0  si t est bien une des valeurs autorisees (1 - 2)
  * @return -1  si t n'est pas une des valeurs autorisees
  * ---------------------------------------------------------------------------------------
  */

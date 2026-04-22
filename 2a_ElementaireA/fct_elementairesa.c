@@ -14,14 +14,14 @@ int ppquad(int t, float* poids, float** points){
       poids[8] = 4.0f/9.0f; // w_9
 
       // Assignation des valeurs des points
-      points[0][0] =      1.0f; points[0][1] =         0; // x_1
+      points[0][0] =      1.0f; points[0][1] =      0.0f; // x_1
       points[1][0] =      1.0f; points[1][1] =      1.0f; // x_2
-      points[2][0] =         0; points[2][1] =      1.0f; // x_3
-      points[3][0] =         0; points[3][1] =         0; // x_4
+      points[2][0] =      0.0f; points[2][1] =      1.0f; // x_3
+      points[3][0] =      0.0f; points[3][1] =      0.0f; // x_4
       points[4][0] =      1.0f; points[4][1] = 1.0f/2.0f; // x_5
       points[5][0] = 1.0f/2.0f; points[5][1] =      1.0f; // x_6
-      points[6][0] =         0; points[6][1] = 1.0f/2.0f; // x_7
-      points[7][0] = 1.0f/2.0f; points[7][1] =         0; // x_8
+      points[6][0] =      0.0f; points[6][1] = 1.0f/2.0f; // x_7
+      points[7][0] = 1.0f/2.0f; points[7][1] =      0.0f; // x_8
       points[8][0] = 1.0f/2.0f; points[8][1] = 1.0f/2.0f; // x_9
       break;
 
@@ -31,8 +31,8 @@ int ppquad(int t, float* poids, float** points){
  
       // Assignation des valeurs des points
       points[0][0] = 1.0f/2.0f; points[0][1] = 1.0f/2.0f; // x_1
-      points[1][0] =         0; points[1][1] = 1.0f/2.0f; // x_2
-      points[2][0] = 1.0f/2.0f; points[2][1] =         0; // x_3
+      points[1][0] =      0.0f; points[1][1] = 1.0f/2.0f; // x_2
+      points[2][0] = 1.0f/2.0f; points[2][1] =      0.0f; // x_3
       break;
 
     case 3:
@@ -42,7 +42,7 @@ int ppquad(int t, float* poids, float** points){
       poids[2] = 2.0f/3.0f; // w_3
       // Assignation des valeurs des points
       points[0][0] =      1.0f; // x_1
-      points[1][0] =         0; // x_2
+      points[1][0] =      0.0f; // x_2
       points[2][0] = 1.0f/2.0f; // x_3
       break;
     
@@ -54,10 +54,10 @@ int ppquad(int t, float* poids, float** points){
 int q_associe(int t){
   int q;
   switch (t) {
-    case 1: q=9; break; // Quadrangle
-    case 2: q=3; break; // Triangle
-    case 3: q=3; break; // Segment
-    default: q=-1; // Valeur ne correspondant a aucun type
+    case 1:  q = 9; break; // Quadrangle
+    case 2:  q = 3; break; // Triangle
+    case 3:  q = 3; break; // Segment
+    default: q =-1; break; // Valeur ne correspondant a aucun type
   }
   return q;
 }
@@ -65,15 +65,13 @@ int q_associe(int t){
 int d_associe(int t){
   int d;
   switch (t) {
-    case 1: d=2; break; // Quadrangle
-    case 2: d=2; break; // Triangle
-    case 3: d=1; break; // Segment
-    default: d=-1; // Valeur ne correspondant a aucun type
+    case 1:  d = 2; break; // Quadrangle
+    case 2:  d = 2; break; // Triangle
+    case 3:  d = 1; break; // Segment
+    default: d =-1; break; // Valeur ne correspondant a aucun type
   }
   return d;
 }
-
-
 
 int calFbase (int t, float* point, float* vect){
   switch (t){
@@ -110,22 +108,22 @@ int calDerFbase (int t, float* point, float** tab){
       tab[1][1] = point[0];
       tab[2][0] = - point[1];
       tab[2][1] = 1 - point[0];
-      tab[3][0] = -1 + point[1];
-      tab[3][1] = -1 + point[0];
+      tab[3][0] =-1 + point[1];
+      tab[3][1] =-1 + point[0];
       break;
 
     case 2 :
       tab[0][0] = 1.0f;
-      tab[0][1] = 0;
-      tab[1][0] = 0;
+      tab[0][1] = 0.0f;
+      tab[1][0] = 0.0f;
       tab[1][1] = 1.0f;
-      tab[2][0] = -1.0f;
-      tab[2][1] = -1.0f;
+      tab[2][0] =-1.0f;
+      tab[2][1] =-1.0f;
       break;
 
     case 3 :
       tab[0][0] = 1.0f;
-      tab[1][0] = -1.0f;
+      tab[1][0] =-1.0f;
       break;
 
     default: printf("\nERREUR : fonction calDerFbase valeur de t != 1,2,3\n"); return -1;
@@ -150,28 +148,30 @@ void matJacob(int Nk, float** coordElem, int d, float** tab, float** matJac){
       matJac[0][1] = 0.0f;
       matJac[1][0] = 0.0f;
       matJac[1][1] = 0.0f;
-    for (int i=0;i<Nk;i++) {
-      matJac[0][0] += coordElem[i][0] * tab[i][0]; 
-      matJac[0][1] += coordElem[i][0] * tab[i][1]; 
-      matJac[1][0] += coordElem[i][1] * tab[i][0]; 
-      matJac[1][1] += coordElem[i][1] * tab[i][1]; 
-  }
-  break;
+      for (int i=0;i<Nk;i++) {
+        matJac[0][0] += coordElem[i][0] * tab[i][0];
+        matJac[0][1] += coordElem[i][0] * tab[i][1];
+        matJac[1][0] += coordElem[i][1] * tab[i][0];
+        matJac[1][1] += coordElem[i][1] * tab[i][1];
+      }
+      break;
 
-  case 1 : 
-    matJac[0][0] = 0.0f;
-    matJac[0][1] = 0.0f;
-    for (int i=0;i<Nk;i++) {
-      matJac[0][0] += coordElem[i][0] * tab[i][0]; 
-      matJac[0][1] += coordElem[i][1] * tab[i][0]; 
+    case 1 : 
+      matJac[0][0] = 0.0f;
+      matJac[0][1] = 0.0f;
+      for (int i=0;i<Nk;i++) {
+        matJac[0][0] += coordElem[i][0] * tab[i][0]; 
+        matJac[0][1] += coordElem[i][1] * tab[i][0]; 
+      }
+      break;
+
+    default: printf("\nERREUR : Fonction matJacob dimension non traitee\n"); return;
   }
-  break;
-}
 }
 
 float invertM2x2(float** mat, float** mat_inv){
   const float delta = mat[0][0] * mat[1][1] - mat[0][1] * mat[1][0];
-  if (fabs(delta)>=1e-8f) { // On s'assure que delta != de 0 en prenant en compte l'erreur d'approximation
+  if (fabsf(delta)>=1e-7f) { // On s'assure que delta != de 0 en prenant en compte l'erreur d'approximation
     mat_inv[0][0] =  1.0f/delta * mat[1][1];
     mat_inv[0][1] = -1.0f/delta * mat[0][1];
     mat_inv[1][0] = -1.0f/delta * mat[1][0];
