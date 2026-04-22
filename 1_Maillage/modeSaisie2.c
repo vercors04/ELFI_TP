@@ -13,7 +13,7 @@ void modeSaisie2 () {
 
 	printf("Inserez les donnees :\nDomaine [a,b]x[c,d] (Entrez les valeures de a b c d) :\n");
   scanf("%f %f %f %f", &a, &b, &c, &d);
-    fprintf(Donnees,"%f %f %f %f\n", a, b, c, d);
+  fprintf(Donnees,"%f %f %f %f\n", a, b, c, d);
 
   printf("\nNombres de points n1 et n2 :\n");
   scanf("%d %d", &n1, &n2);

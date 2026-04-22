@@ -37,17 +37,27 @@ int maillage (char *ficInput, char *ficOutput ) {
 
 	//------Calcul de m p q------
 	switch (t) {
-    case 1: m=(n1-1)*(n2-1); q=4; p=4; break; // Quadrangles
-    case 2: m=2*((n1-1)*(n2-1)); q=3; p=3; break; // Triangles
-    default: printf("ERREUR : Cas possibles : \n t=1 : Quadrangles\n t=2 : Triangles");return 1;
+    case 1:
+      m = (n1-1) * (n2-1);
+      q = 4;
+      p = 4;
+      break; // Quadrangles
+    case 2:
+      m = 2 * (n1-1) * (n2-1);
+      q = 3;
+      p = 3;
+      break; // Triangles
+    default: 
+      printf("ERREUR : Cas possibles : \n t=1 : Quadrangles\n t=2 : Triangles");
+      return 1;
   }
 
   //------Nombre de noeuds------
 	fprintf(Output, "%d\n", n1*n2);
 	
 	//------Calcul des coordonées------
-	float h1 = (b-a)/(n1-1.0f);
-	float h2 = (d-c)/(n2-1.0f);
+	float h1 = (b-a) / (n1-1.0f);
+	float h2 = (d-c) / (n2-1.0f);
 
 	for (int i=0 ; i<n2 ; i++){
 		float y = c + i*h2;
@@ -57,19 +67,12 @@ int maillage (char *ficInput, char *ficOutput ) {
 	}
 	
 	//------Ecriture de : m t p q ------
-	fprintf(Output, "%d %d %d %d\n", m, t, p, q); //Quadrangles
-	
-
+	fprintf(Output, "%d %d %d %d\n", m, t, p, q); // Quadrangles
 	
 	//------Calcul des numéros globaux et numeros de reference des arretes------
 
-	//acclocation de nRefAr et calcul des arretes, a changer si fct allotab_i
- 	int *nRefAr_alloc = (int *) malloc(m * q * sizeof(int));
- 	int **nRefAr = (int **) malloc(m * sizeof(int *));
- 	for (int i = 0; i < m; i++) { 
-		nRefAr[i] = &nRefAr_alloc[i * q];
- 	}
-
+	// Acclocation de nRefAr et calcul des arretes
+ 	int** nRefAr = alloctab_i(m,q);
  	etiqAr(t,n1,n2,nrefdom,nrefcot,nRefAr);
 
 
@@ -89,12 +92,12 @@ int maillage (char *ficInput, char *ficOutput ) {
 				}
 			}
 		}
-
 	// Triangle
   else if (t==2) {
 		for(int i=0; i<n2-1; i++){
 			for(int j=1; j<n1; j++) {
 				int indice = j + i*(n1-1);
+
         // Sommets et arretes pour le triangle k
 				fprintf(Output, "%d %d %d ", indice+1, indice+n1, indice);  
 				fprintf(Output, "%d %d %d\n", nRefAr[k][0],nRefAr[k][1],nRefAr[k][2]); 
