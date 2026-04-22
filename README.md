@@ -58,6 +58,27 @@ Prise en compte des conditions aux limites de Dirichlet.
 
 TP5 : mise en pratique
 
+#### Calcul des fonctions
+
+Calcul de $F_{\Omega}$ :
+
+1.Pour $u(x,y)=16xy(x-1)(1-y)$
+$$
+f_{\Omega} = -\triangle u
+= (\frac{\partial^{2} u}{\partial x^{2}}+\frac{\partial^{2} u}{\partial y^{2}})
+= 32(x^{2}-x+y^{2}-y)
+$$
+2.Pour $u(x,y)=sin(\pi x)sin(\pi y)$
+$$
+f_{\Omega} = -\triangle u
+=2\pi^{2}sin(\pi x)sin(\pi y)
+$$
+3.Pour $u(x,y)=cos(\pi x)cos(\pi y)$
+$$
+f_{\Omega} = -\triangle u + u
+= cos(\pi x)cos(\pi y)(2\pi^{2}+1)
+$$
+
 ## Liste des fichiers dont nous ne sommes pas les auteurs initiaux
 
 - alloctab.c
@@ -77,7 +98,6 @@ TP5 : mise en pratique
 - rsprl.f  (Fortran)
 - rspru.f  (Fortran)
 - solex.c
-
 
 ## Structure du projet
 

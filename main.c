@@ -223,7 +223,7 @@ int main () {
         UEX = allocvec_f(NbLign);
         CalSol (NbLign, coord, UEX);
         printf("\n------Calcul solution exacte UEX terminee------\n\n");
-        solex = 1;
+        exacte = 1;
         break;
 
       case 9 :
