@@ -5,6 +5,8 @@
 #include "../4_Construction_SL/construction_SL.h"
 #include "../forfun.h"
 
+int nucas = 1; //juste pour que le programme compile
+
 int main () {
 
   int typel; // Type des elements du maillage

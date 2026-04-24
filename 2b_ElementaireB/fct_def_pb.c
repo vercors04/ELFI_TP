@@ -13,7 +13,7 @@ float A22(float* x){
 }
 
 float A12(float* x){
-  return 0;
+  return 0.0f;
 }
 
 float A00(float* x){

@@ -12,6 +12,8 @@
 #include "../1_Maillage/maillage.h"
 #include "../Utilitaire/utilitaires.h"
 
+int nucas = 1; //juste pour que le programme compile
+
 int main (){
   int typel; // Type des elements du maillage
   int nbtng; // Nombre de noeuds géométriques

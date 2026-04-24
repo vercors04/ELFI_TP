@@ -28,13 +28,13 @@ int main () {
     return 1;
   }
 
-  int nbRefD0 = 1;
-  int nbRefD1 = 1;
-  int nbRefF1 = 2;
+  int nbRefD0 = 4;
+  int nbRefD1 = 0;
+  int nbRefF1 = 0;
   int nRefDom = 0;
-  int numRefD0[] = {1};
-  int numRefD1[] = {4};
-  int numRefF1[] = {2,3};
+  int numRefD0[] = {1, 2, 3, 4};
+  int numRefD1[] = {0};
+  int numRefF1[] = {0};
   
   // On stocke ces valeurs dans un tableau pour diminuer le nombre d'arguments
   int nbRef[] = {nbRefD0, nbRefD1, nbRefF1};

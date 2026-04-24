@@ -4,6 +4,9 @@
 #include "../3_Assemblage/assemblage.h"
 #include "../forfun.h"
 
+int nucas = 1; //juste pour que le programme compile
+
+
 int main (){
 
   int typel; // Type des elements du maillage
