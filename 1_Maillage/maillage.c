@@ -16,6 +16,7 @@ int maillage (char *ficInput, char *ficOutput ) {
   FILE *Output = fopen (ficOutput, "w");
    if (Output==NULL) { 
       printf("ERREUR : Le fichier ficOutput.txt n'a pas pu etre ouvert.\n");
+	  fclose(Donnees);
       return 1;  
   }
 
@@ -96,7 +97,7 @@ int maillage (char *ficInput, char *ficOutput ) {
   else if (t==2) {
 		for(int i=0; i<n2-1; i++){
 			for(int j=1; j<n1; j++) {
-				int indice = j + i*(n1-1);
+				int indice = j + i*n1;
 
         // Sommets et arretes pour le triangle k
 				fprintf(Output, "%d %d %d ", indice+1, indice+n1, indice);  

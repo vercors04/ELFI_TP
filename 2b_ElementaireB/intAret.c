@@ -7,7 +7,7 @@ void intAret ( float** coordAret, float** matAret, float* vecAret){
  
     int t = 3, q = 3, nbneelAr =2; // Cas segment
 
-    float det, eltdif;
+    float eltdif;
 
     float* valFctBase = allocvec_f (nbneelAr);
     float* Fkx        = allocvec_f (2);

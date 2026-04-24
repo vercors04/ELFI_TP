@@ -172,7 +172,7 @@ int main() {
     num[0] = 3; 
     num[1] = 1;
 
-    float** coorSel = alloctab_f(nb,2);
+    float** coorSel = malloc(nb * sizeof(float*));
     selectPts(nb, num, coorEns, coorSel);
 
     printf("Pour les points numero %d et numero %d :\n", num[0], num[1]);

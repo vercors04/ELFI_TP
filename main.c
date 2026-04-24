@@ -61,7 +61,7 @@ int main () {
   int*   AdSuccLi   = callocvec_i(NbCoef);
   int*   NumCol     = callocvec_i(NbCoef);
   int*   NumDLDir   = allocvec_i(NbLign);
-  for (int i=1; i<NbLign+1; i++) NumDLDir[i-1]=1*i;
+  for (int i=1; i<NbLign+1; i++) NumDLDir[i-1]=i;
 
   int*   AdPrCoefLiO;
   int*   NumColO;
@@ -70,8 +70,6 @@ int main () {
 
   int*   Profil;
   float* MatProf;
-  int*   ProfilVerif;
-  float* MatProfVerif;
 
   float* U;
   float* UEX;

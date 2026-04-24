@@ -19,7 +19,7 @@ void cal1Elem (int nRefDom, int nbRefD0, int* numRefD0, int nbRefD1, int* numRef
   // Procedure intAret
   for (int i=0; i<nbaret; i++) {
 
-    if (nRefArEl[i]!=0){
+    if (nRefArEl[i] != nRefDom){
       int couplePtsAret[2];
 
       // Cas Neumann/Fourier

@@ -13,7 +13,7 @@ void dSMOaPR2(int NbLign,int* AdPrCoefLiO,  int* NumColO, float* MatriceO,
  
       for (int j=0; j<NbCoefLi; j++) {
         int IndiceCoefLowMat = AdPrCoefLiO[i-2]-1 + j;
-        int IndiceCoefLowMatProf = Profil[i-2]-1 + NumColO[IndiceCoefLowMat] - NumColO[AdPrCoefLiO[i-2]-1];;
+        int IndiceCoefLowMatProf = Profil[i-2]-1 + NumColO[IndiceCoefLowMat] - NumColO[AdPrCoefLiO[i-2]-1];
 
         (MatProf+NbLign)[IndiceCoefLowMatProf] = (MatriceO+NbLign)[IndiceCoefLowMat];
       }
