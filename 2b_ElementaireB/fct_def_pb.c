@@ -17,8 +17,21 @@ float A12(float* x){
 }
 
 float A00(float* x){
-  return 1.0f;
-}
+  float val = 0.0f;
+  switch (nucas) {
+    case 1: 
+      val = 0.0f;
+      break;
+
+    case 2: 
+      val = 0.0f;
+      break;  
+
+    case 3: 
+      val = 1.0f;
+      break;
+  }
+} 
 
 float BN(float* x){
   return 0.0f;

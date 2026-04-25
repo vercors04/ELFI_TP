@@ -1,3 +1,6 @@
+#ifndef UTILITAIRES_H
+#define UTILITAIRES_H
+
 /* Fonction qui alloue dynamiquement une matrice de float de taille dim1 x dim2
 */
 float **alloctab_f(int dim1, int dim2);
@@ -45,3 +48,5 @@ float *callocvec_f(int dim);
 /* Fonction qui alloue dynamiquement un vecteur d'Int de taille dim, et l'initialise a 0
 */
 int *callocvec_i(int dim);
+
+#endif

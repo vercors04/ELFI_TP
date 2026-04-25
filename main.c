@@ -21,7 +21,7 @@ int main () {
   int** nRefAr; // Numeros de reference associes aux aretes
   float** coord; // Coordonnees des noeuds geometriques
 
-  char* ficmai = "../Donnees_5/Maillages/d1t1_4";
+  char* ficmai = "../Donnees_5/Maillages/d1t1_2";
 
   if (lecfima(ficmai, &typel, &nbtng, &coord, &nbtel, &ngnel, &nbneel, &nbaret, &nRefAr)){
     printf("ERREUR : lecture du fichier de maillage");

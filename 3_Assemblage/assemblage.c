@@ -71,7 +71,7 @@ void assemblage(int typel, int nbtng, float** coord, int nbtel, int** ngnel,
 
 
   }
-  AdPrCoefLi[NbLign - 1] = NextAd - 1; //Memorisation nb de coeficients
+  AdPrCoefLi[NbLign - 1] = NextAd; //Memorisation nb de coeficients
   free(coordElem);
 
 }

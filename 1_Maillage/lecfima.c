@@ -27,14 +27,14 @@ int lecfima(char *ficmai, int *ptypel, int *pnbtng, float ***pcoord,
 
   // Allocation tableau ngel
   *pngnel  = alloctab_i(*pnbtel,*pnbneel);
-  *pnRefAr = alloctab_i(*pnbtel,*pnbneel);
+  *pnRefAr = alloctab_i(*pnbtel, *pnbaret);
 
   // Recuperation des numeros globaux et numeros de reference
   for (int i=0;i<*pnbtel;i++) {
     for (int j=0;j<*pnbneel;j++) {
       fscanf(pfichier_maillage, "%d ",&(*pngnel)[i][j]);
     }
-    for (int j=0;j<*pnbneel;j++) {
+    for (int j=0;j<*pnbaret;j++) {
       fscanf(pfichier_maillage, "%d ",&(*pnRefAr)[i][j]);
     }
     fscanf(pfichier_maillage, "\n");
