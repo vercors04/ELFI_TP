@@ -31,6 +31,7 @@ float A00(float* x){
       val = 1.0f;
       break;
   }
+  return val;
 } 
 
 float BN(float* x){
@@ -41,7 +42,8 @@ float FOMEGA(float* x){
   float val = 0.0f;
   switch (nucas) {
     case 1: 
-      val = 32.0f * (x[0]*x[0]-x[0]+x[1]*x[1]-x[1]);
+      val = 32.0f * (x[0] - x[0]*x[0] + x[1] - x[1]*x[1]);
+      //val = 32.0f * (x[0]*x[0]-x[0]+x[1]*x[1]-x[1]);
       break;
     case 2:
       val = 2.0f * PI_F * PI_F * sinf(PI_F*x[0]) * sinf(PI_F*x[1]);
@@ -113,7 +115,8 @@ float UD(float* x){
 
   switch (nucas) {
     case 1 :
-	    val = 16.0f * x[0]*x[1] * (x[0]-1)*(1.0f-x[1]);
+	    val = 16.0f * x[0]*x[1] * (1-x[0])*(1.0f-x[1]);
+      //val = 16.0f * x[0]*x[1] * (x[0]-1)*(1.0f-x[1]);
 	    break;
     case 2 :
 	    val = sinf(PI_F*x[0]) * sinf(PI_F*x[1]);

@@ -14,7 +14,8 @@ float solex(float *coor) {
 
   switch (nucas) {
     case 1 :
-	    val=16.0f*coor[0]*coor[1]*(coor[0]-1)*(1.0f-coor[1]);
+	    //val=16.0f*coor[0]*coor[1]*(coor[0]-1)*(1.0f-coor[1]);
+      val= 16.0f * coor[0] * coor[1] * (1.0f - coor[0]) * (1.0f - coor[1]);
 	    break;
     case 2 :
 	    val=sinf(PI*coor[0])*sinf(PI*coor[1]);

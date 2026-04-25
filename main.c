@@ -12,6 +12,10 @@ int nucas = 1; //pour solex
 
 int main () {
 
+  /* --------------------------------------------------------
+    Chargement du maillage
+    --------------------------------------------------------*/
+
   int typel; // Type des elements du maillage
   int nbtng; // Nombre de noeuds géométriques
   int nbtel; // Nombre d'elements du maillage
@@ -28,17 +32,37 @@ int main () {
     return 1;
   }
 
-  int nbRefD0 = 4;
-  int nbRefD1 = 0;
-  int nbRefF1 = 0;
-  int nRefDom = 0;
-  int numRefD0[] = {1, 2, 3, 4};
-  int numRefD1[] = {0};
-  int numRefF1[] = {0};
-  
+
+
+  /* --------------------------------------------------------
+    Initialisation des conditions aux bords suivant le cas 
+    -------------------------------------------------------- */ 
+
+  int nRefDom = 0; 
+  int nbRefD0 = 0, nbRefD1 = 0, nbRefF1 = 0;
+  int numRefD0[5] = {0}, numRefD1[5] = {0}, numRefF1[5] = {0};
+
+  if (nucas == 1 || nucas == 2) {
+      nbRefD0 = 4;
+      numRefD0[0] = 1; numRefD0[1] = 2; numRefD0[2] = 3; numRefD0[3] = 4;;
+  } 
+
+  else if (nucas == 3) {
+      nbRefF1 = 4;
+      numRefF1[0] = 1; numRefF1[1] = 2; numRefF1[2] = 3; numRefF1[3] = 4;
+  }
+  else {
+      printf("Erreur : nucas %d non reconnu pour le Domaine 1\n", nucas);
+      return 1;
+  }
   // On stocke ces valeurs dans un tableau pour diminuer le nombre d'arguments
   int nbRef[] = {nbRefD0, nbRefD1, nbRefF1};
 
+
+  /* --------------------------------------------------------
+    Allocation pour la structure morse desordonneee
+   --------------------------------------------------------*/
+ 
   int NbLign = nbtng, NbCoef; // 
   // Surestimation de NbCoef pour la longueur de LMat
   if (1==typel) {
@@ -52,8 +76,6 @@ int main () {
     return 1;
   }
 
-
-
   float* Matrice    = callocvec_f(NbLign+NbCoef);
   float* SecMembre  = callocvec_f(NbLign);
   float* ValDLDir   = callocvec_f(NbLign);
@@ -63,6 +85,10 @@ int main () {
   int*   NumDLDir   = allocvec_i(NbLign);
   for (int i=1; i<NbLign+1; i++) NumDLDir[i-1]=i;
 
+
+
+
+  //a declarer dans les case ? 
   int*   AdPrCoefLiO;
   int*   NumColO;
   float* MatriceO;
@@ -77,6 +103,10 @@ int main () {
   int stop = 0, choix = 0;
   int assemb = 0, assemb0 = 0, assembP = 0, resol = 0, exacte = 0;
 
+
+  /* --------------------------------------------------------
+    Menu et execution des differentes parties
+   --------------------------------------------------------*/
 
   while (!stop) {
       
