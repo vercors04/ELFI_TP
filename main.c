@@ -52,7 +52,7 @@ int main () {
       numRefF1[0] = 1; numRefF1[1] = 2; numRefF1[2] = 3; numRefF1[3] = 4;
   }
   else {
-      printf("Erreur : nucas %d non reconnu pour le Domaine 1\n", nucas);
+      printf("\nErreur : nucas %d non existant pour le Domaine 1, choisissez entre 1, 2 ou 3.\n\n", nucas);
       return 1;
   }
   // On stocke ces valeurs dans un tableau pour diminuer le nombre d'arguments
