@@ -8,16 +8,16 @@ int maillage (char *ficInput, char *ficOutput ) {
 
 // Ouverture des fichiers input et output
   FILE *Donnees = fopen(ficInput, "r");
-   if (Donnees==NULL) { 
-      printf("ERREUR : Le fichier ficInput.txt n'a pas pu etre ouvert.\n");
-      return 1;  
+  if (Donnees==NULL) {
+    printf("ERREUR : Le fichier ficInput.txt n'a pas pu etre ouvert.\n");
+    return 1;
   }
 
   FILE *Output = fopen (ficOutput, "w");
-   if (Output==NULL) { 
-      printf("ERREUR : Le fichier ficOutput.txt n'a pas pu etre ouvert.\n");
+  if (Output==NULL) {
+    printf("ERREUR : Le fichier ficOutput.txt n'a pas pu etre ouvert.\n");
 	  fclose(Donnees);
-      return 1;  
+    return 1;
   }
 
 	int  n1, n2, t, nrefdom, nrefcot[4], m, q, p;

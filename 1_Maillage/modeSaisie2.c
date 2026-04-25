@@ -5,11 +5,11 @@ void modeSaisie2 () {
   float a, b, c, d;
 
 	FILE *Donnees = fopen("../Donnees_1/ficInput.txt", "w");
-    // Test du bon deroulement de l'ouverture
-    if (Donnees==NULL) { 
-      printf("ERREUR : Le fichier n'a pas pu etre ouvert.\n");
+  // Test du bon deroulement de l'ouverture
+  if (Donnees==NULL) {
+    printf("ERREUR : Le fichier n'a pas pu etre ouvert.\n");
 	  return;
-    }
+  }
 
 	printf("Inserez les donnees :\nDomaine [a,b]x[c,d] (Entrez les valeures de a b c d) :\n");
   scanf("%f %f %f %f", &a, &b, &c, &d);

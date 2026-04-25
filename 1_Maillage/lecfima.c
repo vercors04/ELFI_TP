@@ -7,10 +7,10 @@ int lecfima(char *ficmai, int *ptypel, int *pnbtng, float ***pcoord,
   FILE *pfichier_maillage = fopen(ficmai,"r");
 
   // Test du bon deroulement de l'ouverture
-    if (pfichier_maillage==NULL) { 
-      printf("ERREUR : Le fichier ficmai n'a pas pu etre ouvert.\n");
-      return 1;
-    }
+  if (pfichier_maillage==NULL) { 
+    printf("ERREUR : Le fichier ficmai n'a pas pu etre ouvert.\n");
+     return 1;
+  }
 
 	// Recuperation de n
 	fscanf(pfichier_maillage, "%d\n\n", pnbtng);
