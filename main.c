@@ -1,6 +1,9 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "1_Maillage/maillage.h"
+#include "2a_ElementaireA/elementairesa.h"
+#include "2b_ElementaireB/elementairesb.h"
 #include "3_Assemblage/assemblage.h"
 #include "4_Construction_SL/construction_SL.h"
 #include "5_Resol_Post-Trait/dsmoapr.h"
@@ -26,7 +29,7 @@ int main () {
   int** nRefAr; // Numeros de reference associes aux aretes
   float** coord; // Coordonnees des noeuds geometriques
 
-  char* ficmai = "../Donnees_5/Maillages/d2q1_2";
+  char* ficmai = "../Donnees_5/Maillages/d1t1_2";
 
   if (lecfima(ficmai, &typel, &nbtng, &coord, &nbtel, &ngnel, &nbneel, &nbaret, &nRefAr)){
     printf("ERREUR : lecture du fichier de maillage");
@@ -74,7 +77,7 @@ int main () {
         numRefF1[0] = 2; numRefF1[1] = 3; 
     }
     else {
-        printf("\nErreur : nucas %d non existant pour le Domaine 1, choisissez entre 1, 2 ou 3.\n\n", nucas);
+        printf("\nErreur : nucas %d non existant pour le Domaine 2, choisissez entre 1, 2 ou 3.\n\n", nucas);
         return 1;
     }
 
@@ -141,6 +144,7 @@ int main () {
   while (!stop) {
       
     printf("\n ___________________________________ \
+            \n| 0. AFFICHER LE DETAIL DES ELEMENTS|\
             \n| 1. ASSEMBLER LE SYSTEME           |\
             \n| 2. AFFICHER LE SYSTEME ASSEMBLE   |\
             \n| 3. CONSTRUIRE LA S.M.O            |\
@@ -184,6 +188,29 @@ int main () {
     } 
     
     switch (choix) {
+
+
+      case 0:
+        float** coordElem = (float**) malloc(nbneel * sizeof(float*));
+        for (int i=0; i<nbtel; i++) {
+        float** MatElem;
+        float*  SMbrElem;
+        float*  uDElem;  
+        int*    NuDElem; 
+        selectPts (nbneel, ngnel[i], coord, coordElem);
+
+        cal1Elem (nRefDom, nbRefD0, numRefD0, nbRefD1, numRefD1, nbRefF1, numRefF1, typel,
+                  nbneel, coordElem, nbaret, nRefAr[i], &MatElem, &SMbrElem, &NuDElem, &uDElem);
+
+        impCalEl(i+1, typel, nbneel, MatElem, SMbrElem, NuDElem, uDElem);
+        freetab(MatElem);
+        freevec(SMbrElem);
+        freevec(uDElem);
+        freevec(NuDElem);
+      }
+      free (coordElem);
+
+
       case 1:
         assemblage(typel, nbtng, coord, nbtel, ngnel, nbneel, nbaret, nRefAr, 
 	               nbRef, nRefDom, numRefD0, numRefD1, numRefF1, NbLign, 
@@ -193,6 +220,7 @@ int main () {
         assemb=1;
         break;
 
+
       case 2:
         if (!assemb){
           printf("ERREUR : assembler avant d'afficher\n\n");
@@ -201,6 +229,7 @@ int main () {
         affsmd_ (&NbLign, AdPrCoefLi, NumCol, AdSuccLi, Matrice, SecMembre,
                  NumDLDir, ValDLDir);
         break;
+
 
       case 3:
         if (!assemb) {
@@ -224,6 +253,7 @@ int main () {
         assemb0=1;
         break;
 
+
       case 4:
         if (!assemb0){
           printf("ERREUR : construire la SMO avant d'afficher\n\n");
@@ -231,6 +261,7 @@ int main () {
         }
         affsmo_(&NbLign, AdPrCoefLiO, NumColO, MatriceO, SecMembreO);
         break;
+
 
       case 5:
         if (!assemb0){
@@ -254,6 +285,7 @@ int main () {
         assembP = 1;
         break;
 
+
       case 6:
         if (!assembP){
           printf("ERREUR : assembler avant d'afficher\n\n");
@@ -263,6 +295,7 @@ int main () {
         int impfch_Test = 0;
         impmpr_(&impfch_Test, &NbLign, Profil, MatProf, MatProf+NbLign);
         break;
+
 
       case 7 :
         if (!assembP){
@@ -276,6 +309,7 @@ int main () {
         resol = 1;
         break;
 
+
       case 8 :
         if (exacte) freevec(UEX);
         UEX = allocvec_f(NbLign);
@@ -283,6 +317,7 @@ int main () {
         printf("\n------Calcul solution exacte UEX terminee------\n\n");
         exacte = 1;
         break;
+
 
       case 9 :
         if (!resol && !exacte) {
@@ -303,13 +338,14 @@ int main () {
         
         break;
 
+
       case 10:
         stop = 1;
         printf("\nFermeture du programme.\n");
         break;
 
       default:
-        printf("\nChoisir 1, 2, 3, 4, 5, 6, 7, 8, 9 ou 10\n");
+        printf("\nChoisir 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ou 10\n");
     }
   }
 
