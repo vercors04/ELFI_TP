@@ -6,6 +6,7 @@
 #include "5_Resol_Post-Trait/dsmoapr.h"
 #include "Utilitaire/utilitaires.h"
 #include "forfun.h"
+#include <string.h>
 
 
 int nucas = 1; //pour solex
@@ -25,7 +26,7 @@ int main () {
   int** nRefAr; // Numeros de reference associes aux aretes
   float** coord; // Coordonnees des noeuds geometriques
 
-  char* ficmai = "../Donnees_5/Maillages/d1t1_2";
+  char* ficmai = "../Donnees_5/Maillages/d2q1_2";
 
   if (lecfima(ficmai, &typel, &nbtng, &coord, &nbtel, &ngnel, &nbneel, &nbaret, &nRefAr)){
     printf("ERREUR : lecture du fichier de maillage");
@@ -35,26 +36,55 @@ int main () {
 
 
   /* --------------------------------------------------------
-    Initialisation des conditions aux bords suivant le cas 
+    Initialisation des conditions aux bords suivant le cas ET le domaine
     -------------------------------------------------------- */ 
-
   int nRefDom = 0; 
   int nbRefD0 = 0, nbRefD1 = 0, nbRefF1 = 0;
-  int numRefD0[5] = {0}, numRefD1[5] = {0}, numRefF1[5] = {0};
+  int numRefD0[4] = {0}, numRefD1[4] = {0}, numRefF1[4] = {0};
 
-  if (nucas == 1 || nucas == 2) {
-      nbRefD0 = 4;
-      numRefD0[0] = 1; numRefD0[1] = 2; numRefD0[2] = 3; numRefD0[3] = 4;;
-  } 
+  //strstr recherche la premiere occurrence d'une sous-chaine - cherche le numero du domaine dans le nom du fichier
+  if (strstr(ficmai, "d1") != NULL) {
+    if (nucas == 1 || nucas == 2) {
+        nbRefD0 = 4;
+        numRefD0[0] = 1; numRefD0[1] = 2; numRefD0[2] = 3; numRefD0[3] = 4;
+    } 
 
-  else if (nucas == 3) {
-      nbRefF1 = 4;
-      numRefF1[0] = 1; numRefF1[1] = 2; numRefF1[2] = 3; numRefF1[3] = 4;
+    else if (nucas == 3) {
+        nbRefF1 = 4;
+        numRefF1[0] = 1; numRefF1[1] = 2; numRefF1[2] = 3; numRefF1[3] = 4;
+    }
+    else {
+        printf("\nErreur : nucas %d non existant pour le Domaine 1, choisissez entre 1, 2 ou 3.\n\n", nucas);
+        return 1;
+    }
   }
+   
+  else if (strstr(ficmai, "d2") != NULL) {
+    if (nucas == 1 || nucas == 2) {
+        nbRefD0 = 2;
+        nbRefD1 = 2;
+        numRefD0[0] = 1; numRefD0[1] = 4; 
+        numRefD1[0] = 2; numRefD1[1] = 3; 
+    } 
+
+    else if (nucas == 3) {
+        nbRefD1 = 2;
+        nbRefF1 = 2;
+        numRefD1[0] = 1; numRefD1[1] = 4;
+        numRefF1[0] = 2; numRefF1[1] = 3; 
+    }
+    else {
+        printf("\nErreur : nucas %d non existant pour le Domaine 1, choisissez entre 1, 2 ou 3.\n\n", nucas);
+        return 1;
+    }
+
+  } 
+  
   else {
-      printf("\nErreur : nucas %d non existant pour le Domaine 1, choisissez entre 1, 2 ou 3.\n\n", nucas);
+      printf("Erreur : nom de fichier non attendu");
       return 1;
   }
+
   // On stocke ces valeurs dans un tableau pour diminuer le nombre d'arguments
   int nbRef[] = {nbRefD0, nbRefD1, nbRefF1};
 
