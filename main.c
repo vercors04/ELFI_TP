@@ -17,7 +17,7 @@ int nucas = 1; //pour solex
 int main () {
 
   /* --------------------------------------------------------
-    Chargement du maillage
+                    Chargement du maillage
     --------------------------------------------------------*/
 
   int typel; // Type des elements du maillage
@@ -38,9 +38,9 @@ int main () {
 
 
 
-  /* --------------------------------------------------------
-    Initialisation des conditions aux bords suivant le cas ET le domaine
-    -------------------------------------------------------- */ 
+  /* ----------------------------------------------------------------------
+      Initialisation des conditions aux bords suivant le cas ET le domaine
+     ---------------------------------------------------------------------- */ 
   int nRefDom = 0; 
   int nbRefD0 = 0, nbRefD1 = 0, nbRefF1 = 0;
   int numRefD0[4] = {0}, numRefD1[4] = {0}, numRefF1[4] = {0};
@@ -93,8 +93,8 @@ int main () {
 
 
   /* --------------------------------------------------------
-    Allocation pour la structure morse desordonneee
-   --------------------------------------------------------*/
+         Allocation pour la structure morse desordonneee
+     --------------------------------------------------------*/
  
   int NbLign = nbtng, NbCoef; // 
   // Surestimation de NbCoef pour la longueur de LMat
@@ -117,7 +117,7 @@ int main () {
   int*   NumCol     = callocvec_i(NbCoef);
   int*   NumDLDir   = allocvec_i(NbLign);
   for (int i=1; i<NbLign+1; i++) NumDLDir[i-1]=i;
-
+  int NbCoef2;
 
 
 
@@ -138,24 +138,24 @@ int main () {
 
 
   /* --------------------------------------------------------
-    Menu et execution des differentes parties
-   --------------------------------------------------------*/
+           Menu et execution des differentes parties
+    --------------------------------------------------------*/
 
   while (!stop) {
       
-    printf("\n ___________________________________ \
-            \n| 0. AFFICHER LE DETAIL DES ELEMENTS|\
-            \n| 1. ASSEMBLER LE SYSTEME           |\
-            \n| 2. AFFICHER LE SYSTEME ASSEMBLE   |\
-            \n| 3. CONSTRUIRE LA S.M.O            |\
-            \n| 4. AFFICHER LA S.M.O              |\
-            \n| 5. CONSTRUIRE LA STRUCTURE PROFIL |\
-            \n| 6. AFFICHER LA STRUCTURE PROFIL   |\
-            \n| 7. RÉSOUDRE LE SYSTÈME (CHOLESKY) |\
-            \n| 8. CALCULER LA SOLUTION EXACTE    |\
-            \n| 9. AFFICHER L'ERREUR              |\
-            \n| 10. QUITTER                       |\
-            \n|___________________________________|\n\
+    printf("\n ____________________________________ \
+            \n| 0. AFFICHER LE DETAIL DES ELEMENTS |\
+            \n| 1. ASSEMBLER LE SYSTEME            |\
+            \n| 2. AFFICHER LE SYSTEME ASSEMBLE    |\
+            \n| 3. CONSTRUIRE LA S.M.O             |\
+            \n| 4. AFFICHER LA S.M.O               |\
+            \n| 5. CONSTRUIRE LA STRUCTURE PROFIL  |\
+            \n| 6. AFFICHER LA STRUCTURE PROFIL    |\
+            \n| 7. RÉSOUDRE LE SYSTÈME (CHOLESKY)  |\
+            \n| 8. CALCULER LA SOLUTION EXACTE     |\
+            \n| 9. AFFICHER L'ERREUR               |\
+            \n| 10. QUITTER                        |\
+            \n|____________________________________|\n\
             \n> ");
 
      if (scanf("%d", &choix) != 1) {
@@ -212,12 +212,13 @@ int main () {
 
 
       case 1:
-        assemblage(typel, nbtng, coord, nbtel, ngnel, nbneel, nbaret, nRefAr, 
+        assemblage(typel, coord, nbtel, ngnel, nbneel, nbaret, nRefAr, 
 	               nbRef, nRefDom, numRefD0, numRefD1, numRefF1, NbLign, 
 	               NbCoef, Matrice, SecMembre, AdPrCoefLi, AdSuccLi, NumCol, 
                  ValDLDir, NumDLDir);
         printf("\n------Assemblage termine------\n\n");
         assemb=1;
+        NbCoef2 = AdPrCoefLi[NbLign - 1];
         break;
 
 
@@ -243,8 +244,8 @@ int main () {
           freevec(NumColO);
         }
         AdPrCoefLiO = callocvec_i(NbLign);
-        NumColO     = callocvec_i(NbCoef);
-        MatriceO    = callocvec_f(NbLign+NbCoef);
+        NumColO     = callocvec_i(NbCoef2);
+        MatriceO    = callocvec_f(NbLign+NbCoef2);
         SecMembreO  = callocvec_f(NbLign);
 
         dSMDaSMO (NbLign, AdPrCoefLi, NumCol, AdSuccLi, Matrice, SecMembre, 
@@ -274,11 +275,11 @@ int main () {
           freevec(MatProf);
         }
         
-        int longProfilMat = dSMOaLongPR2(NbLign, AdPrCoefLiO, NumColO, MatriceO);
+        int longProfilMat = dSMOaLongPR2(NbLign, AdPrCoefLiO, NumColO);
 
         Profil = allocvec_i(NbLign);
         MatProf = callocvec_f(longProfilMat);
-        dSMOaPR2(NbLign, AdPrCoefLiO, NumColO, MatriceO, Profil, MatProf);
+        dSMOaPR2(NbLign, AdPrCoefLiO, NumColO, MatriceO, Profil, MatProf,longProfilMat);
         
         printf("\n------SM0 vers PROFIL termine------\n\n");
 

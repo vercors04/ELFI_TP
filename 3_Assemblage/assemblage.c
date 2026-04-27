@@ -5,7 +5,7 @@
 #include "../2b_ElementaireB/elementairesb.h"
 #include "../forfun.h"
 
-void assemblage(int typel, int nbtng, float** coord, int nbtel, int** ngnel,
+void assemblage(int typel, float** coord, int nbtel, int** ngnel,
 	              int nbneel, int nbaret, int** nRefAr, int nbRef[3], int nRefDom,
 	              int numRefD0[], int numRefD1[], int numRefF1[], int NbLign,
                 int NbCoef, float* Matrice, float* SecMembre, int* AdPrCoefLi,

@@ -117,7 +117,7 @@ int main () {
     
     switch (choix) {
       case 1:
-        assemblage(typel, nbtng, coord, nbtel, ngnel, nbneel, nbaret, nRefAr, 
+        assemblage(typel, coord, nbtel, ngnel, nbneel, nbaret, nRefAr, 
 	               nbRef, nRefDom, numRefD0, numRefD1, numRefF1, NbLign, 
 	               NbCoef, Matrice, SecMembre, AdPrCoefLi, AdSuccLi, NumCol, 
                  ValDLDir, NumDLDir);
@@ -167,12 +167,12 @@ int main () {
           freevec(MatProfVerif);
         }
         
-        int longProfilMat = dSMOaLongPR2(NbLign, AdPrCoefLiO, NumColO, MatriceO);
+        int longProfilMat = dSMOaLongPR2(NbLign, AdPrCoefLiO, NumColO);
         int longProfilMatVerif = dSMOaLongPR(NbLign, AdPrCoefLiO, NumColO, MatriceO);
 
         Profil = allocvec_i(NbLign);
         MatProf = callocvec_f(longProfilMat);
-        dSMOaPR2(NbLign, AdPrCoefLiO, NumColO, MatriceO, Profil, MatProf);
+        dSMOaPR2(NbLign, AdPrCoefLiO, NumColO, MatriceO, Profil, MatProf, longProfilMat);
 
         ProfilVerif = allocvec_i(NbLign);
         MatProfVerif = callocvec_f(longProfilMatVerif);

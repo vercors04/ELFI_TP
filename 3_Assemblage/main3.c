@@ -82,7 +82,7 @@ int main (){
         
 
     if (choix == 1) {
-      assemblage(typel, nbtng, coord, nbtel, ngnel, nbneel, nbaret, nRefAr, 
+      assemblage(typel, coord, nbtel, ngnel, nbneel, nbaret, nRefAr, 
 	     nbRef, nRefDom, numRefD0, numRefD1, numRefF1, NbLign, 
 	     NbCoef, Matrice, SecMembre, AdPrCoefLi, AdSuccLi, NumCol, ValDLDir, NumDLDir);
       printf("Assemblage termine.\n");

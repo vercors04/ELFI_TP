@@ -28,5 +28,4 @@ gcc \
     \
     -o main4.exe \
     -lm \
-    -lgfortran \
-    -g
+    -lgfortran

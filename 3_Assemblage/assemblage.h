@@ -3,7 +3,6 @@
 /* Fonction qui realise l'assemblage des matrices et seconds membres elementaires
  * ----------------------------------------------------------------------------
  * @param[in]  typel    : Type des elements a construire
- * @param[in]  nbtng    : Nombre de noeuds geometriques
  * @param[in]  coord    : Coordonnees des noeuds geometriques
  * @param[in]  nbtel    : Nombre d'elements du maillage
  * @param[in]  ngnel    : Numeros globaux des noeuds des elements
@@ -51,7 +50,7 @@
  *                          liberte de Dirichlet
  * ----------------------------------------------------------------------------
 */
-void assemblage(int typel, int nbtng, float** coord, int nbtel, int** ngnel,
+void assemblage(int typel, float** coord, int nbtel, int** ngnel,
 	              int nbneel, int nbaret, int** nRefAr, int nbRef[3], int nRefDom,
 	              int numRefD0[], int numRefD1[], int numRefF1[], int NbLign,
                 int NbCoef, float* Matrice, float* SecMembre, int* AdPrCoefLi,

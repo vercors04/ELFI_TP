@@ -26,6 +26,4 @@ gcc \
     -o main3.exe \
     -lm \
     -lgfortran \
-    -L ../3_Assemblage \
-    -g
-
+    -L ../3_Assemblage

@@ -14,15 +14,11 @@
  *                            colonne de chaque element (non logiquement nul)
  *                            memorise de la part. triang. inf. stricte de
  *                            A_tilde (dans LowMat) ------------------------- (SMO)
- * @param[in]  MatriceO     : Tableau de longueur NbLign+NbCoef contenant DiagMat
- *                            (coefficients diagonaux) dans sa premiere partie et
- *                            LowMat dans la seconde (coefficient non logiquement
- *                            nuls) ----------------------------------------- (SMO)
  *
  * @return                  : Longueur totale nécessaire pour le tableau MatProf
  * ---------------------------------------------------------------------------------------
  */
-int dSMOaLongPR2(int NbLign, int* AdPrCoefLiO, int* NumColO, float* MatriceO);
+int dSMOaLongPR2(int NbLign, int* AdPrCoefLiO, int* NumColO);
 
 /* Fonction qui cree la matrice Profile associee a une matrice sous la forme : Stockage
  * Morse Ordonne
@@ -42,14 +38,16 @@ int dSMOaLongPR2(int NbLign, int* AdPrCoefLiO, int* NumColO, float* MatriceO);
  *                            (coefficients diagonaux) dans sa premiere partie et
  *                            LowMat dans la seconde (coefficient non logiquement
  *                            nuls) ----------------------------------------- (SMO)
- *
+ * @param[in] Longueur      : Longueur totale nécessaire pour le tableau MatProf
+ * 
  * @param[out] Profil       : Tableau d'entier contenant la position du premier 
  *                            coeficient de chaque ligne dans MatProf
  * @param[out] MatProf      : Tableau de reels contenant la diagonale suivie des 
  *                            coeficients de profil inferieur concatenes
  * ---------------------------------------------------------------------------------------
  */
-void dSMOaPR2(int NbLign, int* AdPrCoefLiO, int* NumColO, float* MatriceO, int* Profil, float* MatProf);
+void dSMOaPR2(int NbLign, int* AdPrCoefLiO, int* NumColO, float* MatriceO, int* Profil, 
+              float* MatProf, int longueur);
 
 /* Fonction qui resoud un systeme lineaire de la forme AX=B par une decomposition de
  * Cholesky puis par une methode de descente-remonte. 

@@ -1,6 +1,8 @@
+#include <stdlib.h>
+#include <stdio.h>
 
 void dSMOaPR2(int NbLign,int* AdPrCoefLiO,  int* NumColO, float* MatriceO,
-             int* Profil, float* MatProf){
+             int* Profil, float* MatProf,int longueur){
   Profil[0] = 1;
   MatProf[0] = MatriceO[0]; // Premier Coefficient diagonal
 
@@ -15,11 +17,15 @@ void dSMOaPR2(int NbLign,int* AdPrCoefLiO,  int* NumColO, float* MatriceO,
         int IndiceCoefLowMat = AdPrCoefLiO[i-2]-1 + j;
         int IndiceCoefLowMatProf = Profil[i-2]-1 + NumColO[IndiceCoefLowMat] - NumColO[AdPrCoefLiO[i-2]-1];
 
+        if (IndiceCoefLowMatProf+NbLign > longueur){
+          printf("ERREUR : pas d'espace memoire alloue");
+          exit(1);
+        }
         (MatProf+NbLign)[IndiceCoefLowMatProf] = (MatriceO+NbLign)[IndiceCoefLowMat];
       }
 
       // Nombre d'elements d'une ligne Profil
-      // Num de ligne - Num de colonne du premier coefficient de la ligne i
+      // Num de ligne - Num de colonne du premier coefficie * @param[in] Longueur      : Longueur totale nécessaire pour le tableau MatProfnt de la ligne i
       TailleLiP = i - NumColO[AdPrCoefLiO[i-2]-1];
     }
  
@@ -28,7 +34,7 @@ void dSMOaPR2(int NbLign,int* AdPrCoefLiO,  int* NumColO, float* MatriceO,
 
 }
 
-int dSMOaLongPR2(int NbLign, int* AdPrCoefLiO, int* NumColO, float* MatriceO){
+int dSMOaLongPR2(int NbLign, int* AdPrCoefLiO, int* NumColO){
   // DEMANDER INTERET DE MatriceO
 
   int longueur = NbLign + 1; // Elements diagonaux + Element fictif 
