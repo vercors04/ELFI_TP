@@ -52,7 +52,7 @@ float FOMEGA(float* x){
       val = (2.0f * PI_F * PI_F + 1) * cosf(PI_F * x[0]) * cosf(PI_F * x[1]);
       break;
     default:
-      printf("FOMEGA : exmple non prevu.\n");
+      printf("FOMEGA : exemple non prevu.\n");
       break;
   }
   return val;
