@@ -7,7 +7,8 @@
 #include "../4_Construction_SL/construction_SL.h"
 #include "../5_Resol_Post-Trait/dsmoapr.h"
 
-int nucas = 1; //pour solex
+int nucas = 1; 
+int nudom = 1;
 
 int main () {
 

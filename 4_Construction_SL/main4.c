@@ -6,6 +6,7 @@
 #include "../forfun.h"
 
 int nucas = 1; //juste pour que le programme compile
+int nudom = 1;
 
 int main () {
 

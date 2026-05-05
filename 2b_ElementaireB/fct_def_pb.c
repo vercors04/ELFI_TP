@@ -43,8 +43,7 @@ float FOMEGA(float* x){
   float val = 0.0f;
   switch (nucas) {
     case 1: 
-      val = 32.0f * (x[0] - x[0]*x[0] + x[1] - x[1]*x[1]);
-      //val = 32.0f * (x[0]*x[0]-x[0]+x[1]*x[1]-x[1]);
+      val = 32.0f * (x[0]*x[0]-x[0]+x[1]*x[1]-x[1]);
       break;
     case 2:
       val = 2.0f * PI_F * PI_F * sinf(PI_F*x[0]) * sinf(PI_F*x[1]);
@@ -78,8 +77,6 @@ float FN(float* x){
       normale[1] = 0.0f;
     }
     else {
-      // if (1.0f-1.0e-7f<x[1] && x[1]<1.0f+1.0e-7f) Domaine 1
-      // if (1.0f/3.0f-1.0e-7f<x[1] && x[1]<1.0f/3.0f+1.0e-7f) Domaine 2
       normale[0] = 0.0f;
       normale[1] = 1.0f;
     }
@@ -105,6 +102,11 @@ float FN(float* x){
       normale[1] = 1.0f;
     }
   }
+
+    else {
+      printf("ERREUR : nudom doit être 1 ou 2.\n\n");
+      return 1;
+    }
 
 
   float val = 0.0f;
@@ -133,8 +135,7 @@ float UD(float* x){
 
   switch (nucas) {
     case 1 :
-	    val = 16.0f * x[0]*x[1] * (1-x[0])*(1.0f-x[1]);
-      //val = 16.0f * x[0]*x[1] * (x[0]-1)*(1.0f-x[1]);
+      val = 16.0f * x[0]*x[1] * (x[0]-1)*(1.0f-x[1]);
 	    break;
     case 2 :
 	    val = sinf(PI_F*x[0]) * sinf(PI_F*x[1]);

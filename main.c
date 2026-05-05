@@ -196,22 +196,23 @@ int main () {
       case 0:
         float** coordElem = (float**) malloc(nbneel * sizeof(float*));
         for (int i=0; i<nbtel; i++) {
-        float** MatElem;
-        float*  SMbrElem;
-        float*  uDElem;  
-        int*    NuDElem; 
-        selectPts (nbneel, ngnel[i], coord, coordElem);
+          float** MatElem;
+          float*  SMbrElem;
+          float*  uDElem;  
+          int*    NuDElem; 
+          selectPts (nbneel, ngnel[i], coord, coordElem);
 
-        cal1Elem (nRefDom, nbRefD0, numRefD0, nbRefD1, numRefD1, nbRefF1, numRefF1, typel,
-                  nbneel, coordElem, nbaret, nRefAr[i], &MatElem, &SMbrElem, &NuDElem, &uDElem);
+          cal1Elem (nRefDom, nbRefD0, numRefD0, nbRefD1, numRefD1, nbRefF1, numRefF1, typel,
+                    nbneel, coordElem, nbaret, nRefAr[i], &MatElem, &SMbrElem, &NuDElem, &uDElem);
 
-        impCalEl(i+1, typel, nbneel, MatElem, SMbrElem, NuDElem, uDElem);
-        freetab(MatElem);
-        freevec(SMbrElem);
-        freevec(uDElem);
-        freevec(NuDElem);
-      }
-      free (coordElem);
+          impCalEl(i+1, typel, nbneel, MatElem, SMbrElem, NuDElem, uDElem);
+          freetab(MatElem);
+          freevec(SMbrElem);
+          freevec(uDElem);
+          freevec(NuDElem);
+        }
+        free (coordElem);
+        break;
 
 
       case 1:
