@@ -3,6 +3,7 @@
 
 #define PI_F 3.14159265f
 extern int nucas;
+extern int nudom;
 
 float A11(float* x){
   return 1.0f;
@@ -62,37 +63,49 @@ float FN(float* x){
   //return 1.0f;
   // Calcul du vecteur normal unitaire
   float normale[2];
-  if (fabsf(x[0])<1.0e-07f){
-    normale[0] =-1.0f;
-    normale[1] = 0.0f;
-  }
-  else if (fabsf(x[1])<1.0e-07f) {
-    normale[0] = 0.0f;
-    normale[1] =-1.0f;
-  }
   // Domaine 1 
-  else if (1.0f-1.0e-7f<x[0] && x[0]<1.0f+1.0e-7f) {
-    normale[0] = 1.0f;
-    normale[1] = 0.0f;
+  if (nudom == 1) {    
+    if (fabsf(x[0])<1.0e-07f){
+      normale[0] =-1.0f;
+      normale[1] = 0.0f;
+    }
+    else if (fabsf(x[1])<1.0e-07f) {
+      normale[0] = 0.0f;
+      normale[1] =-1.0f;
+    }
+    else if (1.0f-1.0e-7f<x[0] && x[0]<1.0f+1.0e-7f) {
+      normale[0] = 1.0f;
+      normale[1] = 0.0f;
+    }
+    else {
+      // if (1.0f-1.0e-7f<x[1] && x[1]<1.0f+1.0e-7f) Domaine 1
+      // if (1.0f/3.0f-1.0e-7f<x[1] && x[1]<1.0f/3.0f+1.0e-7f) Domaine 2
+      normale[0] = 0.0f;
+      normale[1] = 1.0f;
+    }
   }
   
   //Domaine 2 
-  else if (1.0f/3.0f-1.0e-7f<x[0] && x[0]<1.0f/3.0f+1.0e-7f) {
-    normale[0] = 0.0f;
-    normale[1] = 1.0f;
+  else if (nudom == 2) {
+    if (fabsf(x[0])<1.0e-07f){
+      normale[0] =-1.0f;
+      normale[1] = 0.0f;
+    }
+    else if (fabsf(x[1])<1.0e-07f) {
+      normale[0] = 0.0f;
+      normale[1] =-1.0f;
+    }
+    else if (1.0f/3.0f-1.0e-7f<x[0] && x[0]<1.0f/3.0f+1.0e-7f) {
+      normale[0] = 1.0f;
+      normale[1] = 0.0f;
+    }
+
+    else {
+      normale[0] = 0.0f;
+      normale[1] = 1.0f;
+    }
   }
 
-  else if (1.0f/3.0f-1.0e-7f<x[1] && x[1]<1.0f/3.0f+1.0e-7f) {
-    normale[0] = 1.0f;
-    normale[1] = 0.0f;
-  }
-  
-  else {
-    // if (1.0f-1.0e-7f<x[1] && x[1]<1.0f+1.0e-7f) Domaine 1
-    // if (1.0f/3.0f-1.0e-7f<x[1] && x[1]<1.0f/3.0f+1.0e-7f) Domaine 2
-    normale[0] = 0.0f;
-    normale[1] = 1.0f;
-  }
 
   float val = 0.0f;
   switch (nucas) {
@@ -109,7 +122,7 @@ float FN(float* x){
           -  normale[1] * PI_F * sinf(PI_F*x[1]) * cosf(PI_F*x[0]);
       break;
     default:
-      printf("FOMEGA : exmple non prevu.\n");
+      printf("FN : exmple non prevu.\n");
       break;
   }
   return val;

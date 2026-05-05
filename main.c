@@ -12,7 +12,8 @@
 #include <string.h>
 
 
-int nucas = 1; //pour solex
+int nucas = 1; 
+int nudom = 1;
 
 int main () {
 
@@ -47,6 +48,7 @@ int main () {
 
   //strstr recherche la premiere occurrence d'une sous-chaine - cherche le numero du domaine dans le nom du fichier
   if (strstr(ficmai, "d1") != NULL) {
+    nudom = 1;
     if (nucas == 1 || nucas == 2) {
         nbRefD0 = 4;
         numRefD0[0] = 1; numRefD0[1] = 2; numRefD0[2] = 3; numRefD0[3] = 4;
@@ -63,6 +65,7 @@ int main () {
   }
    
   else if (strstr(ficmai, "d2") != NULL) {
+    nudom = 2;
     if (nucas == 1 || nucas == 2) {
         nbRefD0 = 2;
         nbRefD1 = 2;
