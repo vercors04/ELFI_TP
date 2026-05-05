@@ -24,7 +24,7 @@ gcc \
     ../4_Construction_SL/dSMDaSMO.c        \
     ../4_Construction_SL/*.o               \
     \
-    ../mainBoucle.c                              \
+    ../mainErreur.c                        \
     ../5_Resol_Post-Trait/dSMOaPR.c        \
     ../5_Resol_Post-Trait/CalSol.c         \
     ../5_Resol_Post-Trait/ResolSyst.c      \
@@ -36,6 +36,6 @@ gcc \
     ../5_Resol_Post-Trait/rspru.o          \
     ../5_Resol_Post-Trait/affsol.o         \
     \
-    -o mainBoucle.exe \
+    -o mainErreur.exe \
     -lm \
     -lgfortran \
