@@ -124,7 +124,6 @@ int main () {
 
 
 
-  //a declarer dans les case ? 
   int*   AdPrCoefLiO;
   int*   NumColO;
   float* MatriceO;

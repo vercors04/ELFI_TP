@@ -43,12 +43,12 @@ int main() {
     chdir("../Resultats"); //Pour avoir les resultats dans un autre dossier
 
     //supression du fichier dans le dossier resultat si il existe deja
-    char nomFic[20];
+    char nomFic[10];
     //sprintf fonctionne comme printf mais écrit dans une variable
     sprintf(nomFic, "fort.%d", (nudom*100)+(nucas*10)+typel);
     remove(nomFic);
 
-    char ficmai[50]; //reserve 50 octets en mémoire (talle des lettres en mémoire ?)
+    char ficmai[40]; 
     for (int i = 0; i < nb_tailles; i++) {
         //on construit "dynamiquement" le nom du fichier de maillage
         sprintf(ficmai, "../Donnees_5/Maillages/d%d%c1_%d", nudom, lettreEl, tailles_maillage[i]);
@@ -206,6 +206,7 @@ int main() {
         */
         affsol_(&NbLign, &coord[0][0], U, UEX, &impfch_Aff);
 
+        printf("\n-Nom du ficher cree : fort.%d-\n",impfch_Aff);
 
 
         freevec(Matrice);

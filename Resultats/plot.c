@@ -15,7 +15,8 @@ int main() {
     fprintf(plot, "set ylabel 'Erreur relative'\n");
     fprintf(plot, "set xrange [*:*] reverse\n");
 
-    fprintf(plot, "plot 'fort.%d' using 3:1 with line title 'erreur quadratique relative', 'fort.%d' using 3:2 with line title 'erreur maximum relative'\n", impfch_Aff,impfch_Aff);
+    fprintf(plot, "plot '../Resultats/fort.%d' using 3:1 with linespoints title 'erreur quadratique relative',\
+         '../Resultats/fort.%d' using 3:2 with linespoints title 'erreur maximum relative'\n", impfch_Aff,impfch_Aff);
 
     pclose(plot);
     return 0;

@@ -1,0 +1,1 @@
+gcc ../Resultats/plot.c -o plot.exe
