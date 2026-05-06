@@ -18,15 +18,32 @@ int nudom = 1;
 
 int main() {
 
-    int typel;
-    printf("Entrez le numéro du cas (1, 2, 3) ? \n");
-    scanf("%d", &nucas);
-    printf("\nEntrez le numéro du domaine (1 ou 2) ? \n");
+    printf("Entrez le numéro du domaine (1 ou 2) : \n");
     scanf("%d", &nudom);
-    printf("\nEntrez le Type elements (1=quadrangle, 2=triangle) ? \n");
+
+    if (nudom < 1 || nudom > 2){
+        printf("ERREUR : numero de domaine = 1 ou 2\n");
+        return 1;
+    }
+
+
+    int typel;
+    printf("\nEntrez le numéro du cas (1, 2, 3) : \n");
+    scanf("%d", &nucas);
+
+    if (nucas < 1 || nucas > 3){
+        printf("ERREUR : numero de cas = 1, 2 ou 3\n");
+        return 1;
+    }
+    
+
+
+    printf("\nEntrez le Type elements (1=quadrangle, 2=triangle) : \n");
     scanf("%d", &typel);
 
+
     /* --Chargement du maillage--*/
+
 
     int tailles_maillage[] = {2, 4, 8, 16, 32, 64};
     int nb_tailles = 6;
@@ -52,7 +69,7 @@ int main() {
     for (int i = 0; i < nb_tailles; i++) {
         //on construit "dynamiquement" le nom du fichier de maillage
         sprintf(ficmai, "../Donnees_5/Maillages/d%d%c1_%d", nudom, lettreEl, tailles_maillage[i]);
-        printf("\n maillage actuel : %s \n", ficmai);
+        printf("\n maillage actuel : %s ", ficmai);
 
         int nbtng; // Nombre de noeuds géométriques
         int nbtel; // Nombre d'elements du maillage
@@ -67,7 +84,10 @@ int main() {
             return 1;
         }
 
+
         /* --Initialisation des conditions aux bords suivant le cas ET le domaine-- */
+
+
         int nRefDom = 0;
         int nbRefD0 = 0, nbRefD1 = 0, nbRefF1 = 0;
         int numRefD0[4] = {0}, numRefD1[4] = {0}, numRefF1[4] = {0};
@@ -116,7 +136,9 @@ int main() {
         // On stocke ces valeurs dans un tableau pour diminuer le nombre d'arguments
         int nbRef[] = {nbRefD0, nbRefD1, nbRefF1};
 
+
         /* ---Allocation pour la structure morse desordonneee---*/
+
 
         int NbLign = nbtng, NbCoef; // 
         // Surestimation de NbCoef pour la longueur de LMat
@@ -156,7 +178,7 @@ int main() {
                    nbRef, nRefDom, numRefD0, numRefD1, numRefF1, NbLign,
                    NbCoef, Matrice, SecMembre, AdPrCoefLi, AdSuccLi, NumCol,
                    ValDLDir, NumDLDir);
-        printf("\n-Assemblage termine-\n");
+        printf("\n-Assemblage termine-");
         NbCoef2 = AdPrCoefLi[NbLign - 1];
 
 
@@ -169,7 +191,7 @@ int main() {
 
         dSMDaSMO(NbLign, AdPrCoefLi, NumCol, AdSuccLi, Matrice, SecMembre,
                  NumDLDir, ValDLDir, AdPrCoefLiO, NumColO, MatriceO, SecMembreO);
-        printf("\n-SMD vers SMO termine-\n");
+        printf("\n-SMD vers SMO termine-");
 
 
 
@@ -180,14 +202,14 @@ int main() {
         MatProf = callocvec_f(longProfilMat);
         dSMOaPR2(NbLign, AdPrCoefLiO, NumColO, MatriceO, Profil, MatProf, longProfilMat);
 
-        printf("\n-SM0 vers PROFIL termine-\n");
+        printf("\n-SM0 vers PROFIL termine-");
 
 
 
         /*------------Resolution Cholesky---------------*/
         U = allocvec_f(NbLign);
         resolsyst(NbLign, longProfilMat, Profil, MatProf, SecMembreO, U);
-        printf("\n-Resolution Cholesky terminee-\n");
+        printf("\n-Resolution Cholesky terminee-");
 
 
 
@@ -205,8 +227,6 @@ int main() {
         211 = domaine 2, cas 1 avec maillage quadrangle
         */
         affsol_(&NbLign, &coord[0][0], U, UEX, &impfch_Aff);
-
-        printf("\n-Nom du ficher cree : fort.%d-\n",impfch_Aff);
 
 
         freevec(Matrice);
@@ -232,6 +252,8 @@ int main() {
         freevec(UEX);
 
     }
+    printf("\n\n-Nom du ficher cree : fort.%d-\n\n",(nudom * 100) + (nucas * 10) + typel);
+
     chdir("../Executables"); //retour dans le dossier executable
 
     return 0;

@@ -1,7 +1,17 @@
 #include <stdio.h>
 
 int main() {
-    int impfch_Aff = 111;
+
+    int impfch_Aff;
+    printf("Entrez le numéro du fichier 'fort.' que l'on veut plot : \n");
+    scanf("%d", &impfch_Aff);
+
+    if (impfch_Aff != 111 && impfch_Aff != 112 && impfch_Aff != 121 && impfch_Aff != 122 && impfch_Aff != 131 && impfch_Aff != 132 && 
+        impfch_Aff != 211 && impfch_Aff != 212 && impfch_Aff != 221 && impfch_Aff != 222 && impfch_Aff != 231 && impfch_Aff != 232) {
+            printf("\nNuméro du fichier 'fort.' non valable\n");
+            return 1;
+        } 
+
     int nudom = impfch_Aff/100;
     int nucas = nudom%10;
     int typel = impfch_Aff%10;

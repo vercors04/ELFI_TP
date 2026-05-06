@@ -36,7 +36,6 @@ gcc \
     ../5_Resol_Post-Trait/rspru.o          \
     ../5_Resol_Post-Trait/affsol.o         \
     \
-    -Wall -Wextra \
     -o main5Test.exe \
     -lm \
     -lgfortran \

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "1_Maillage/maillage.h"
 #include "2a_ElementaireA/elementairesa.h"
@@ -9,7 +10,6 @@
 #include "5_Resol_Post-Trait/dsmoapr.h"
 #include "Utilitaire/utilitaires.h"
 #include "forfun.h"
-#include <string.h>
 
 
 int nucas = 1; 
@@ -22,6 +22,44 @@ int main () {
     --------------------------------------------------------*/
 
   int typel; // Type des elements du maillage
+  printf("Entrez le numéro du cas (1, 2, 3) : \n");
+  scanf("%d", &nucas);
+
+  if (nucas < 1 || nucas > 3){
+    printf("ERREUR : numero de cas = 1, 2 ou 3\n");
+    return 1;
+  }
+    
+  printf("\nEntrez le numéro du domaine (1 ou 2) : \n");
+  scanf("%d", &nudom);
+
+  if (nudom < 1 || nudom > 2){
+    printf("ERREUR : numero de domaine = 1 ou 2\n");
+    return 1;
+  }
+
+  printf("\nEntrez le Type elements (1=quadrangle, 2=triangle) : \n");
+  scanf("%d", &typel);
+
+  char lettreEl = 'a';
+  if (typel == 1) {
+    lettreEl = 'q';
+  } else if (typel == 2) {
+    lettreEl = 't';
+  } else {
+    printf("ERREUR : type element = 1 ou 2\n");
+    return 1;
+  }
+
+  int h; // pas
+  printf("\nEntrez le numéro du pas (2, 4, 8, 16, 32 ou 64) : \n");
+  scanf("%d", &h);
+
+  if (h != 2 && h != 4 && h != 8 && h != 16 && h != 32 && h != 64) {
+    printf("ERREUR : numero de pas = 2, 4, 8, 16, 32 ou 64\n");
+    return 1;
+  }
+  
   int nbtng; // Nombre de noeuds géométriques
   int nbtel; // Nombre d'elements du maillage
   int nbneel; // Nombre de noeuds geometriques par element
@@ -30,7 +68,8 @@ int main () {
   int** nRefAr; // Numeros de reference associes aux aretes
   float** coord; // Coordonnees des noeuds geometriques
 
-  char* ficmai = "../Donnees_5/Maillages/d1t1_2";
+  char ficmai[40]; 
+  sprintf(ficmai, "../Donnees_5/Maillages/d%d%c1_%d", nudom, lettreEl, h);
 
   if (lecfima(ficmai, &typel, &nbtng, &coord, &nbtel, &ngnel, &nbneel, &nbaret, &nRefAr)){
     printf("ERREUR : lecture du fichier de maillage");
@@ -38,17 +77,15 @@ int main () {
   }
 
 
-
   /* ----------------------------------------------------------------------
       Initialisation des conditions aux bords suivant le cas ET le domaine
      ---------------------------------------------------------------------- */ 
+     
   int nRefDom = 0; 
   int nbRefD0 = 0, nbRefD1 = 0, nbRefF1 = 0;
   int numRefD0[4] = {0}, numRefD1[4] = {0}, numRefF1[4] = {0};
 
-  //strstr recherche la premiere occurrence d'une sous-chaine - cherche le numero du domaine dans le nom du fichier
-  if (strstr(ficmai, "d1") != NULL) {
-    nudom = 1;
+  if (nudom == 1) {
     if (nucas == 1 || nucas == 2) {
         nbRefD0 = 4;
         numRefD0[0] = 1; numRefD0[1] = 2; numRefD0[2] = 3; numRefD0[3] = 4;
@@ -64,8 +101,7 @@ int main () {
     }
   }
    
-  else if (strstr(ficmai, "d2") != NULL) {
-    nudom = 2;
+  else if (nudom == 2) {
     if (nucas == 1 || nucas == 2) {
         nbRefD0 = 2;
         nbRefD1 = 2;
