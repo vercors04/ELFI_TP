@@ -51,12 +51,12 @@ int main () {
     return 1;
   }
 
-  int h; // pas
+  int nb_subdiv; // nombre de subdivision par cotés
   printf("\nEntrez le numéro du pas (2, 4, 8, 16, 32 ou 64) : \n");
-  scanf("%d", &h);
+  scanf("%d", &nb_subdiv);
 
-  if (h != 2 && h != 4 && h != 8 && h != 16 && h != 32 && h != 64) {
-    printf("ERREUR : numero de pas = 2, 4, 8, 16, 32 ou 64\n");
+  if (nb_subdiv != 2 && nb_subdiv != 4 && nb_subdiv != 8 && nb_subdiv != 16 && nb_subdiv != 32 && nb_subdiv != 64) {
+    printf("ERREUR : nombre de subdivision = 2, 4, 8, 16, 32 ou 64\n");
     return 1;
   }
   
@@ -69,7 +69,7 @@ int main () {
   float** coord; // Coordonnees des noeuds geometriques
 
   char ficmai[40]; 
-  sprintf(ficmai, "../Donnees_5/Maillages/d%d%c1_%d", nudom, lettreEl, h);
+  sprintf(ficmai, "../Donnees_5/Maillages/d%d%c1_%d", nudom, lettreEl, nb_subdiv);
 
   if (lecfima(ficmai, &typel, &nbtng, &coord, &nbtel, &ngnel, &nbneel, &nbaret, &nRefAr)){
     printf("ERREUR : lecture du fichier de maillage");
