@@ -191,7 +191,12 @@ int main() {
 
 
         /*------------Calcul erreur et affichage---------------*/
-        int impfch_Aff = 1;
+        int impfch_Aff = (nudom * 100) + (nucas * 10) + typel;
+        /*nom du fichier de sortie, par ex :
+        132 = domaine 1, cas 3 avec maillages par triangle
+        211 = domaine 2, cas 1 avec maillage quadrangle
+        */
+
         affsol_(&NbLign, &coord[0][0], U, UEX, &impfch_Aff);
 
 
