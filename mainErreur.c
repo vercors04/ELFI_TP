@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <unistd.h> //pour la fonction chdir
 
 #include "1_Maillage/maillage.h"
 #include "2a_ElementaireA/elementairesa.h"
@@ -9,7 +11,7 @@
 #include "5_Resol_Post-Trait/dsmoapr.h"
 #include "Utilitaire/utilitaires.h"
 #include "forfun.h"
-#include <string.h>
+
 
 int nucas = 1;
 int nudom = 1;
@@ -38,11 +40,17 @@ int main() {
         return 1;
     }
 
-    remove("fort.1"); //resultats qui s'accumulent dans le fichier
+    chdir("../Resultats"); //Pour avoir les resultats dans un autre dossier
+
+    //supression du fichier dans le dossier resultat si il existe deja
+    char nomFic[20];
+    //sprintf fonctionne comme printf mais écrit dans une variable
+    sprintf(nomFic, "fort.%d", (nudom*100)+(nucas*10)+typel);
+    remove(nomFic);
+
     char ficmai[50]; //reserve 50 octets en mémoire (talle des lettres en mémoire ?)
     for (int i = 0; i < nb_tailles; i++) {
         //on construit "dynamiquement" le nom du fichier de maillage
-        //sprintf fonctionne comme printf mais écrit dans une variable
         sprintf(ficmai, "../Donnees_5/Maillages/d%d%c1_%d", nudom, lettreEl, tailles_maillage[i]);
         printf("\n maillage actuel : %s \n", ficmai);
 
@@ -196,7 +204,6 @@ int main() {
         132 = domaine 1, cas 3 avec maillages par triangle
         211 = domaine 2, cas 1 avec maillage quadrangle
         */
-
         affsol_(&NbLign, &coord[0][0], U, UEX, &impfch_Aff);
 
 
@@ -224,6 +231,7 @@ int main() {
         freevec(UEX);
 
     }
+    chdir("../Executables"); //retour dans le dossier executable
 
     return 0;
 }
