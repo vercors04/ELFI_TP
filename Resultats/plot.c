@@ -16,14 +16,27 @@ int main() {
     int nucas = (impfch_Aff / 10) % 10;
     int typel = impfch_Aff%10;
 
+    char* nom_element;
+
+    if (typel == 1) {
+        nom_element = "Quadrangle";
+    }
+    else if (typel == 2) {
+        nom_element = "Triangle";
+    }
+    else {
+        nom_element = "Inconnu";
+    }
     /*popen lance gnuplot -persist (persist pour pas que le graph se ferme quand on ferme le fichier)
     et retourne un FILE* */
     FILE* plot = popen("gnuplot -persist", "w");
 
-    fprintf(plot, "set title 'Erreur obtenue pour le domaine %d, le cas %d et le type d''élément %d'\n", nudom, nucas, typel);
-    fprintf(plot, "set xlabel 'h'\n");
-    fprintf(plot, "set ylabel 'Erreur relative'\n");
+    fprintf(plot, "set title 'Erreur obtenue en échelle logarithmique pour le domaine %d, le cas %d et l''élément %s'\n", nudom, nucas, nom_element);
+    fprintf(plot, "set xlabel 'Log de h'\n");
+    fprintf(plot, "set ylabel 'Log de l''Erreur relative'\n");
     fprintf(plot, "set xrange [*:*] reverse\n");
+    fprintf(plot, "set logscale x\n");
+    fprintf(plot, "set logscale y\n");
 
     fprintf(plot, "plot '../Resultats/fort.%d' using 3:1 with linespoints title 'erreur quadratique relative',\
          '../Resultats/fort.%d' using 3:2 with linespoints title 'erreur maximum relative'\n", impfch_Aff,impfch_Aff);
