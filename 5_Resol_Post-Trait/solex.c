@@ -9,7 +9,7 @@
 extern int nucas;
 
 float solex(float *coor) {
-  const float PI = M_PI;
+  const float PI = 3.14159265f;
   float val = 0.0f;
 
   switch (nucas) {
