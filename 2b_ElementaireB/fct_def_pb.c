@@ -52,17 +52,19 @@ float FOMEGA(float* x){
       val = (2.0f * PI_F * PI_F + 1) * cosf(PI_F * x[0]) * cosf(PI_F * x[1]);
       break;
     default:
-      printf("FOMEGA : exemple non prevu.\n");
+      printf("FOMEGA : exemple non prevu, valeur renvoyee : 0.0f\n");
       break;
   }
   return val;
 }
 
 float FN(float* x){
-  //return 1.0f;
-  // Calcul du vecteur normal unitaire
+  // ------------------------------------------ //
+  //     Calcul du vecteur normal unitaire      //
+  // ------------------------------------------ //
+ 
   float normale[2];
-  // Domaine 1 
+  // --------------- Domaine 1 ---------------- //
   if (nudom == 1) {    
     if (fabsf(x[0])<1.0e-07f){
       normale[0] =-1.0f;
@@ -82,7 +84,7 @@ float FN(float* x){
     }
   }
   
-  //Domaine 2 
+  // --------------- Domaine 2 --------------- //
   else if (nudom == 2) {
     if (fabsf(x[0])<1.0e-07f){
       normale[0] =-1.0f;
@@ -103,12 +105,14 @@ float FN(float* x){
     }
   }
 
-    else {
-      printf("ERREUR : nudom doit être 1 ou 2.\n\n");
-      return 1;
-    }
-
-
+  else {
+    printf("ERREUR : fonction FN, nudom != 1 ou 2.\n\n");
+    return 1;
+  }
+ 
+  // ------------------------------------------ //
+  //                Calcul de FN                //
+  // ------------------------------------------ //
   float val = 0.0f;
   switch (nucas) {
     case 1: 
@@ -124,7 +128,7 @@ float FN(float* x){
           -  normale[1] * PI_F * sinf(PI_F*x[1]) * cosf(PI_F*x[0]);
       break;
     default:
-      printf("FN : exmple non prevu.\n");
+      printf("FN : exemple non prevu, valeur renvoyee : 0.0f.\n");
       break;
   }
   return val;
@@ -144,10 +148,9 @@ float UD(float* x){
 	    val = cosf(PI_F*x[0]) * cosf(PI_F*x[1]);
 	    break;
     default :
-	    printf("*** SOLEX : exemple non prevu.\n");
+	    printf("*** UD : exemple non prevu, valeur renvoyee : 0.0f.\n");
 	    break;
   }
   return(val);
-  //return 100.0f*x[0] + x[1];
 }
 
