@@ -94,7 +94,7 @@ float FN(float* x){
       normale[0] = 0.0f;
       normale[1] =-1.0f;
     }
-    else if (1.0f/3.0f-1.0e-7f<x[0] && x[0]<1.0f/3.0f+1.0e-7f) {
+    else if (fabsf(x[0] - 1.0f/3.0f) < 1.0e-4f) {
       normale[0] = 1.0f;
       normale[1] = 0.0f;
     }
